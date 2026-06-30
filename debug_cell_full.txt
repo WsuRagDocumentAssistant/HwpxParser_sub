@@ -1,0 +1,3 @@
+=== cell found ===
+cell text.text: '교육혁신을 성공적으로 추진하기 위한 제도  '
+paragraph_texts: ['교육혁신을 성공적으로 추진하기 위한 제도  ']

@@ -1,0 +1,1917 @@
+===========================================
+[HWPX TABLE PARSE RESULT]
+===========================================
+source          : sample.zip
+filename        : sample
+unpacked        : output\unpacked\sample
+contents        : output\unpacked\sample\Contents
+header          : output\unpacked\sample\Contents\header.xml
+image_dir       : output\unpacked\sample\BinData
+section_count   : 5
+table_count     : 85
+
+===========================================
+[HEADER CHECK]
+===========================================
+border_fills     : 306
+para_properties  : 412
+char_properties  : 685
+styles           : 82
+style_names      : 82
+style_to_para_pr : 82
+style_to_char_pr : 82
+
+===========================================
+[SUMMARY]
+===========================================
+table_count         : 85
+invalid_table_count : 0
+total_issue_count   : 0
+error_count         : 0
+warning_count       : 0
+
+===========================================
+[BORDER FILL REFERENCE SUMMARY]
+===========================================
+used_table_border_fill_ids      : ['20', '240', '241', '3', '44']
+used_cell_border_fill_ids       : ['10', '100', '101', '102', '103', '104', '105', '106', '107', '108', '109', '11', '110', '111', '112', '116', '117', '118', '119', '12', '120', '121', '122', '123', '124', '125', '126', '127', '128', '129', '13', '130', '131', '132', '133', '134', '135', '136', '137', '138', '139', '14', '140', '141', '142', '143', '144', '145', '146', '147', '148', '149', '15', '150', '151', '152', '153', '154', '155', '156', '157', '158', '159', '16', '160', '161', '162', '163', '164', '165', '166', '167', '168', '169', '17', '170', '171', '172', '173', '174', '18', '19', '216', '217', '218', '219', '220', '221', '222', '223', '226', '227', '228', '231', '232', '233', '234', '235', '236', '237', '238', '239', '242', '243', '244', '25', '26', '266', '267', '268', '269', '27', '270', '271', '272', '273', '274', '275', '276', '277', '293', '294', '295', '296', '297', '298', '299', '300', '301', '302', '303', '304', '305', '306', '35', '36', '37', '38', '4', '40', '43', '50', '51', '52', '53', '54', '55', '56', '57', '58', '61', '62', '63', '66', '68', '7', '8', '86', '87', '88', '89', '9', '90', '91', '92', '93', '94', '95', '96', '97', '98', '99']
+unresolved_table_border_fill_ids: []
+unresolved_cell_border_fill_ids : []
+
+===========================================
+[HEADER REFERENCE VALIDATION]
+===========================================
+missing_border_fill_ref_table_count : 0
+missing_style_ref_table_count       : 0
+missing_para_pr_ref_table_count     : 0
+missing_char_pr_ref_table_count     : 0
+
+===================================
+table_id       : section0_tbl0_1555357482
+section_index  : 0
+table_index    : 0
+declared       : 1 x 2
+actual rows    : 1
+actual cells   : 2
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 1 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section0_tbl1_1555357484
+section_index  : 0
+table_index    : 1
+declared       : 11 x 5
+actual rows    : 11
+actual cells   : 25
+borderFillIDRef: 20
+borderFillFound: True
+borderFill     : BorderFill(id='20', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=None, slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '20', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': None, 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 11 x 5
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section0_tbl2_1557233175
+section_index  : 0
+table_index    : 2
+declared       : 17 x 7
+actual rows    : 17
+actual cells   : 80
+borderFillIDRef: 20
+borderFillFound: True
+borderFill     : BorderFill(id='20', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=None, slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '20', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': None, 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 17 x 7
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section0_tbl3_1557216891
+section_index  : 0
+table_index    : 3
+declared       : 1 x 1
+actual rows    : 1
+actual cells   : 1
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 1 x 1
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section0_tbl4_1557216892
+section_index  : 0
+table_index    : 4
+declared       : 28 x 2
+actual rows    : 28
+actual cells   : 53
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 28 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section0_tbl5_1557044111
+section_index  : 0
+table_index    : 5
+declared       : 1 x 2
+actual rows    : 1
+actual cells   : 2
+borderFillIDRef: 240
+borderFillFound: True
+borderFill     : BorderFill(id='240', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '240', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 1 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section0_tbl6_1557044126
+section_index  : 0
+table_index    : 6
+declared       : 1 x 2
+actual rows    : 1
+actual cells   : 2
+borderFillIDRef: 240
+borderFillFound: True
+borderFill     : BorderFill(id='240', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '240', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 1 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section0_tbl7_1557044129
+section_index  : 0
+table_index    : 7
+declared       : 5 x 5
+actual rows    : 5
+actual cells   : 25
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 5 x 5
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section0_tbl8_1557044720
+section_index  : 0
+table_index    : 8
+declared       : 1 x 2
+actual rows    : 1
+actual cells   : 2
+borderFillIDRef: 240
+borderFillFound: True
+borderFill     : BorderFill(id='240', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '240', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 1 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section0_tbl9_1557044721
+section_index  : 0
+table_index    : 9
+declared       : 1 x 4
+actual rows    : 1
+actual cells   : 4
+borderFillIDRef: 241
+borderFillFound: True
+borderFill     : BorderFill(id='241', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=None, slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '241', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': None, 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 1 x 4
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section0_tbl10_1557044722
+section_index  : 0
+table_index    : 10
+declared       : 1 x 4
+actual rows    : 1
+actual cells   : 4
+borderFillIDRef: 20
+borderFillFound: True
+borderFill     : BorderFill(id='20', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=None, slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '20', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': None, 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 1 x 4
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section0_tbl11_1557044723
+section_index  : 0
+table_index    : 11
+declared       : 2 x 1
+actual rows    : 2
+actual cells   : 2
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 2 x 1
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section0_tbl12_1557044730
+section_index  : 0
+table_index    : 12
+declared       : 2 x 1
+actual rows    : 2
+actual cells   : 2
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 2 x 1
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section0_tbl13_1557044768
+section_index  : 0
+table_index    : 13
+declared       : 3 x 2
+actual rows    : 3
+actual cells   : 4
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 3 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section0_tbl14_1557044799
+section_index  : 0
+table_index    : 14
+declared       : 3 x 2
+actual rows    : 3
+actual cells   : 4
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 3 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section0_tbl15_1557044843
+section_index  : 0
+table_index    : 15
+declared       : 3 x 2
+actual rows    : 3
+actual cells   : 4
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 3 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section0_tbl16_1557044883
+section_index  : 0
+table_index    : 16
+declared       : 3 x 2
+actual rows    : 3
+actual cells   : 4
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 3 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section0_tbl17_1556040662
+section_index  : 0
+table_index    : 17
+declared       : 1 x 4
+actual rows    : 1
+actual cells   : 4
+borderFillIDRef: 241
+borderFillFound: True
+borderFill     : BorderFill(id='241', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=None, slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '241', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': None, 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 1 x 4
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section0_tbl18_1556040663
+section_index  : 0
+table_index    : 18
+declared       : 2 x 1
+actual rows    : 2
+actual cells   : 2
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 2 x 1
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section0_tbl19_1556040670
+section_index  : 0
+table_index    : 19
+declared       : 2 x 1
+actual rows    : 2
+actual cells   : 2
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 2 x 1
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section0_tbl20_1556040712
+section_index  : 0
+table_index    : 20
+declared       : 3 x 2
+actual rows    : 3
+actual cells   : 4
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 3 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section0_tbl21_1556040740
+section_index  : 0
+table_index    : 21
+declared       : 3 x 2
+actual rows    : 3
+actual cells   : 4
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 3 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section0_tbl22_1556040783
+section_index  : 0
+table_index    : 22
+declared       : 3 x 2
+actual rows    : 3
+actual cells   : 4
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 3 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section0_tbl23_1556040813
+section_index  : 0
+table_index    : 23
+declared       : 3 x 2
+actual rows    : 3
+actual cells   : 4
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 3 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section0_tbl24_1556040854
+section_index  : 0
+table_index    : 24
+declared       : 3 x 2
+actual rows    : 3
+actual cells   : 4
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 3 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section0_tbl25_1556040877
+section_index  : 0
+table_index    : 25
+declared       : 3 x 2
+actual rows    : 3
+actual cells   : 4
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 3 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section0_tbl26_1556040915
+section_index  : 0
+table_index    : 26
+declared       : 3 x 2
+actual rows    : 3
+actual cells   : 4
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 3 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section0_tbl27_1556040941
+section_index  : 0
+table_index    : 27
+declared       : 3 x 2
+actual rows    : 3
+actual cells   : 4
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 3 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section0_tbl28_1556040967
+section_index  : 0
+table_index    : 28
+declared       : 1 x 4
+actual rows    : 1
+actual cells   : 4
+borderFillIDRef: 20
+borderFillFound: True
+borderFill     : BorderFill(id='20', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=None, slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '20', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': None, 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 1 x 4
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section0_tbl29_1556040968
+section_index  : 0
+table_index    : 29
+declared       : 2 x 1
+actual rows    : 2
+actual cells   : 2
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 2 x 1
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section0_tbl30_1556041009
+section_index  : 0
+table_index    : 30
+declared       : 2 x 1
+actual rows    : 2
+actual cells   : 2
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 2 x 1
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section0_tbl31_1556041037
+section_index  : 0
+table_index    : 31
+declared       : 3 x 2
+actual rows    : 3
+actual cells   : 4
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 3 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section0_tbl32_1556041071
+section_index  : 0
+table_index    : 32
+declared       : 3 x 2
+actual rows    : 3
+actual cells   : 4
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 3 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section1_tbl0_1556041108
+section_index  : 1
+table_index    : 0
+declared       : 1 x 4
+actual rows    : 1
+actual cells   : 4
+borderFillIDRef: 241
+borderFillFound: True
+borderFill     : BorderFill(id='241', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=None, slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '241', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': None, 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 1 x 4
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section1_tbl1_1556041109
+section_index  : 1
+table_index    : 1
+declared       : 2 x 1
+actual rows    : 2
+actual cells   : 2
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 2 x 1
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section1_tbl2_1556041116
+section_index  : 1
+table_index    : 2
+declared       : 2 x 1
+actual rows    : 2
+actual cells   : 2
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 2 x 1
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section2_tbl0_1556041164
+section_index  : 2
+table_index    : 0
+declared       : 3 x 2
+actual rows    : 3
+actual cells   : 4
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 3 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section2_tbl1_1556041202
+section_index  : 2
+table_index    : 1
+declared       : 3 x 2
+actual rows    : 3
+actual cells   : 4
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 3 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section2_tbl2_1556041232
+section_index  : 2
+table_index    : 2
+declared       : 3 x 2
+actual rows    : 3
+actual cells   : 4
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 3 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section2_tbl3_1556041277
+section_index  : 2
+table_index    : 3
+declared       : 3 x 2
+actual rows    : 3
+actual cells   : 4
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 3 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section2_tbl4_1556041301
+section_index  : 2
+table_index    : 4
+declared       : 3 x 2
+actual rows    : 3
+actual cells   : 4
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 3 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section2_tbl5_1556041331
+section_index  : 2
+table_index    : 5
+declared       : 3 x 2
+actual rows    : 3
+actual cells   : 4
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 3 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section2_tbl6_1556041361
+section_index  : 2
+table_index    : 6
+declared       : 3 x 2
+actual rows    : 3
+actual cells   : 4
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 3 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section2_tbl7_1556041385
+section_index  : 2
+table_index    : 7
+declared       : 3 x 2
+actual rows    : 3
+actual cells   : 4
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 3 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section2_tbl8_1556041541
+section_index  : 2
+table_index    : 8
+declared       : 1 x 2
+actual rows    : 1
+actual cells   : 2
+borderFillIDRef: 240
+borderFillFound: True
+borderFill     : BorderFill(id='240', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '240', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 1 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section2_tbl9_1556041542
+section_index  : 2
+table_index    : 9
+declared       : 1 x 4
+actual rows    : 1
+actual cells   : 4
+borderFillIDRef: 241
+borderFillFound: True
+borderFill     : BorderFill(id='241', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=None, slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '241', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': None, 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 1 x 4
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section2_tbl10_1556041543
+section_index  : 2
+table_index    : 10
+declared       : 2 x 1
+actual rows    : 2
+actual cells   : 2
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 2 x 1
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section2_tbl11_1556041551
+section_index  : 2
+table_index    : 11
+declared       : 2 x 1
+actual rows    : 2
+actual cells   : 2
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 2 x 1
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section2_tbl12_1556041579
+section_index  : 2
+table_index    : 12
+declared       : 3 x 2
+actual rows    : 3
+actual cells   : 4
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 3 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section2_tbl13_1556041607
+section_index  : 2
+table_index    : 13
+declared       : 3 x 2
+actual rows    : 3
+actual cells   : 4
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 3 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section2_tbl14_1556041633
+section_index  : 2
+table_index    : 14
+declared       : 3 x 2
+actual rows    : 3
+actual cells   : 4
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 3 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section2_tbl15_1556041658
+section_index  : 2
+table_index    : 15
+declared       : 1 x 4
+actual rows    : 1
+actual cells   : 4
+borderFillIDRef: 241
+borderFillFound: True
+borderFill     : BorderFill(id='241', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=None, slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '241', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': None, 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 1 x 4
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section2_tbl16_1556041663
+section_index  : 2
+table_index    : 16
+declared       : 1 x 2
+actual rows    : 1
+actual cells   : 2
+borderFillIDRef: 240
+borderFillFound: True
+borderFill     : BorderFill(id='240', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '240', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 1 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section2_tbl17_1556041664
+section_index  : 2
+table_index    : 17
+declared       : 6 x 4
+actual rows    : 6
+actual cells   : 23
+borderFillIDRef: 44
+borderFillFound: True
+borderFill     : BorderFill(id='44', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=None, slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '44', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': None, 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 6 x 4
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section3_tbl0_1556041761
+section_index  : 3
+table_index    : 0
+declared       : 1 x 2
+actual rows    : 1
+actual cells   : 2
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 1 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section3_tbl1_1556041762
+section_index  : 3
+table_index    : 1
+declared       : 1 x 2
+actual rows    : 1
+actual cells   : 2
+borderFillIDRef: 240
+borderFillFound: True
+borderFill     : BorderFill(id='240', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '240', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 1 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section3_tbl2_1556041763
+section_index  : 3
+table_index    : 2
+declared       : 8 x 10
+actual rows    : 8
+actual cells   : 64
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 8 x 10
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section3_tbl3_1556041766
+section_index  : 3
+table_index    : 3
+declared       : 1 x 2
+actual rows    : 1
+actual cells   : 2
+borderFillIDRef: 240
+borderFillFound: True
+borderFill     : BorderFill(id='240', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '240', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 1 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section3_tbl4_1556041767
+section_index  : 3
+table_index    : 4
+declared       : 1 x 4
+actual rows    : 1
+actual cells   : 4
+borderFillIDRef: 241
+borderFillFound: True
+borderFill     : BorderFill(id='241', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=None, slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '241', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': None, 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 1 x 4
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section3_tbl5_1556041768
+section_index  : 3
+table_index    : 5
+declared       : 10 x 7
+actual rows    : 10
+actual cells   : 27
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 10 x 7
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section3_tbl6_1556041774
+section_index  : 3
+table_index    : 6
+declared       : 5 x 5
+actual rows    : 5
+actual cells   : 15
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 5 x 5
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section3_tbl7_1556041780
+section_index  : 3
+table_index    : 7
+declared       : 1 x 4
+actual rows    : 1
+actual cells   : 4
+borderFillIDRef: 241
+borderFillFound: True
+borderFill     : BorderFill(id='241', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=None, slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '241', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': None, 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 1 x 4
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section3_tbl8_1556041781
+section_index  : 3
+table_index    : 8
+declared       : 10 x 7
+actual rows    : 10
+actual cells   : 27
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 10 x 7
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section3_tbl9_1556041787
+section_index  : 3
+table_index    : 9
+declared       : 5 x 5
+actual rows    : 5
+actual cells   : 15
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 5 x 5
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section3_tbl10_1556041793
+section_index  : 3
+table_index    : 10
+declared       : 1 x 4
+actual rows    : 1
+actual cells   : 4
+borderFillIDRef: 241
+borderFillFound: True
+borderFill     : BorderFill(id='241', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=None, slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '241', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': None, 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 1 x 4
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section3_tbl11_1556041794
+section_index  : 3
+table_index    : 11
+declared       : 10 x 8
+actual rows    : 10
+actual cells   : 28
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 10 x 8
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section3_tbl12_1556041800
+section_index  : 3
+table_index    : 12
+declared       : 5 x 5
+actual rows    : 5
+actual cells   : 15
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 5 x 5
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section3_tbl13_1556041806
+section_index  : 3
+table_index    : 13
+declared       : 1 x 4
+actual rows    : 1
+actual cells   : 4
+borderFillIDRef: 241
+borderFillFound: True
+borderFill     : BorderFill(id='241', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=None, slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '241', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': None, 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 1 x 4
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section3_tbl14_1556041807
+section_index  : 3
+table_index    : 14
+declared       : 10 x 8
+actual rows    : 10
+actual cells   : 29
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 10 x 8
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section3_tbl15_1556041813
+section_index  : 3
+table_index    : 15
+declared       : 5 x 5
+actual rows    : 5
+actual cells   : 15
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 5 x 5
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section3_tbl16_1556041819
+section_index  : 3
+table_index    : 16
+declared       : 1 x 4
+actual rows    : 1
+actual cells   : 4
+borderFillIDRef: 241
+borderFillFound: True
+borderFill     : BorderFill(id='241', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=None, slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '241', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': None, 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 1 x 4
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section3_tbl17_1556041820
+section_index  : 3
+table_index    : 17
+declared       : 10 x 9
+actual rows    : 10
+actual cells   : 31
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 10 x 9
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section3_tbl18_1556041826
+section_index  : 3
+table_index    : 18
+declared       : 5 x 5
+actual rows    : 5
+actual cells   : 15
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 5 x 5
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section3_tbl19_1556041832
+section_index  : 3
+table_index    : 19
+declared       : 1 x 2
+actual rows    : 1
+actual cells   : 2
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 1 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section3_tbl20_1556041833
+section_index  : 3
+table_index    : 20
+declared       : 1 x 2
+actual rows    : 1
+actual cells   : 2
+borderFillIDRef: 240
+borderFillFound: True
+borderFill     : BorderFill(id='240', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '240', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 1 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section3_tbl21_1556041834
+section_index  : 3
+table_index    : 21
+declared       : 1 x 4
+actual rows    : 1
+actual cells   : 4
+borderFillIDRef: 241
+borderFillFound: True
+borderFill     : BorderFill(id='241', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=None, slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '241', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': None, 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 1 x 4
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section3_tbl22_1556041838
+section_index  : 3
+table_index    : 22
+declared       : 8 x 6
+actual rows    : 8
+actual cells   : 48
+borderFillIDRef: 20
+borderFillFound: True
+borderFill     : BorderFill(id='20', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=None, slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '20', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': None, 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 8 x 6
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section3_tbl23_1556041839
+section_index  : 3
+table_index    : 23
+declared       : 1 x 4
+actual rows    : 1
+actual cells   : 4
+borderFillIDRef: 241
+borderFillFound: True
+borderFill     : BorderFill(id='241', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=None, slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '241', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': None, 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 1 x 4
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section3_tbl24_1556041840
+section_index  : 3
+table_index    : 24
+declared       : 12 x 3
+actual rows    : 12
+actual cells   : 32
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 12 x 3
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section3_tbl25_1556041842
+section_index  : 3
+table_index    : 25
+declared       : 5 x 3
+actual rows    : 5
+actual cells   : 15
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 5 x 3
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section3_tbl26_1556041845
+section_index  : 3
+table_index    : 26
+declared       : 1 x 2
+actual rows    : 1
+actual cells   : 2
+borderFillIDRef: 240
+borderFillFound: True
+borderFill     : BorderFill(id='240', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '240', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 1 x 2
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section3_tbl27_1556041846
+section_index  : 3
+table_index    : 27
+declared       : 12 x 4
+actual rows    : 12
+actual cells   : 40
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 12 x 4
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section4_tbl0_1557044065
+section_index  : 4
+table_index    : 0
+declared       : 1 x 1
+actual rows    : 1
+actual cells   : 1
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 1 x 1
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section4_tbl1_1557044080
+section_index  : 4
+table_index    : 1
+declared       : 1 x 1
+actual rows    : 1
+actual cells   : 1
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 1 x 1
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
+
+===================================
+table_id       : section4_tbl2_1555357526
+section_index  : 4
+table_index    : 2
+declared       : 14 x 9
+actual rows    : 14
+actual cells   : 82
+borderFillIDRef: 3
+borderFillFound: True
+borderFill     : BorderFill(id='3', left=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), right=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), top=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), bottom=BorderSide(type='SOLID', width='0.12 mm', color='#000000'), diagonal=BorderSide(type='SOLID', width='0.1 mm', color='#000000'), slash=BorderSide(type='NONE', width=None, color=None), back_slash=BorderSide(type='NONE', width=None, color=None), fill=None)
+borderFillAttrs: {'id': '3', 'left': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'right': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'top': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'bottom': BorderSide(type='SOLID', width='0.12 mm', color='#000000'), 'diagonal': BorderSide(type='SOLID', width='0.1 mm', color='#000000'), 'slash': BorderSide(type='NONE', width=None, color=None), 'back_slash': BorderSide(type='NONE', width=None, color=None), 'fill': None}
+is_valid       : True
+actual max size: 14 x 9
+row mismatch   : False
+col mismatch   : False
+empty slot     : False
+duplicated slot: False
+missing style  : False
+missing border : False
+missing paraPr : False
+missing charPr : False
