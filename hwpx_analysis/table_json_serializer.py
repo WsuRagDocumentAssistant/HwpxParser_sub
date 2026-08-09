@@ -102,6 +102,7 @@ def table_to_dict(
         "is_nested": getattr(table, "is_nested", False),
         "parent_table_id": getattr(table, "parent_table_id", None),
         "parent_cell_id": getattr(table, "parent_cell_id", None),
+        "owner_control_type": getattr(table, "owner_control_type", None),
 
         "rows": [
             row_to_dict(row, char_pr_lookup, header)
@@ -178,6 +179,8 @@ def cell_to_dict(
         "draw_objects": to_jsonable(getattr(cell, "draw_objects", [])),
 
         "captions": to_jsonable(getattr(cell, "captions", [])),
+
+        "controls": to_jsonable(getattr(cell, "controls", [])),
 
         "nested_tables": [
             table_to_dict(nested_table, char_pr_lookup, header)

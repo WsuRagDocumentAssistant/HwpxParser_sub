@@ -23,6 +23,7 @@
 #   I8 블록 참조 무결성: internal_blocks.source_block_id가 실제 block_id를 가리킴
 #   I9 캡션 보존       : hp:caption이 전부 table_caption 엔티티로 남고 개체와 연결됨
 #   I10 LLM 산출물 완전성: llm_context.txt에 문서의 모든 텍스트가 존재
+#   I11 ctrl 승격 보존  : 머리말/꼬리말/각주/미주가 독립 엔티티로 남고 셀 본문을 오염시키지 않음
 #
 # I10은 depth_text_preview를 검사하지 않는다. 그 산출물은 표 내부를 빼고
 # 120자에서 자르는 사람용 디버그 뷰이며, 그렇게 하도록 만들어진 것이다.
@@ -67,6 +68,16 @@ DEFAULT_BASELINE = REPO_ROOT / "tools" / "baseline" / "sample.baseline.json"
 # 블록 텍스트 diff의 조인 키.
 # block_id는 블록 수가 바뀌면 전면 재부여되므로 키로 쓸 수 없다.
 JOIN_KEY_FIELDS = ("source_xml_path", "source_occurrence_index")
+
+# hp:ctrl 하위에서 독립 엔티티로 승격되는 요소.
+# 최상위 문단이면 blocks의 header/footer/... 블록, 표 셀 안이면
+# table_internal_blocks의 table_control이 된다.
+CTRL_PROMOTION_TAGS = {
+    "header": "header",
+    "footer": "footer",
+    "footNote": "footnote",
+    "endNote": "endnote",
+}
 
 
 #------------------------------------------------
@@ -168,6 +179,11 @@ def derive_table_ground_truth(paths: list[Path]) -> dict[str, int]:
             if name == "caption":
                 # 개체 설명문은 셀 본문이 아니라 별도 엔티티다.
                 # 캡션이 유실되지 않았는지는 I9가 따로 보증한다.
+                continue
+
+            if name in CTRL_PROMOTION_TAGS:
+                # 머리말/꼬리말/각주/미주는 페이지 장식이지 셀 값이 아니다.
+                # 유실되지 않았는지는 I11이 따로 보증한다.
                 continue
 
             if name == "t":
@@ -626,6 +642,117 @@ def check_i9_caption_coverage(
     report.add("I9 caption_coverage", passed, detail)
 
 
+def check_i11_ctrl_promotion_coverage(
+    paths: list[Path],
+    final_debug: dict[str, Any],
+    report: Report,
+) -> None:
+    """
+    역할: I11 — 머리말/꼬리말/각주/미주가 전부 독립 엔티티로 보존됐는지 검사한다.
+          최상위 문단이면 blocks의 header/footer/footnote/endnote 블록,
+          표 셀 안이면 table_internal_blocks의 table_control이어야 한다.
+          어느 쪽에도 없으면 셀 본문 텍스트에 섞였거나 사라진 것이다.
+          I2가 이들을 셀 본문 집계에서 제외하므로 이 검사가 짝을 이룬다.
+    입력 데이터: paths(section XML), final_debug, report.
+    출력 데이터: 반환값 없음.
+    """
+    expected: list[tuple[str, str]] = []
+
+    for path in paths:
+        root = ET.parse(path).getroot()
+        for element in root.iter():
+            control_type = CTRL_PROMOTION_TAGS.get(local_name(element.tag))
+            if control_type is None:
+                continue
+            text = "".join(
+                "".join(t.itertext())
+                for t in element.iter()
+                if local_name(t.tag) == "t"
+            )
+            if normalize(text):
+                expected.append((control_type, text))
+
+    blocks = ((final_debug.get("blocks_document") or {}).get("blocks")) or []
+    internal_blocks = ((final_debug.get("table_internal_blocks") or {}).get("internal_blocks")) or []
+
+    block_texts = {
+        normalize(b.get("text_content"))
+        for b in blocks
+        if b.get("block_type") in set(CTRL_PROMOTION_TAGS.values())
+    }
+    control_blocks = [
+        b for b in internal_blocks if b.get("internal_block_type") == "table_control"
+    ]
+    control_texts = {normalize(b.get("text_content")) for b in control_blocks}
+
+    # HWPX는 머리말 내용을 표로 짜기도 한다. 그 표의 셀 텍스트도
+    # "머리말로 식별 가능한 위치"로 인정한다. 소유자 표시는 아래에서 따로 검사한다.
+    owned_table_ids = _owned_table_ids(final_debug)
+    owned_cell_texts = {
+        normalize(b.get("text_content"))
+        for b in internal_blocks
+        if b.get("internal_block_type") == "table_cell_text"
+        and b.get("source_table_id") in owned_table_ids
+    }
+
+    def is_preserved(text: str) -> bool:
+        key = normalize(text)
+        return key in block_texts or key in control_texts or key in owned_cell_texts
+
+    missing = [(kind, text) for kind, text in expected if not is_preserved(text)]
+
+    # 일반(소유자 없는) 표의 셀 값과 구분되지 않는 상태로 남아 있는지 확인한다.
+    # 부분 일치는 '●' 같은 한 글자 마커에서 오탐이 나므로 완전 일치만 본다.
+    plain_cell_texts = {
+        normalize(b.get("text_content"))
+        for b in internal_blocks
+        if b.get("internal_block_type") == "table_cell_text"
+        and b.get("source_table_id") not in owned_table_ids
+    }
+    contaminated = [
+        (kind, text) for kind, text in expected
+        if normalize(text) in plain_cell_texts
+    ]
+
+    passed = not missing and not contaminated
+    detail = (
+        f"승격 대상 텍스트 {len(expected)}개 / "
+        f"blocks {len(block_texts)}종 + table_control {len(control_blocks)}개 "
+        f"+ 소유표 {len(owned_table_ids)}개, "
+        f"미보존 {len(missing)}개, 일반 셀과 구분불가 {len(contaminated)}개"
+    )
+    if missing:
+        detail += f" | 미보존 예: {missing[0][1][:30]!r}"
+    elif contaminated:
+        detail += f" | 구분불가 예: {contaminated[0][1][:30]!r}"
+
+    report.add("I11 ctrl_promotion", passed, detail)
+
+
+def _owned_table_ids(final_debug: dict[str, Any]) -> set[str]:
+    """
+    역할: 머리말/꼬리말/각주/미주에 소속된 표의 id를 모은다.
+          HWPX는 머리말 내용을 표로 짜기도 하는데, 소유자 표시가 없으면
+          본문 데이터 표와 구분할 수 없다.
+    입력 데이터: final_debug.
+    출력 데이터: owner_control_type이 붙은 표 id 집합.
+    """
+    owned: set[str] = set()
+
+    def walk(table: dict[str, Any], inherited: str | None) -> None:
+        nesting = (table.get("preprocess") or {}).get("nesting") or {}
+        owner = nesting.get("owner_control_type") or inherited
+        if owner:
+            owned.add(table.get("table_id"))
+        for child in table.get("children") or []:
+            walk(child, owner)
+
+    for table in ((final_debug.get("tables") or {}).get("analyzed")) or []:
+        walk(table, None)
+
+    return owned
+
+
 def check_i10_llm_context_coverage(
     paths: list[Path],
     llm_context_path: Path,
@@ -916,6 +1043,7 @@ def command_check(args: argparse.Namespace) -> int:
     check_i7_text_regression(diff, report)
     check_i8_source_block_refs(final_debug, report)
     check_i9_caption_coverage(paths, final_debug, report)
+    check_i11_ctrl_promotion_coverage(paths, final_debug, report)
     check_i10_llm_context_coverage(
         paths, current_path.parent / "llm_context.txt", report,
     )

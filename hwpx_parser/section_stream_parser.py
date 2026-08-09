@@ -282,7 +282,14 @@ class SectionStreamParser:
                     for ctrl_child in child:
                         child_name = cls._local_name(ctrl_child.tag)
                         if child_name in cls._CTRL_BLOCK_TAGS:
-                            # header/footer 등 승격 대상: 내부만 계속 탐색
+                            # header/footer 등 승격 대상은 최상위 문단의 run 직계
+                            # ctrl일 때만 블록으로 승격된다. 개체 내부에 있으면
+                            # blocks 레지스트리에 남지 않으므로 그 사실을 집계한다.
+                            # (표 셀 안에 있는 것은 TableParser가 table_control로
+                            #  수집하지만, 여기 집계 대상은 blocks 레지스트리다.)
+                            if container is not None:
+                                key = f"{container}/{child_name}"
+                                counts[key] = counts.get(key, 0) + 1
                             walk(ctrl_child, child_name)
                             continue
                         if container is not None:

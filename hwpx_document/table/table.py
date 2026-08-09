@@ -5,18 +5,15 @@
 from dataclasses import dataclass, field
 from typing import Optional, Any
 
-from .table_data.table_data import TableRow, TableCell, TableValidation, TableSemantic
-from .table_data.table_style import BorderFill
-
+from .elements.table_row import TableRow
+from .elements.table_cell import TableCell
+from .elements.table_analysis import TableValidation, TableSemantic
 #────────────────────────────────────────────────
 
 @dataclass
 class Table:
     """
     hp:tbl 하나를 의미한다.
-
-    border_fill_id_ref에는 hp:tbl@borderFillIDRef 원본 참조값을 저장하고,
-    border_fill에는 header.xml의 실제 borderFill 정보를 연결해 저장한다.
     """
 
     # 내부 식별자
@@ -36,12 +33,6 @@ class Table:
     col_count: int = 0
 
     cell_spacing: Optional[int] = None
-
-    # hp:tbl@borderFillIDRef 원본 참조값
-    border_fill_id_ref: Optional[str] = None
-
-    # header.xml에서 해석된 실제 borderFill 정보
-    border_fill: Optional[BorderFill] = None
 
     repeat_header: bool = False
     page_break: bool = False
@@ -91,16 +82,8 @@ class Table:
     parent_table_id: Optional[str] = None
     parent_cell_id: Optional[str] = None
 
-    @property
-    def cells(self) -> list[TableCell]:
-        """
-        역할: Table.rows에 들어 있는 모든 행의 셀을 하나의 리스트로 펼친다.
-        입력 데이터: self.rows(TableRow 리스트와 각 row.cells).
-        출력 데이터: 표 전체의 TableCell 객체를 행 순서대로 담은 리스트를 반환한다.
-        """
-        result: list[TableCell] = []
+    # 이 표가 머리말/꼬리말/각주/미주 안에 들어 있는 경우 그 종류.
+    # HWPX는 머리말 내용을 표로 짜는 경우가 있는데, 표시하지 않으면
+    # 본문 데이터 표와 구분할 수 없다. None이면 일반 표다.
+    owner_control_type: Optional[str] = None
 
-        for row in self.rows:
-            result.extend(row.cells)
-
-        return result

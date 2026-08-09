@@ -40,6 +40,8 @@ _ALLOWED_INTERNAL_BLOCK_TYPES = {
     "table_object_ref",
     # 셀 내부 개체(그림 등)의 hp:caption. 셀 본문 텍스트와 분리해 보존한다.
     "table_caption",
+    # 셀 내부 머리말/꼬리말/각주/미주. 마찬가지로 셀 본문과 분리해 보존한다.
+    "table_control",
 }
 
 _SEVERITY_BY_CODE = {
@@ -677,6 +679,7 @@ def _build_validation_stats(
         "nested_table_ref_count": type_counts.get("nested_table_ref", 0),
         "table_object_ref_count": type_counts.get("table_object_ref", 0),
         "table_caption_count": type_counts.get("table_caption", 0),
+        "table_control_count": type_counts.get("table_control", 0),
         "expected_recursive_cell_count": sum(
             len(_table_cells(t)) for t in table_index.values()
         ),
@@ -786,7 +789,7 @@ def validate_table_internal_blocks(
     for key in (
         "table_internal_block_count", "row_group_count", "cell_group_count",
         "text_block_count", "nested_table_ref_count", "table_object_ref_count",
-        "table_caption_count",
+        "table_caption_count", "table_control_count",
         "expected_recursive_cell_count", "expected_recursive_nested_ref_count",
         "expected_recursive_object_count",
         "top_level_tables_with_nested_refs",

@@ -163,6 +163,9 @@ class TableCell:
     # 셀 내부 개체에 붙은 hp:caption. 셀 본문 텍스트(text)에는 포함하지 않는다.
     # 캡션을 셀 텍스트에 섞으면 표 데이터 값과 구분할 수 없기 때문이다.
     captions: list[dict[str, Any]] = field(default_factory=list)
+    # 셀 내부 hp:ctrl 하위 머리말/꼬리말/각주/미주. 페이지 장식이므로
+    # 셀 본문 텍스트(text)에 포함하지 않는다.
+    controls: list[dict[str, Any]] = field(default_factory=list)
     paragraphs: list[TableParagraph] = field(default_factory=list)
     nested_tables: list[Any] = field(default_factory=list)
     text: str = ""

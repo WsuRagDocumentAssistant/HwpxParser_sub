@@ -4,14 +4,13 @@
 
 from __future__ import annotations
 
+import re
 from pathlib import Path
 import xml.etree.ElementTree as ET
 
 from hwpx_parser.parser_context import ParserContext
 from hwpx_parser.table.table_parser import TableParser
-
-from .table.table_analyzer import TableAnalyzer
-from hwpx_parser.table.table_style_resolver import TableStyleResolver
+from hwpx_parser.table.parsers.table_analyzer import TableAnalyzer
 
 
 class SectionParser:
@@ -56,13 +55,16 @@ class SectionParser:
                     table_index=table_index,
                 )
 
-                TableStyleResolver.resolve(
-                    table=table,
-                    context=context,
+                # 머리말/꼬리말/각주 안에 표를 짜 넣은 경우, 조상에 tbl이 없어
+                # 최상위 표로 수집된다. 표시해 두지 않으면 본문 데이터 표와
+                # 구분할 수 없다. (셀 안쪽은 TableParser가 같은 표시를 붙인다)
+                table.owner_control_type = cls._owner_control_type(
+                    tbl_element, parent_map,
                 )
 
                 table = TableAnalyzer.analyze(table, context)
 
+                cls._fill_candidates(table, tbl_element, parent_map, root)
 
                 tables.append(table)
 
@@ -88,6 +90,31 @@ class SectionParser:
             for child in list(parent)
         }
 
+    # hp:ctrl 하위에서 독립 엔티티로 승격되는 요소 (SectionStreamParser와 동일 집합)
+    _CTRL_OWNER_TAGS = {
+        "header": "header",
+        "footer": "footer",
+        "footNote": "footnote",
+        "endNote": "endnote",
+    }
+
+    @classmethod
+    def _owner_control_type(cls, element, parent_map) -> str | None:
+        """
+        역할: 표의 조상 중 머리말/꼬리말/각주/미주가 있으면 그 종류를 반환한다.
+        입력 데이터: element(hp:tbl 요소), parent_map(자식→부모 맵).
+        출력 데이터: control 종류 문자열. 본문 표면 None.
+        """
+        parent = parent_map.get(element)
+
+        while parent is not None:
+            owner = cls._CTRL_OWNER_TAGS.get(cls._local_name(parent.tag))
+            if owner is not None:
+                return owner
+            parent = parent_map.get(parent)
+
+        return None
+
     @classmethod
     def _has_ancestor_tbl(cls, element, parent_map) -> bool:
         parent = parent_map.get(element)
@@ -99,3 +126,67 @@ class SectionParser:
             parent = parent_map.get(parent)
 
         return False
+
+    #────────────────────────────────────────────────
+    # caption / note / source candidate 추출
+    #────────────────────────────────────────────────
+
+    _RE_CAPTION = re.compile(r"^(표|그림|Figure|Table)\s*[\d\.\-]|^【.+】$|^\[.+\]$")
+    _RE_NOTE    = re.compile(r"^(주[):\s]|주석|※|\*\s)")
+    _RE_SOURCE  = re.compile(r"^(자료|출처|자료원)\s*[:：]")
+    _RE_IGNORE  = re.compile(r"^그림입니다\.|^원본 그림의|^묶음 개체")
+
+    @classmethod
+    def _fill_candidates(cls, table, tbl_element, parent_map, root) -> None:
+        """tbl을 감싼 hp:p의 앞뒤 형제 p에서 caption/note/source 후보를 추출한다."""
+        # tbl → run → p 순으로 sec 직계 p를 찾는다
+        container_p = cls._find_container_p(tbl_element, parent_map, root)
+        if container_p is None:
+            return
+
+        sec = parent_map.get(container_p)
+        if sec is None:
+            return
+
+        siblings = list(sec)
+        idx = siblings.index(container_p)
+
+        prev_text = cls._p_text(siblings[idx - 1]) if idx > 0 else ""
+        next_text = cls._p_text(siblings[idx + 1]) if idx + 1 < len(siblings) else ""
+
+        # 이미지 설명문 등 무의미한 텍스트 제거
+        if cls._RE_IGNORE.match(prev_text):
+            prev_text = ""
+        if cls._RE_IGNORE.match(next_text):
+            next_text = ""
+
+        if prev_text and cls._RE_CAPTION.match(prev_text):
+            table.caption_candidate = prev_text
+
+        if next_text and cls._RE_NOTE.match(next_text):
+            table.note_candidate = next_text
+        elif next_text and cls._RE_SOURCE.match(next_text):
+            table.source_candidate = next_text
+
+        # 뒤쪽 두 번째 줄까지 확인 (note 다음에 source가 올 수 있음)
+        if idx + 2 < len(siblings):
+            next2_text = cls._p_text(siblings[idx + 2])
+            if next2_text and cls._RE_SOURCE.match(next2_text) and table.source_candidate is None:
+                table.source_candidate = next2_text
+
+    @classmethod
+    def _find_container_p(cls, tbl_element, parent_map, root):
+        """tbl의 조상 중 sec 직계 자식인 p를 반환한다."""
+        sec_children = set(root)
+        cur = tbl_element
+        while cur is not None:
+            if cur in sec_children and cls._local_name(cur.tag) == "p":
+                return cur
+            cur = parent_map.get(cur)
+        return None
+
+    @classmethod
+    def _p_text(cls, elem) -> str:
+        """hp:p 요소의 텍스트를 하나의 문자열로 합친다."""
+        parts = [t.strip() for e in elem.iter() if (t := e.text or "")]
+        return " ".join(p for p in parts if p)

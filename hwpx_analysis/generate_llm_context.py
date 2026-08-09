@@ -44,6 +44,7 @@ _EMPTY_PLACEHOLDER_BY_TYPE = {
 _INTERNAL_PREFIX = {
     "table_cell_text": "cell",
     "table_caption": "caption",
+    "table_control": "control",
 }
 
 
@@ -119,6 +120,7 @@ def generate_llm_context(
         "annotation_included": 0,
         "cell_text_emitted": 0,
         "caption_emitted": 0,
+        "control_emitted": 0,
         "truncated": 0,
     }
 
@@ -181,6 +183,10 @@ def generate_llm_context(
                 suffix = f"  <- {image_ref}" if image_ref else ""
                 lines.append(f"{internal_indent}({prefix}) {flat_text}{suffix}")
                 stats["caption_emitted"] += 1
+            elif internal_type == "table_control":
+                control_type = internal.get("object_type") or "control"
+                lines.append(f"{internal_indent}({prefix}:{control_type}) {flat_text}")
+                stats["control_emitted"] += 1
             else:
                 lines.append(f"{internal_indent}({prefix}) {flat_text}")
                 stats["cell_text_emitted"] += 1
@@ -190,7 +196,7 @@ def generate_llm_context(
         f"# blocks: total={stats['block_total']} emitted={stats['block_emitted']} "
         f"skipped_no_text={stats['block_skipped_no_text']}",
         f"# table internals: cell_text={stats['cell_text_emitted']} "
-        f"caption={stats['caption_emitted']}",
+        f"caption={stats['caption_emitted']} control={stats['control_emitted']}",
         f"# peripheral_included={stats['peripheral_included']} "
         f"annotation_included={stats['annotation_included']}",
         f"# truncated={stats['truncated']} (this artifact never truncates)",
@@ -204,5 +210,6 @@ def generate_llm_context(
     print(f"skipped (no text)  : {stats['block_skipped_no_text']}")
     print(f"cell text lines    : {stats['cell_text_emitted']}")
     print(f"caption lines      : {stats['caption_emitted']}")
+    print(f"control lines      : {stats['control_emitted']}")
 
     return LlmContextText(text=text_out, stats=stats)

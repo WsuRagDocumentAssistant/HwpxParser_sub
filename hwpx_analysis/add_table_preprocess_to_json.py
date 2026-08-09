@@ -117,6 +117,8 @@ def build_nesting(
 
     return {
         "is_nested": table.get("is_nested", False),
+        # 머리말/꼬리말/각주 안의 표인지. None이면 일반 표다.
+        "owner_control_type": table.get("owner_control_type"),
         "parent_table_id": table.get("parent_table_id"),
         "parent_cell_id": table.get("parent_cell_id"),
         "depth": depth,
@@ -631,6 +633,8 @@ def build_cell_preprocess(cell: dict[str, Any]) -> dict[str, Any]:
             "draw_objects": as_list(cell.get("draw_objects")),
             # 개체 설명문. 셀 본문 텍스트와 분리해 보존한다.
             "captions": as_list(cell.get("captions")),
+            # 머리말/꼬리말/각주/미주. 마찬가지로 셀 본문과 분리해 보존한다.
+            "controls": as_list(cell.get("controls")),
             "nested_table_ids": nested_table_ids,
         },
 
@@ -657,6 +661,8 @@ def build_preprocess_table_item(
     return {
         "table_id": table.get("table_id"),
         "is_nested": table.get("is_nested", False),
+        # 머리말/꼬리말/각주 안의 표인지. None이면 일반 표다.
+        "owner_control_type": table.get("owner_control_type"),
         "parent_table_id": table.get("parent_table_id"),
         "parent_cell_id": table.get("parent_cell_id"),
         "preprocess": build_table_preprocess(

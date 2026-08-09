@@ -286,6 +286,40 @@ def _flatten_one_table(
                 })
                 order += 1
 
+            # table_control: 셀 내부 머리말/꼬리말/각주/미주.
+            # 셀 본문 텍스트와 형제로 두어 표 데이터 값과 구분 가능하게 한다.
+            for control in cell_objects.get("controls") or []:
+                control_id = control.get("control_id")
+                control_text = (control.get("text") or "").strip()
+
+                if not control_id:
+                    continue
+
+                internal_blocks.append({
+                    "internal_block_id": control_id,
+                    "internal_block_type": "table_control",
+                    "object_type": control.get("control_type"),
+                    "source_table_id": source_table_id,
+                    "root_table_id": root_table_id,
+                    "source_block_id": source_block_id,
+                    "parent_internal_block_id": cell_id,
+                    "parent_table_id": table.get("parent_table_id"),
+                    "parent_cell_id": cell_id,
+                    "section_index": section_index,
+                    "table_index": table_index,
+                    "local_order_index": order,
+                    "local_depth": object_ref_local_depth,
+                    "absolute_depth": base_depth + object_ref_local_depth,
+                    "depth_origin": _DEPTH_ORIGIN,
+                    "text_content": control_text or None,
+                    "normalized_text": " ".join(control_text.split()) or None,
+                    "evidence": [
+                        "source=cell.objects.controls",
+                        f"control_type={control.get('control_type')}",
+                    ],
+                })
+                order += 1
+
             # nested_table_ref: cell.objects.nested_table_ids가 1순위 소스 (원칙 4, 기준 8)
             nested_table_ids = (cell.get("objects") or {}).get("nested_table_ids") or []
             nested_ref_local_depth = cell_local_depth + 1
@@ -369,6 +403,7 @@ def _flatten_top_level_table(
     nested_ref_count = sum(1 for b in generated if b["internal_block_type"] == "nested_table_ref")
     object_ref_count = sum(1 for b in generated if b["internal_block_type"] == "table_object_ref")
     caption_count = sum(1 for b in generated if b["internal_block_type"] == "table_caption")
+    control_count = sum(1 for b in generated if b["internal_block_type"] == "table_control")
     max_local_depth = max((b["local_depth"] for b in generated), default=0)
     max_absolute_depth = max((b["absolute_depth"] for b in generated), default=0)
 
@@ -382,6 +417,7 @@ def _flatten_top_level_table(
         "nested_table_ref_count": nested_ref_count,
         "table_object_ref_count": object_ref_count,
         "table_caption_count": caption_count,
+        "table_control_count": control_count,
         "max_local_depth": max_local_depth,
         "max_absolute_depth": max_absolute_depth,
     }

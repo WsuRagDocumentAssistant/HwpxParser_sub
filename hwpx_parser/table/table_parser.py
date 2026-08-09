@@ -306,6 +306,11 @@ class TableParser:
                 cell_id=cell.cell_id,
             )
 
+            cell.controls = cls._parse_cell_controls(
+                tc_element=tc_element,
+                cell_id=cell.cell_id,
+            )
+
             cell.nested_tables = cls._parse_nested_tables(
                 tc_element=tc_element,
                 section_index=section_index,
@@ -442,6 +447,66 @@ class TableParser:
 
         visit(tc_element)
         return draw_objects
+
+    # hp:ctrl 하위에서 셀 본문이 아닌 것으로 분리하는 요소.
+    # SectionStreamParser._CTRL_BLOCK_TAGS와 같은 집합이며,
+    # 본문 경로에서 독립 블록으로 승격되는 것들과 일치시킨다.
+    _CELL_CONTROL_TAGS = {
+        "header": "header",
+        "footer": "footer",
+        "footNote": "footnote",
+        "endNote": "endnote",
+    }
+
+    @classmethod
+    def _parse_cell_controls(
+        cls,
+        tc_element,
+        cell_id: str,
+    ) -> list[dict[str, Any]]:
+        """
+        역할: 셀 내부 hp:ctrl 하위의 머리말/꼬리말/각주/미주를 별도 엔티티로 수집한다.
+              중첩 표 내부는 그 표의 셀 소관이므로 내려가지 않는다.
+        입력 데이터: tc_element(hp:tc XML 요소), cell_id(부모 셀 ID).
+        출력 데이터: {control_id, control_type, text, source_element} 리스트.
+
+        배경: 이들은 페이지 장식이라 셀 본문 텍스트에 섞이면 표 데이터 값과
+              구분할 수 없다. 본문 경로(SectionStreamParser)는 최상위 문단의
+              hp:ctrl만 블록으로 승격하므로, 셀 안에 있는 것은 어느 레지스트리에도
+              남지 않고 셀 텍스트만 오염시키고 있었다.
+        """
+        controls: list[dict[str, Any]] = []
+
+        def visit(element) -> None:
+            for child in list(element):
+                name = cls._local_name(child.tag)
+
+                if name == "tbl":
+                    continue
+
+                control_type = cls._CELL_CONTROL_TAGS.get(name)
+
+                if control_type is not None:
+                    parts: list[str] = []
+
+                    # 자기 자신을 넘기면 _collect_element_text가 즉시 반환하므로
+                    # 자식부터 수집한다.
+                    for control_child in list(child):
+                        cls._collect_element_text(control_child, parts)
+
+                    controls.append({
+                        "control_id": f"{cell_id}_ctrl{len(controls)}",
+                        "control_type": control_type,
+                        "text": "".join(parts).strip(),
+                        "source_element": f"hp:{name}",
+                    })
+                    continue
+
+                visit(child)
+
+        visit(tc_element)
+
+        return controls
 
     @classmethod
     def _parse_captions(
@@ -633,23 +698,56 @@ class TableParser:
         parent_table_id: str,
         parent_cell_id: str,
     ) -> list[Table]:
+        # 머리말/꼬리말/각주 안에 들어 있는 표를 표시하기 위한 소유자 맵.
+        # HWPX는 머리말 내용을 표로 짜는 경우가 있고, 그 표는 본문 데이터 표와
+        # 구조가 같아서 표시하지 않으면 구분할 수 없다.
+        owner_by_element = cls._map_control_owned_tables(tc_element)
+
         nested_tables: list[Table] = []
 
         for nested_index, tbl_element in enumerate(
             cls._find_direct_nested_tables(tc_element)
         ):
-            nested_tables.append(
-                cls.parse(
-                    tbl_element=tbl_element,
-                    section_index=section_index,
-                    table_index=nested_index,
-                    is_nested=True,
-                    parent_table_id=parent_table_id,
-                    parent_cell_id=parent_cell_id,
-                )
+            nested_table = cls.parse(
+                tbl_element=tbl_element,
+                section_index=section_index,
+                table_index=nested_index,
+                is_nested=True,
+                parent_table_id=parent_table_id,
+                parent_cell_id=parent_cell_id,
             )
+            nested_table.owner_control_type = owner_by_element.get(id(tbl_element))
+            nested_tables.append(nested_table)
 
         return nested_tables
+
+    @classmethod
+    def _map_control_owned_tables(cls, tc_element) -> dict[int, str]:
+        """
+        역할: 셀 안에서 머리말/꼬리말/각주/미주에 소속된 tbl 요소를 찾아
+              {id(tbl element): control_type} 맵을 만든다.
+        입력 데이터: tc_element(hp:tc XML 요소).
+        출력 데이터: 소유자가 있는 표만 담은 dict (없으면 빈 dict).
+        """
+        owner_by_element: dict[int, str] = {}
+
+        def visit(element, owner: str | None) -> None:
+            for child in list(element):
+                name = cls._local_name(child.tag)
+                control_type = cls._CELL_CONTROL_TAGS.get(name)
+                next_owner = control_type if control_type is not None else owner
+
+                if name == "tbl":
+                    if next_owner is not None:
+                        owner_by_element[id(child)] = next_owner
+                    # 표 내부는 그 표의 셀 소관이므로 더 내려가지 않는다
+                    continue
+
+                visit(child, next_owner)
+
+        visit(tc_element, None)
+
+        return owner_by_element
 
     @classmethod
     def _find_direct_nested_tables(cls, tc_element) -> list:
@@ -800,6 +898,12 @@ class TableParser:
             # hp:caption은 개체(그림/표)의 설명문이지 셀 본문이 아니다.
             # 셀 텍스트에 섞으면 표 데이터 값과 구분할 수 없게 되므로
             # 여기서 끊고 _parse_captions가 별도 엔티티로 수집한다.
+            return
+
+        if name in cls._CELL_CONTROL_TAGS:
+            # 머리말/꼬리말/각주/미주는 페이지 장식이지 셀 본문이 아니다.
+            # 셀 텍스트에 섞이면 표 데이터 값과 구분할 수 없다.
+            # _parse_cell_controls가 별도 엔티티로 수집한다.
             return
 
         if name == "t":
