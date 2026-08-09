@@ -195,21 +195,3 @@ class HeaderData:
             }
 
         return None
-
-    def resolve_char_pr_id_from_style(
-        self,
-        style_id: Optional[str],
-    ) -> Optional[str]:
-        """
-        역할: styleIDRef에 연결된 charPrIDRef를 조회한다.
-        입력 데이터: style_id(style ID 또는 None).
-        출력 데이터: 연결된 charPr ID를 반환하고, 없으면 None을 반환한다.
-        """
-        """
-        styleIDRef를 통해 charPrIDRef를 찾는다.
-        """
-
-        if style_id is None:
-            return None
-
-        return self.style_to_char_pr.get(style_id)

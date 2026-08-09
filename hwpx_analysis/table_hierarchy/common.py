@@ -5,9 +5,19 @@ from pathlib import Path
 from typing import Any, Iterator
 
 
-def load_tables(input_path: str | Path = "tables_hierarchical.json") -> list[dict[str, Any]]:
-    with Path(input_path).open("r", encoding="utf-8") as f:
-        data = json.load(f)
+def load_tables(
+    source: str | Path | list[dict[str, Any]] | dict[str, Any] = "tables_hierarchical.json",
+) -> list[dict[str, Any]]:
+    """
+    역할: 표 리스트 소스를 정규화한다.
+    입력 데이터: 인메모리 표 리스트/dict 또는 (하위 호환) JSON 파일 경로.
+    출력 데이터: 표 dict 리스트.
+    """
+    if isinstance(source, (str, Path)):
+        with Path(source).open("r", encoding="utf-8") as f:
+            data = json.load(f)
+    else:
+        data = source
 
     if isinstance(data, list):
         return data
@@ -16,7 +26,7 @@ def load_tables(input_path: str | Path = "tables_hierarchical.json") -> list[dic
         return data["tables"]
 
     raise ValueError(
-        "tables_hierarchical.json must contain a list or a dict with a 'tables' list."
+        "tables source must be a list or a dict with a 'tables' list."
     )
 
 
@@ -96,47 +106,6 @@ def get_cells(table: dict[str, Any]) -> list[dict[str, Any]]:
         return cells
 
     return []
-
-
-def get_all_cell_sources(table: dict[str, Any]) -> list[dict[str, Any]]:
-    cell_by_id: dict[str, dict[str, Any]] = {}
-    cells_without_id: list[dict[str, Any]] = []
-
-    def add_cells(cells: Any) -> None:
-        if not isinstance(cells, list):
-            return
-
-        for cell in cells:
-            if not isinstance(cell, dict):
-                continue
-
-            cell_id = cell.get("cell_id")
-            if not cell_id:
-                cells_without_id.append(cell)
-                continue
-
-            key = str(cell_id)
-            existing = cell_by_id.get(key)
-            if existing is None:
-                cell_by_id[key] = cell
-                continue
-
-            existing_nested_tables = existing.get("nested_tables")
-            current_nested_tables = cell.get("nested_tables")
-            existing_has_nested = isinstance(existing_nested_tables, list) and bool(
-                existing_nested_tables
-            )
-            current_has_nested = isinstance(current_nested_tables, list) and bool(
-                current_nested_tables
-            )
-
-            if current_has_nested and not existing_has_nested:
-                cell_by_id[key] = cell
-
-    add_cells(get_nested(table, "preprocess", "cells"))
-    add_cells(table.get("cells"))
-
-    return [*cell_by_id.values(), *cells_without_id]
 
 
 def get_cell_text(cell: dict[str, Any]) -> str:
@@ -235,17 +204,3 @@ def iter_child_tables(
 
         yield parent_cell_id, child_table
 
-
-def iter_nested_tables_from_cells(
-    table: dict[str, Any],
-) -> Iterator[tuple[dict[str, Any], dict[str, Any]]]:
-    # Current tables_hierarchical.json stores real nested table objects in
-    # table["children"]. Cell-level nested_table_ids are references only.
-    for cell in get_all_cell_sources(table):
-        nested_tables = cell.get("nested_tables")
-        if not isinstance(nested_tables, list):
-            continue
-
-        for nested_table in nested_tables:
-            if isinstance(nested_table, dict):
-                yield cell, nested_table
