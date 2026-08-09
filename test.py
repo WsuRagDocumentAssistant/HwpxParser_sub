@@ -11,14 +11,6 @@ from hwpx_analysis.pipeline import run_analysis_pipeline, save_pipeline_outputs
 from hwpx_analysis.table_json_serializer import (
     table_to_dict as serialize_table_to_dict,
 )
-from hwpx_analysis.table_hierarchy import (
-    debug_simple_tables,
-    debug_table_hierarchy_input,
-)
-from hwpx_analysis.table_hierarchy.debug_title_texts import (
-    debug_key_value_tables,
-    debug_title_texts,
-)
 from hwpx_parser.parser import HwpxParser
 
 
@@ -174,26 +166,6 @@ def main() -> None:
         result=result,
         output_dir=output_root / "results" / parser.filename,
     )
-
-    debug_table_hierarchy_input(
-        input_path=result.tables.analyzed,
-        limit=10,
-        table_type="key_value_table",
-        include_cells=True,
-        include_nested=True,
-    )
-
-    try:
-        debug_simple_tables(
-            input_path=result.tables.analyzed,
-            limit=0,
-            include_nested=True,
-        )
-    except UnicodeEncodeError:
-        pass
-
-    debug_title_texts(result.tables.analyzed)
-    debug_key_value_tables(result.tables.analyzed)
 
 
 if __name__ == "__main__":
