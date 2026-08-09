@@ -206,18 +206,6 @@ def build_validation(validation: Any) -> dict[str, Any]:
     }
 
 
-def build_grid(table: dict[str, Any]) -> dict[str, Any]:
-    validation = table.get("validation")
-    if not isinstance(validation, dict):
-        validation = {}
-
-    return {
-        "row_count": table.get("row_count"),
-        "col_count": table.get("col_count"),
-        "slots": validation.get("grid", []),
-    }
-
-
 def build_structure(
     table: dict[str, Any],
     cells: list[dict[str, Any]],

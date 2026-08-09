@@ -626,15 +626,6 @@ class TableParser:
         return image_elements
 
     @classmethod
-    def _is_image_container_element(cls, element, stop_element, parent_map) -> bool:
-        name = cls._local_name(element.tag)
-
-        if name not in {"img", "image"}:
-            return False
-
-        return not cls._has_ancestor_name(element, "pic", stop_element, parent_map)
-
-    @classmethod
     def _extract_image_attrs(cls, image_element) -> dict[str, Any]:
         """
         hp:pic 이미지 객체에서 속성을 추출한다.
@@ -670,25 +661,6 @@ class TableParser:
                     normalized_attrs[key] = child_attrs.get(key)
 
         return normalized_attrs
-
-    @classmethod
-    def _has_image_ref_attr(cls, attrs: dict[str, Any]) -> bool:
-        return any(
-            attrs.get(key) not in (None, "")
-            for key in ("binaryItemIDRef", "href", "xlink:href", "refID")
-        )
-
-    @classmethod
-    def _has_ancestor_name(cls, element, local_name: str, stop_element, parent_map) -> bool:
-        parent = parent_map.get(element)
-
-        while parent is not None and parent is not stop_element:
-            if cls._local_name(parent.tag) == local_name:
-                return True
-
-            parent = parent_map.get(parent)
-
-        return False
 
     @classmethod
     def _parse_nested_tables(

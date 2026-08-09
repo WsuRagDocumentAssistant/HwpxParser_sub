@@ -58,15 +58,6 @@ class BlocksDocument:
             "quality": self.quality,
         }
 
-    @classmethod
-    def from_dict(cls, data: dict[str, Any]) -> "BlocksDocument":
-        return cls(
-            document=data.get("document") or {},
-            blocks=data.get("blocks") or [],
-            quality=data.get("quality") or {},
-        )
-
-
 #------------------------------------------------
 # 표 내부 평탄화 결과
 #------------------------------------------------
@@ -87,15 +78,6 @@ class TableInternalBlocks:
             "tables": self.tables,
             "internal_blocks": self.internal_blocks,
         }
-
-    @classmethod
-    def from_dict(cls, data: dict[str, Any]) -> "TableInternalBlocks":
-        return cls(
-            document=data.get("document") or {},
-            tables=data.get("tables") or [],
-            internal_blocks=data.get("internal_blocks") or [],
-        )
-
 
 #------------------------------------------------
 # 검증 결과

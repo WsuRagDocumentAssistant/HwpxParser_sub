@@ -205,17 +205,6 @@ def build_stub_table_object(table: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def build_simple_object(table: dict[str, Any]) -> dict[str, Any] | None:
-    table_type = common.get_table_type(table)
-
-    if table_type == TABLE_TYPE_TITLE_BOX:
-        return build_title_box_object(table)
-    if table_type == TABLE_TYPE_CAPTION_OR_NOTE:
-        return build_caption_or_note_object(table)
-
-    return None
-
-
 def build_table_object(table: dict[str, Any]) -> dict[str, Any]:
     table_type = common.get_table_type(table)
 
