@@ -9,7 +9,7 @@ import re
 from collections import Counter
 from typing import Any
 
-from .cell_utils import _as_list, _cell_col, _cell_col_span, _cell_row_span, get_cell_text, normalize_text
+from .cell_utils import _as_list, _cell_col, _cell_col_span, _cell_row_span, get_cell_text
 from .table_utils import get_table_size, group_origin_cells_by_row
 
 

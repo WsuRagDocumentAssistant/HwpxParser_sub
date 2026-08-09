@@ -5,8 +5,7 @@
 
 from __future__ import annotations
 
-from collections import Counter
-from typing import Any, Iterator
+from typing import Any
 
 from .cell_utils import _as_list
 

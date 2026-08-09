@@ -8,7 +8,7 @@ from dataclasses import asdict, is_dataclass
 from pathlib import Path
 from typing import Any
 
-from hwpx_document.table.utils import get_cell_end_row, get_cell_end_col, get_table_cells
+from hwpx_document.table.utils import get_cell_end_row, get_cell_end_col
 
 
 def to_jsonable(value: Any) -> Any:

@@ -6,7 +6,6 @@ from dataclasses import dataclass, field
 from typing import Optional, Any
 
 from .elements.table_row import TableRow
-from .elements.table_cell import TableCell
 from .elements.table_analysis import TableValidation, TableSemantic
 #────────────────────────────────────────────────
 
