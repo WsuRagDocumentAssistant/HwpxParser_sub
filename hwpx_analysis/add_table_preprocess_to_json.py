@@ -83,8 +83,8 @@ def build_table_preprocess(
         "validation": build_validation(table.get("validation")),
         "structure": build_structure(table, cells),
         "text": build_text(cells),
-        "style": build_style(table, cells),
-        "style_features": build_style_features(table, cells),
+        "style": build_style(cells),
+        "style_features": build_style_features(cells),
         "objects": build_objects(cells),
         "cells": [
             build_cell_preprocess(cell)
@@ -350,7 +350,6 @@ def build_text(cells: list[dict[str, Any]]) -> dict[str, Any]:
 
 
 def build_style(
-    table: dict[str, Any],
     cells: list[dict[str, Any]],
 ) -> dict[str, Any]:
     para_pr_id_refs: list[Any] = []
@@ -398,7 +397,6 @@ def _collect_run_char_features(
 
 
 def build_style_features(
-    table: dict[str, Any],
     cells: list[dict[str, Any]],
 ) -> dict[str, Any]:
     has_center_alignment = any(

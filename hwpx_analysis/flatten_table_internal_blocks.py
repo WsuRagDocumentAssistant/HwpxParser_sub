@@ -30,9 +30,9 @@ _DEPTH_ORIGIN = "table_local_offset"
 _ALLOWED_RECORD_STATUSES = {"structured", "raw_only", "not_applicable"}
 
 
-def normalize_record_status(table_type: str | None, record_status: str | None) -> str:
+def normalize_record_status(record_status: str | None) -> str:
     """record_status를 항상 허용값 3개 중 하나의 문자열로 정규화한다.
-    null/빈값/알 수 없는 값은 table_type과 무관하게 not_applicable로 통일한다."""
+    null/빈값/알 수 없는 값은 not_applicable로 통일한다."""
     if record_status in _ALLOWED_RECORD_STATUSES:
         return record_status
     return "not_applicable"
@@ -473,9 +473,7 @@ def flatten_table_internal_blocks(
             "section_index": identity.get("section_index"),
             "table_index": identity.get("table_index"),
             "table_type": hierarchy.get("table_type"),
-            "record_status": normalize_record_status(
-                hierarchy.get("table_type"), hierarchy.get("record_status"),
-            ),
+            "record_status": normalize_record_status(hierarchy.get("record_status")),
             "base_depth": table_block.get("depth") if table_block else None,
             "internal_block_count": ref_summary["internal_block_count"],
         })
