@@ -6,8 +6,10 @@
 # 기존에는 각 단계가 JSON 파일(tables.json, tables_preprocessed.json,
 # blocks.json 등)을 읽고 쓰는 방식으로 연결되어 있었다.
 # 이제 각 단계는 아래 데이터 클래스를 직접 주고받으며,
-# 파일 저장은 파이프라인 마지막의 디버깅용 최종 JSON과
-# 계층 시각화용 txt 두 종류만 수행한다.
+# 파일 저장은 파이프라인 마지막에서만 수행한다:
+#   - final_debug.json          디버깅용 최종 상태
+#   - depth_text_preview_*.txt  사람용 계층 프리뷰 (raw/clean)
+#   - llm_context.txt           텍스트 손실 없는 LLM 입력용
 #================================================
 
 from __future__ import annotations
