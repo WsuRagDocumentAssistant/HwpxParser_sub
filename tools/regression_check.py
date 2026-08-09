@@ -22,6 +22,10 @@
 #   I7 텍스트 소실 0   : baseline에서 텍스트가 있던 블록이 비어버린 경우 0
 #   I8 블록 참조 무결성: internal_blocks.source_block_id가 실제 block_id를 가리킴
 #   I9 캡션 보존       : hp:caption이 전부 table_caption 엔티티로 남고 개체와 연결됨
+#   I10 LLM 산출물 완전성: llm_context.txt에 문서의 모든 텍스트가 존재
+#
+# I10은 depth_text_preview를 검사하지 않는다. 그 산출물은 표 내부를 빼고
+# 120자에서 자르는 사람용 디버그 뷰이며, 그렇게 하도록 만들어진 것이다.
 #
 # I2는 hp:caption을 셀 본문 집계에서 제외한다. 캡션은 셀 데이터 값이 아니라
 # 개체 설명문이기 때문이다. 이 완화가 캡션 유실을 가리지 않도록 I9를 짝으로 둔다.
@@ -622,6 +626,48 @@ def check_i9_caption_coverage(
     report.add("I9 caption_coverage", passed, detail)
 
 
+def check_i10_llm_context_coverage(
+    paths: list[Path],
+    llm_context_path: Path,
+    report: Report,
+    sample_limit: int = 6,
+) -> None:
+    """
+    역할: I10 — LLM 입력용 산출물(llm_context.txt)에 문서의 모든 텍스트가 있는지 검사한다.
+          depth_text_preview는 표 내부 텍스트를 빼고 120자에서 자르는 사람용
+          디버그 산출물이라 이 검사의 대상이 아니다.
+    입력 데이터: paths(section XML), llm_context_path, report.
+    출력 데이터: 반환값 없음.
+    """
+    if not llm_context_path.exists():
+        report.add("I10 llm_context_coverage", False, f"산출물 없음: {llm_context_path}")
+        return
+
+    blob = normalize(llm_context_path.read_text(encoding="utf-8"))
+
+    total = 0
+    missing: list[tuple[str, str, str]] = []
+
+    for path in paths:
+        root = ET.parse(path).getroot()
+        for kind, text, chain in iter_text_nodes(root):
+            total += 1
+            if normalize(text) not in blob:
+                missing.append((kind, text, chain))
+
+    passed = not missing
+    detail = f"텍스트 노드 {total}개 중 누락 {len(missing)}개"
+
+    if missing:
+        grouped: dict[tuple[str, str], int] = {}
+        for kind, _, chain in missing:
+            grouped[(kind, chain)] = grouped.get((kind, chain), 0) + 1
+        top = sorted(grouped.items(), key=lambda kv: -kv[1])[:sample_limit]
+        detail += " | " + "; ".join(f"{count}x {kind}@{chain}" for (kind, chain), count in top)
+
+    report.add("I10 llm_context_coverage", passed, detail)
+
+
 def check_i8_source_block_refs(final_debug: dict[str, Any], report: Report) -> None:
     """
     역할: I8 — internal_blocks의 source_block_id가 실제 존재하는 block_id를 가리키는지,
@@ -870,6 +916,9 @@ def command_check(args: argparse.Namespace) -> int:
     check_i7_text_regression(diff, report)
     check_i8_source_block_refs(final_debug, report)
     check_i9_caption_coverage(paths, final_debug, report)
+    check_i10_llm_context_coverage(
+        paths, current_path.parent / "llm_context.txt", report,
+    )
 
     print("===========================================")
     print("[불변식 검사]")
