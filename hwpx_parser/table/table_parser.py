@@ -7,8 +7,8 @@ from __future__ import annotations
 from typing import Any
 
 from hwpx_document.table import Table
-from hwpx_document.table.table_data.table_data import TableRow
-from hwpx_document.table.table_data.table_cell import ImageInfo, TableCell, TableParagraph, TableRun
+from hwpx_document.table.elements.table_row import TableRow
+from hwpx_document.table.elements.table_cell import ImageInfo, TableCell, TableParagraph, TableRun
 
 
 class TableParser:
@@ -65,7 +65,6 @@ class TableParser:
             col_count=cls._to_int(attrs.get("colCnt"), default=0),
 
             cell_spacing=cls._to_int_or_none(attrs.get("cellSpacing")),
-            border_fill_id_ref=attrs.get("borderFillIDRef"),
 
             repeat_header=cls._to_bool(attrs.get("repeatHeader")),
             page_break=attrs.get("pageBreak") not in (None, "0", "NONE", "None"),
@@ -258,8 +257,6 @@ class TableParser:
                 editable=cls._to_bool(attrs.get("editable")),
                 dirty=cls._to_bool(attrs.get("dirty")),
 
-                border_fill_id_ref=attrs.get("borderFillIDRef"),
-
                 row_addr=row_addr,
                 col_addr=col_addr,
                 row_span=row_span,
@@ -299,6 +296,16 @@ class TableParser:
                 cell_id=cell.cell_id,
             )
 
+            cell.draw_objects = cls._parse_draw_objects(
+                tc_element=tc_element,
+                cell_id=cell.cell_id,
+            )
+
+            cell.captions = cls._parse_captions(
+                tc_element=tc_element,
+                cell_id=cell.cell_id,
+            )
+
             cell.nested_tables = cls._parse_nested_tables(
                 tc_element=tc_element,
                 section_index=section_index,
@@ -315,6 +322,8 @@ class TableParser:
             cell.is_empty = not bool(cell.text.strip())
 
             cell.has_image = len(cell.images) > 0
+
+            cell.has_caption = len(cell.captions) > 0
 
             cell.has_field = any(
                 run.has_field
@@ -366,6 +375,141 @@ class TableParser:
             )
 
         return images
+
+    # 셀 내부 그리기 개체로 수집하는 요소 local name (이미지 pic은 별도 수집)
+    _DRAW_OBJECT_TAGS = frozenset({
+        "container", "rect", "ellipse", "polygon", "line", "arc", "curve",
+        "connectLine", "textart", "ole", "equation", "chart", "video",
+    })
+
+    @classmethod
+    def _parse_draw_objects(
+        cls,
+        tc_element,
+        cell_id: str,
+    ) -> list[dict[str, Any]]:
+        """
+        역할: 셀 직속(중첩 tbl 내부 제외) 최상위 그리기 개체를 수집한다.
+              개체 내부 텍스트(drawText)는 셀 paragraphs가 원본이므로
+              여기서는 개체 정체성과 참고용 텍스트만 기록한다.
+        출력 데이터: {object_id, object_type, draw_text, child_pic_count} dict 리스트.
+        """
+        draw_objects: list[dict[str, Any]] = []
+
+        def inner_text(elem) -> str:
+            parts: list[str] = []
+
+            def walk_text(e) -> None:
+                for child in e:
+                    name = cls._local_name(child.tag)
+                    if name == "tbl":
+                        continue
+                    if name == "t":
+                        parts.append("".join(child.itertext()))
+                    else:
+                        walk_text(child)
+
+            walk_text(elem)
+            return " ".join(p.strip() for p in parts if p.strip())
+
+        def count_pics(elem) -> int:
+            count = 0
+            for child in elem:
+                name = cls._local_name(child.tag)
+                if name == "tbl":
+                    continue
+                if name == "pic":
+                    count += 1
+                    continue
+                count += count_pics(child)
+            return count
+
+        def visit(element) -> None:
+            for child in list(element):
+                name = cls._local_name(child.tag)
+                if name == "tbl":
+                    continue
+                if name in cls._DRAW_OBJECT_TAGS:
+                    # 최상위 개체만 1개로 수집한다 (내부 개체는 하위 요약으로만)
+                    draw_objects.append({
+                        "object_id": f"{cell_id}_obj{len(draw_objects)}",
+                        "object_type": name,
+                        "draw_text": inner_text(child) or None,
+                        "child_pic_count": count_pics(child),
+                    })
+                    continue
+                visit(child)
+
+        visit(tc_element)
+        return draw_objects
+
+    @classmethod
+    def _parse_captions(
+        cls,
+        tc_element,
+        cell_id: str,
+    ) -> list[dict[str, Any]]:
+        """
+        역할: 셀 내부 개체(hp:pic 등)에 붙은 hp:caption을 별도 엔티티로 수집한다.
+              중첩 표 내부는 그 표의 셀 소관이므로 내려가지 않는다.
+        입력 데이터: tc_element(hp:tc XML 요소), cell_id(부모 셀 ID).
+        출력 데이터: {caption_id, text, parent_object_type, binary_item_id_ref, raw_attrs} 리스트.
+
+        주의: 부모 개체와의 연결은 생성 id가 아니라 binaryItemIDRef로 건다.
+              _parse_images가 중복 이미지를 dedup하기 때문에 image_id 순번과
+              pic 등장 순번이 어긋날 수 있다.
+        """
+        captions: list[dict[str, Any]] = []
+
+        def visit(element) -> None:
+            for child in list(element):
+                name = cls._local_name(child.tag)
+
+                if name == "tbl":
+                    continue
+
+                if name == "caption":
+                    parent_name = cls._local_name(element.tag)
+                    parts: list[str] = []
+
+                    # caption 자신을 넘기면 _collect_element_text가 즉시 반환하므로
+                    # 자식부터 수집한다.
+                    for caption_child in list(child):
+                        cls._collect_element_text(caption_child, parts)
+
+                    captions.append({
+                        "caption_id": f"{cell_id}_cap{len(captions)}",
+                        "text": "".join(parts).strip(),
+                        "parent_object_type": parent_name,
+                        "binary_item_id_ref": cls._find_direct_binary_item_ref(element),
+                        "raw_attrs": cls._normalize_attrs(child.attrib),
+                    })
+                    continue
+
+                visit(child)
+
+        visit(tc_element)
+
+        return captions
+
+    @classmethod
+    def _find_direct_binary_item_ref(cls, element) -> str | None:
+        """
+        역할: 개체(hp:pic 등) 하위 hc:img의 binaryItemIDRef를 찾는다.
+              caption을 어느 이미지의 설명인지 연결하는 안정적인 키다.
+        입력 데이터: element(개체 XML 요소).
+        출력 데이터: binaryItemIDRef 문자열 또는 None.
+        """
+        for descendant in element.iter():
+            if cls._local_name(descendant.tag) != "img":
+                continue
+
+            value = cls._normalize_attrs(descendant.attrib).get("binaryItemIDRef")
+
+            if value not in (None, ""):
+                return str(value)
+
+        return None
 
     @classmethod
     def _make_image_key(cls, attrs: dict[str, Any]) -> tuple[Any, ...]:
@@ -652,6 +796,12 @@ class TableParser:
         if name == "tbl":
             return
 
+        if name == "caption":
+            # hp:caption은 개체(그림/표)의 설명문이지 셀 본문이 아니다.
+            # 셀 텍스트에 섞으면 표 데이터 값과 구분할 수 없게 되므로
+            # 여기서 끊고 _parse_captions가 별도 엔티티로 수집한다.
+            return
+
         if name == "t":
             parts.append(element.text or "")
         elif name == "lineBreak":
@@ -660,11 +810,95 @@ class TableParser:
             parts.append("\t")
         elif name == "fwSpace":
             parts.append(" ")
+        elif name == "compose":
+            # hp:compose(글자 겹치기, 원문자/사각문자 마커)는 텍스트가
+            # <hp:t> 자식이 아니라 composeText 속성에 들어있다.
+            # 자식은 hp:charPr뿐이라 재귀해도 텍스트가 없으므로 여기서 종료한다.
+            compose_text = dict(element.attrib).get("composeText")
+            if compose_text:
+                parts.append(compose_text)
+            return
 
-        for child in list(element):
-            cls._collect_element_text(child, parts)
+        children = list(element)
+        draw_children = [
+            child for child in children
+            if cls._local_name(child.tag) in cls._DRAW_OBJECT_TAGS
+        ]
+
+        # 형제 그리기 개체가 2개 이상이면 XML 문서 순서가 시각적 배치 순서와
+        # 다를 수 있으므로(hp:offset 기준 정렬 필요) 개체별 텍스트를 따로 모아
+        # 시각적 위치(y, x) 순으로 공백 구분하여 합친다.
+        if len(draw_children) < 2:
+            for child in children:
+                cls._collect_element_text(child, parts)
+                if child.tail:
+                    parts.append(child.tail)
+            return
+
+        draw_ids = {id(child) for child in draw_children}
+        ordered = sorted(
+            enumerate(draw_children),
+            key=lambda item: cls._draw_object_sort_key(item[1]) + (item[0],),
+        )
+
+        draw_texts: list[str] = []
+        for _, child in ordered:
+            sub_parts: list[str] = []
+            cls._collect_element_text(child, sub_parts)
+            text = "".join(sub_parts).strip()
+            if text:
+                draw_texts.append(text)
+
+        inserted = False
+        for child in children:
+            if id(child) in draw_ids:
+                if not inserted and draw_texts:
+                    cls._append_text_with_boundary(parts, " ".join(draw_texts))
+                    inserted = True
+            else:
+                cls._collect_element_text(child, parts)
             if child.tail:
                 parts.append(child.tail)
+
+    @classmethod
+    def _draw_object_sort_key(cls, element) -> tuple[int, int]:
+        """
+        역할: 그리기 개체의 시각적 정렬 키 (y, x)를 hp:offset에서 추출한다.
+        출력 데이터: (y, x) 튜플. offset이 없으면 (0, 0).
+        """
+        offset = cls._find_first_child(element, "offset")
+        if offset is None:
+            return (0, 0)
+        attrs = dict(offset.attrib)
+        return (
+            cls._to_signed_int32(attrs.get("y")),
+            cls._to_signed_int32(attrs.get("x")),
+        )
+
+    @staticmethod
+    def _to_signed_int32(value) -> int:
+        """
+        역할: HWPX 좌표 문자열을 signed int로 변환한다.
+              음수 좌표가 uint32(예: 4294967253 = -43)로 저장되는 경우를 보정한다.
+        """
+        try:
+            v = int(value)
+        except (TypeError, ValueError):
+            return 0
+        if v >= 2**31:
+            v -= 2**32
+        return v
+
+    @staticmethod
+    def _append_text_with_boundary(parts: list, text: str) -> None:
+        """
+        역할: 앞선 텍스트와 경계가 붙지 않도록 필요 시 공백을 넣어 추가한다.
+        """
+        if parts:
+            prev = parts[-1]
+            if prev and not prev[-1].isspace():
+                parts.append(" ")
+        parts.append(text)
 
     @classmethod
     def _iter_without_nested_tables(cls, element):

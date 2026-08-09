@@ -21,6 +21,10 @@
 #   I6 depth 해소     : depth 미해소 블록 0
 #   I7 텍스트 소실 0   : baseline에서 텍스트가 있던 블록이 비어버린 경우 0
 #   I8 블록 참조 무결성: internal_blocks.source_block_id가 실제 block_id를 가리킴
+#   I9 캡션 보존       : hp:caption이 전부 table_caption 엔티티로 남고 개체와 연결됨
+#
+# I2는 hp:caption을 셀 본문 집계에서 제외한다. 캡션은 셀 데이터 값이 아니라
+# 개체 설명문이기 때문이다. 이 완화가 캡션 유실을 가리지 않도록 I9를 짝으로 둔다.
 #
 # 주의: 블록 수가 바뀌면 block_id(s{sec}_b{counter:05d})가 전면 재부여되므로
 # internal_blocks의 source_block_id도 함께 바뀐다. 이때 I3의 전체 해시는
@@ -155,6 +159,11 @@ def derive_table_ground_truth(paths: list[Path]) -> dict[str, int]:
 
             if name == "tbl":
                 # 중첩 표의 텍스트는 그 표의 셀 소속이다
+                continue
+
+            if name == "caption":
+                # 개체 설명문은 셀 본문이 아니라 별도 엔티티다.
+                # 캡션이 유실되지 않았는지는 I9가 따로 보증한다.
                 continue
 
             if name == "t":
@@ -560,6 +569,59 @@ def check_i3_and_diff(
     }
 
 
+def check_i9_caption_coverage(
+    paths: list[Path],
+    final_debug: dict[str, Any],
+    report: Report,
+) -> None:
+    """
+    역할: I9 — section*.xml의 hp:caption이 전부 별도 caption 엔티티로 보존됐는지 검사한다.
+          I2가 캡션을 셀 본문 집계에서 제외하므로, 캡션이 조용히 사라지지 않았음을
+          여기서 반드시 보증해야 한다. (I2 완화와 짝을 이루는 검사)
+    입력 데이터: paths(section XML), final_debug, report.
+    출력 데이터: 반환값 없음.
+    """
+    expected_texts: list[str] = []
+
+    for path in paths:
+        root = ET.parse(path).getroot()
+        for element in root.iter():
+            if local_name(element.tag) != "caption":
+                continue
+            text = "".join(
+                "".join(t.itertext())
+                for t in element.iter()
+                if local_name(t.tag) == "t"
+            )
+            if normalize(text):
+                expected_texts.append(text)
+
+    internal_blocks = ((final_debug.get("table_internal_blocks") or {}).get("internal_blocks")) or []
+    caption_blocks = [
+        b for b in internal_blocks if b.get("internal_block_type") == "table_caption"
+    ]
+    caption_index = {normalize(b.get("text_content")) for b in caption_blocks}
+
+    missing = [t for t in expected_texts if normalize(t) not in caption_index]
+
+    # 캡션이 대상 개체와 연결돼 있어야 데이터로서 의미가 있다
+    unlinked = [
+        b.get("internal_block_id")
+        for b in caption_blocks
+        if not b.get("binary_item_id_ref")
+    ]
+
+    passed = not missing and not unlinked and len(caption_blocks) == len(expected_texts)
+    detail = (
+        f"XML hp:caption {len(expected_texts)}개 / caption 블록 {len(caption_blocks)}개, "
+        f"누락 {len(missing)}개, 대상 개체 미연결 {len(unlinked)}개"
+    )
+    if missing:
+        detail += f" | 예: {missing[0][:30]!r}"
+
+    report.add("I9 caption_coverage", passed, detail)
+
+
 def check_i8_source_block_refs(final_debug: dict[str, Any], report: Report) -> None:
     """
     역할: I8 — internal_blocks의 source_block_id가 실제 존재하는 block_id를 가리키는지,
@@ -807,6 +869,7 @@ def command_check(args: argparse.Namespace) -> int:
     check_i6_depth_resolved(final_debug, report)
     check_i7_text_regression(diff, report)
     check_i8_source_block_refs(final_debug, report)
+    check_i9_caption_coverage(paths, final_debug, report)
 
     print("===========================================")
     print("[불변식 검사]")

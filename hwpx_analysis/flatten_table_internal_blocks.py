@@ -147,9 +147,11 @@ def _flatten_one_table(
             order += 1
 
             # table_cell_text: 직접 텍스트가 있을 때만 생성 (원칙 5, 기준 7)
+            # 공백만 남은 경우도 빈 셀로 본다. TableParser의 is_empty 정의
+            # (not cell.text.strip())와 일치시켜 두 집계가 어긋나지 않게 한다.
             text_info = cell.get("text") or {}
             direct_text = text_info.get("text")
-            if direct_text:
+            if direct_text and direct_text.strip():
                 internal_blocks.append({
                     "internal_block_id": f"{cell_id}::text",
                     "internal_block_type": "table_cell_text",
@@ -248,6 +250,42 @@ def _flatten_one_table(
                 })
                 order += 1
 
+            # table_caption: 셀 내부 개체(그림 등)의 설명문.
+            # 셀 본문 텍스트(table_cell_text)와 형제로 두어 표 데이터 값과
+            # 구분 가능하게 하고, binary_item_id_ref로 대상 이미지와 연결한다.
+            for caption in cell_objects.get("captions") or []:
+                caption_id = caption.get("caption_id")
+                caption_text = (caption.get("text") or "").strip()
+
+                if not caption_id or not caption_text:
+                    continue
+
+                internal_blocks.append({
+                    "internal_block_id": caption_id,
+                    "internal_block_type": "table_caption",
+                    "object_type": caption.get("parent_object_type"),
+                    "binary_item_id_ref": caption.get("binary_item_id_ref"),
+                    "source_table_id": source_table_id,
+                    "root_table_id": root_table_id,
+                    "source_block_id": source_block_id,
+                    "parent_internal_block_id": cell_id,
+                    "parent_table_id": table.get("parent_table_id"),
+                    "parent_cell_id": cell_id,
+                    "section_index": section_index,
+                    "table_index": table_index,
+                    "local_order_index": order,
+                    "local_depth": object_ref_local_depth,
+                    "absolute_depth": base_depth + object_ref_local_depth,
+                    "depth_origin": _DEPTH_ORIGIN,
+                    "text_content": caption_text,
+                    "normalized_text": " ".join(caption_text.split()),
+                    "evidence": [
+                        "source=cell.objects.captions",
+                        f"parent_object={caption.get('parent_object_type')}",
+                    ],
+                })
+                order += 1
+
             # nested_table_ref: cell.objects.nested_table_ids가 1순위 소스 (원칙 4, 기준 8)
             nested_table_ids = (cell.get("objects") or {}).get("nested_table_ids") or []
             nested_ref_local_depth = cell_local_depth + 1
@@ -330,6 +368,7 @@ def _flatten_top_level_table(
     text_block_count = sum(1 for b in generated if b["internal_block_type"] == "table_cell_text")
     nested_ref_count = sum(1 for b in generated if b["internal_block_type"] == "nested_table_ref")
     object_ref_count = sum(1 for b in generated if b["internal_block_type"] == "table_object_ref")
+    caption_count = sum(1 for b in generated if b["internal_block_type"] == "table_caption")
     max_local_depth = max((b["local_depth"] for b in generated), default=0)
     max_absolute_depth = max((b["absolute_depth"] for b in generated), default=0)
 
@@ -342,6 +381,7 @@ def _flatten_top_level_table(
         "text_block_count": text_block_count,
         "nested_table_ref_count": nested_ref_count,
         "table_object_ref_count": object_ref_count,
+        "table_caption_count": caption_count,
         "max_local_depth": max_local_depth,
         "max_absolute_depth": max_absolute_depth,
     }

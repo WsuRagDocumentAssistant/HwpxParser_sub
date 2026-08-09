@@ -177,6 +177,8 @@ def cell_to_dict(
 
         "draw_objects": to_jsonable(getattr(cell, "draw_objects", [])),
 
+        "captions": to_jsonable(getattr(cell, "captions", [])),
+
         "nested_tables": [
             table_to_dict(nested_table, char_pr_lookup, header)
             for nested_table in getattr(cell, "nested_tables", [])
@@ -192,6 +194,7 @@ def cell_to_dict(
         "has_image": cell.has_image,
         "has_field": cell.has_field,
         "has_shape": cell.has_shape,
+        "has_caption": getattr(cell, "has_caption", False),
 
         "is_column_header": cell.is_column_header,
         "is_row_header": cell.is_row_header,

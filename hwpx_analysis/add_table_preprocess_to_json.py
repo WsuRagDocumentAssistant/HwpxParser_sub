@@ -629,6 +629,8 @@ def build_cell_preprocess(cell: dict[str, Any]) -> dict[str, Any]:
                 if image.get("image_id") is not None
             ],
             "draw_objects": as_list(cell.get("draw_objects")),
+            # 개체 설명문. 셀 본문 텍스트와 분리해 보존한다.
+            "captions": as_list(cell.get("captions")),
             "nested_table_ids": nested_table_ids,
         },
 
