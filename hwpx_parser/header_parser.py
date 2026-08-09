@@ -16,17 +16,12 @@ class HeaderParser:
     Contents/header.xml에서 문서 파싱에 필요한 공통 참조 정보를 추출한다.
 
     저장 대상:
-    - hh:borderFill@id  -> HeaderData.border_fills
     - hh:paraPr@id      -> HeaderData.para_properties
     - hh:charPr@id      -> HeaderData.char_properties
     - hh:style@id       -> HeaderData.styles
     - hh:style@id       -> style_names / style_to_para_pr / style_to_char_pr
     - hh:paraPr heading -> para_pr_to_heading_level
 
-    주의:
-    - Table / TableCell에 BorderFill 객체를 직접 저장하지 않는다.
-    - header.xml의 borderFill은 HeaderData.border_fills에 raw dict로 보관한다.
-    - 이후 ParserContext.get_border_fill_raw(border_fill_id)로 필요할 때 조회한다.
     """
 
     @classmethod
@@ -34,7 +29,7 @@ class HeaderParser:
         """
         역할: Contents/header.xml을 읽어 공통 참조 정보가 담긴 HeaderData 객체로 변환한다.
         입력 데이터: source(header.xml 파일 경로 문자열 또는 Path).
-        출력 데이터: borderFill/paraPr/charPr/style 원본 맵을 가진 HeaderData 객체를 반환한다.
+        출력 데이터: paraPr/charPr/style 원본 맵을 가진 HeaderData 객체를 반환한다.
         """
         source = Path(source)
 
@@ -47,58 +42,12 @@ class HeaderParser:
             raw_attrs=cls._normalize_attrs(root.attrib),
         )
 
-        cls._parse_border_fills(root, header)
         cls._parse_para_properties(root, header)
         cls._parse_char_properties(root, header)
         cls._parse_styles(root, header)
+        cls._parse_auto_label_definitions(root, header)
 
         return header
-
-    #------------------------------------------------
-    # borderFill 파싱
-    #------------------------------------------------
-
-    @classmethod
-    def _parse_border_fills(cls, root, header: HeaderData) -> None:
-        """
-        역할: header.xml 전체에서 hh:borderFill 요소를 찾아 ID별 원본 데이터로 저장한다.
-        입력 데이터: root(header XML 루트), header(수정할 HeaderData).
-        출력 데이터: 반환값은 없고, header.border_fills 딕셔너리가 갱신된다.
-        """
-        """
-        header.xml의 hh:borderFill 목록을 추출한다.
-
-        예:
-        <hh:borderFill id="3">
-            <hh:leftBorder ... />
-            <hh:rightBorder ... />
-            <hh:fillBrush>...</hh:fillBrush>
-        </hh:borderFill>
-
-        저장 형태:
-        header.border_fills["3"] = {
-            "tag": "borderFill",
-            "attrs": {"id": "3", ...},
-            "children": [...]
-        }
-
-        Table / TableCell에는 이 객체를 직접 넣지 않고,
-        border_fill_id_ref만 저장한 뒤 필요할 때 ID로 조회한다.
-        """
-
-        for elem in root.iter():
-            if cls._local_name(elem.tag) != "borderFill":
-                continue
-
-            attrs = cls._normalize_attrs(elem.attrib)
-
-            border_fill_id = attrs.get("id")
-            if border_fill_id is None:
-                continue
-
-            border_fill_id = str(border_fill_id)
-
-            header.border_fills[border_fill_id] = cls._element_to_raw(elem)
 
     #------------------------------------------------
     # paraPr 파싱
@@ -134,6 +83,10 @@ class HeaderParser:
             heading_level = cls._extract_heading_level(elem)
             if heading_level is not None:
                 header.para_pr_to_heading_level[para_pr_id] = heading_level
+
+            heading_info = cls._extract_heading_info(elem)
+            if heading_info is not None:
+                header.para_pr_to_heading[para_pr_id] = heading_info
 
     #------------------------------------------------
     # charPr 파싱
@@ -252,6 +205,98 @@ class HeaderParser:
                 return None
 
         return None
+
+    #------------------------------------------------
+    # heading 상세 정보 / 자동 마커 정의 추출
+    #------------------------------------------------
+
+    @classmethod
+    def _extract_heading_info(cls, para_pr_element) -> dict[str, Any] | None:
+        """
+        역할: paraPr 하위 heading에서 type/level/idRef를 함께 추출한다.
+              _extract_heading_level은 level만 반환하므로,
+              불릿/번호 정의(hh:bullet, hh:numbering)를 찾아가려면 idRef가 필요하다.
+        입력 데이터: para_pr_element(paraPr XML 요소).
+        출력 데이터: {"type", "level", "id_ref"} dict. heading이 없으면 None.
+        """
+        candidate_names = {"heading", "headingInfo", "outline"}
+
+        for child in para_pr_element.iter():
+            if child is para_pr_element:
+                continue
+
+            if cls._local_name(child.tag) not in candidate_names:
+                continue
+
+            attrs = cls._normalize_attrs(child.attrib)
+
+            level = attrs.get("level")
+            try:
+                level_value = int(level) if level is not None else None
+            except ValueError:
+                level_value = None
+
+            return {
+                "type": attrs.get("type"),
+                "level": level_value,
+                "id_ref": attrs.get("idRef"),
+            }
+
+        return None
+
+    @classmethod
+    def _parse_auto_label_definitions(cls, root, header: HeaderData) -> None:
+        """
+        역할: 문단 앞에 자동 렌더링되지만 section*.xml의 hp:t에는 저장되지 않는
+              마커 정의를 추출한다.
+              - hh:bullet@id -> @char        (불릿 문자)
+              - hh:numbering@id -> paraHead  (개요/문단 번호 형식)
+        입력 데이터: root(header XML 루트), header(수정할 HeaderData).
+        출력 데이터: 반환값은 없고, bullet_chars / numbering_para_heads가 갱신된다.
+        """
+        for elem in root.iter():
+            name = cls._local_name(elem.tag)
+
+            if name == "bullet":
+                attrs = cls._normalize_attrs(elem.attrib)
+                bullet_id = attrs.get("id")
+                char = attrs.get("char")
+
+                if bullet_id is not None and char:
+                    header.bullet_chars[str(bullet_id)] = str(char)
+
+                continue
+
+            if name != "numbering":
+                continue
+
+            attrs = cls._normalize_attrs(elem.attrib)
+            numbering_id = attrs.get("id")
+
+            if numbering_id is None:
+                continue
+
+            heads: dict[str, dict[str, Any]] = {}
+
+            for child in elem:
+                if cls._local_name(child.tag) != "paraHead":
+                    continue
+
+                head_attrs = cls._normalize_attrs(child.attrib)
+                level = head_attrs.get("level")
+
+                if level is None:
+                    continue
+
+                heads[str(level)] = {
+                    # "^1." 처럼 순번 자리표시자가 들어간 형식 문자열
+                    "text": child.text,
+                    "num_format": head_attrs.get("numFormat"),
+                    "start": head_attrs.get("start"),
+                }
+
+            if heads:
+                header.numbering_para_heads[str(numbering_id)] = heads
 
     #------------------------------------------------
     # XML element raw 변환

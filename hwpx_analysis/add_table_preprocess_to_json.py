@@ -4,8 +4,6 @@
 
 from __future__ import annotations
 
-import json
-from pathlib import Path
 from typing import Any
 
 
@@ -86,6 +84,7 @@ def build_table_preprocess(
         "structure": build_structure(table, cells),
         "text": build_text(cells),
         "style": build_style(table, cells),
+        "style_features": build_style_features(table, cells),
         "objects": build_objects(cells),
         "cells": [
             build_cell_preprocess(cell)
@@ -193,7 +192,6 @@ def build_validation(validation: Any) -> dict[str, Any]:
         "has_invalid_cell_span": validation.get("has_invalid_cell_span"),
         "has_duplicated_slot": validation.get("has_duplicated_slot"),
         "has_empty_slot": validation.get("has_empty_slot"),
-        "has_missing_border_fill_ref": validation.get("has_missing_border_fill_ref"),
         "has_missing_style_ref": validation.get("has_missing_style_ref"),
         "has_missing_para_pr_ref": validation.get("has_missing_para_pr_ref"),
         "has_missing_char_pr_ref": validation.get("has_missing_char_pr_ref"),
@@ -202,6 +200,7 @@ def build_validation(validation: Any) -> dict[str, Any]:
         "has_empty_cell": validation.get("has_empty_cell"),
         "has_nested_object": validation.get("has_nested_object"),
         "is_irregular": validation.get("is_irregular"),
+        "header_border_row_indices": validation.get("header_border_row_indices") or [],
     }
 
 
@@ -364,23 +363,11 @@ def build_style(
     table: dict[str, Any],
     cells: list[dict[str, Any]],
 ) -> dict[str, Any]:
-    cell_border_fill_id_refs: list[Any] = []
-    cell_fill_colors: list[Any] = []
     para_pr_id_refs: list[Any] = []
     style_id_refs: list[Any] = []
     char_pr_id_refs: list[Any] = []
 
     for cell in cells:
-        cell_border_fill_id_refs.append(cell.get("border_fill_id_ref"))
-
-        border_fill = cell.get("border_fill")
-        if isinstance(border_fill, dict):
-            fill = border_fill.get("fill")
-            if isinstance(fill, dict):
-                face_color = fill.get("face_color")
-                if face_color is not None:
-                    cell_fill_colors.append(face_color)
-
         for paragraph in as_list(cell.get("paragraphs")):
             para_pr_id_refs.append(paragraph.get("para_pr_id_ref"))
             style_id_refs.append(paragraph.get("style_id_ref"))
@@ -389,18 +376,74 @@ def build_style(
                 char_pr_id_refs.append(run.get("char_pr_id_ref"))
 
     return {
-        "table_border_fill_id_ref": table.get("border_fill_id_ref"),
-
-        # table_border 전체는 원본 table.border_fill에서 온다.
-        # 전처리 요약이지만, 표 단위 border 판단에 필요해서 포함한다.
-        "table_border": table.get("border_fill"),
-
-        "cell_border_fill_id_refs": unique_keep_order(cell_border_fill_id_refs),
-        "cell_fill_colors": unique_keep_order(cell_fill_colors),
-
         "para_pr_id_refs": unique_keep_order(para_pr_id_refs),
         "style_id_refs": unique_keep_order(style_id_refs),
         "char_pr_id_refs": unique_keep_order(char_pr_id_refs),
+    }
+
+
+def _collect_run_char_features(
+    cells: list[dict[str, Any]],
+) -> tuple[int, list[float]]:
+    """cells 전체 run에서 bold cell 수와 font_size 목록을 수집한다."""
+    bold_cell_count = 0
+    font_sizes: list[float] = []
+
+    for cell in cells:
+        cell_has_bold = False
+
+        for paragraph in as_list(cell.get("paragraphs")):
+            for run in as_list(paragraph.get("runs")):
+                if run.get("bold") is True:
+                    cell_has_bold = True
+
+                fs = run.get("font_size")
+                if isinstance(fs, (int, float)) and fs > 0:
+                    font_sizes.append(float(fs))
+
+        if cell_has_bold:
+            bold_cell_count += 1
+
+    return bold_cell_count, font_sizes
+
+
+def build_style_features(
+    table: dict[str, Any],
+    cells: list[dict[str, Any]],
+) -> dict[str, Any]:
+    has_center_alignment = any(
+        cell.get("sublist_vert_align") == "CENTER" for cell in cells
+    )
+
+    bold_cell_count, font_sizes = _collect_run_char_features(cells)
+    has_bold = bold_cell_count > 0 if cells else None
+    max_font_size = round(max(font_sizes), 1) if font_sizes else None
+    avg_font_size = round(sum(font_sizes) / len(font_sizes), 1) if font_sizes else None
+
+    return {
+        "has_bold": has_bold,
+        "bold_cell_count": bold_cell_count,
+        "max_font_size": max_font_size,
+        "avg_font_size": avg_font_size,
+        "has_center_alignment": has_center_alignment,
+    }
+
+
+def build_cell_style_features(cell: dict[str, Any]) -> dict[str, Any]:
+    cell_has_bold = False
+    font_sizes: list[float] = []
+    for paragraph in as_list(cell.get("paragraphs")):
+        for run in as_list(paragraph.get("runs")):
+            if run.get("bold") is True:
+                cell_has_bold = True
+            fs = run.get("font_size")
+            if isinstance(fs, (int, float)) and fs > 0:
+                font_sizes.append(float(fs))
+
+    return {
+        "has_bold": cell_has_bold,
+        "max_font_size": round(max(font_sizes), 1) if font_sizes else None,
+        "has_center_alignment": cell.get("sublist_vert_align") == "CENTER",
     }
 
 
@@ -457,6 +500,19 @@ def build_cell_preprocess(cell: dict[str, Any]) -> dict[str, Any]:
         paragraph.get("text") or ""
         for paragraph in paragraphs
     ]
+
+    # 문단 앞에 자동 렌더링되지만 hp:t에는 없는 마커(불릿/번호 형식).
+    # paragraph_texts와 인덱스가 1:1로 대응하도록 같은 순서로 만든다.
+    paragraph_auto_labels = [
+        paragraph.get("auto_label")
+        for paragraph in paragraphs
+    ]
+
+    auto_label_bullet_ids = unique_keep_order([
+        label.get("bullet_id")
+        for label in paragraph_auto_labels
+        if isinstance(label, dict) and label.get("bullet_id") is not None
+    ])
 
     para_pr_id_refs = unique_keep_order([
         paragraph.get("para_pr_id_ref")
@@ -533,16 +589,20 @@ def build_cell_preprocess(cell: dict[str, Any]) -> dict[str, Any]:
             "paragraph_count": len(paragraphs),
             "run_count": len(runs),
             "paragraph_texts": paragraph_texts,
+            "paragraph_auto_labels": paragraph_auto_labels,
+            "has_auto_label": any(
+                isinstance(label, dict) for label in paragraph_auto_labels
+            ),
             "has_line_break": any(bool(run.get("has_line_break")) for run in runs),
             "has_tab": any(bool(run.get("has_tab")) for run in runs),
             "has_fw_space": any(bool(run.get("has_fw_space")) for run in runs),
         },
 
         "style_refs": {
-            "border_fill_id_ref": cell.get("border_fill_id_ref"),
             "para_pr_id_refs": para_pr_id_refs,
             "style_id_refs": style_id_refs,
             "char_pr_id_refs": char_pr_id_refs,
+            "auto_label_bullet_ids": auto_label_bullet_ids,
         },
 
         "sublist": {
@@ -560,8 +620,19 @@ def build_cell_preprocess(cell: dict[str, Any]) -> dict[str, Any]:
 
         "objects": {
             "image_ids": image_ids,
+            "images": [
+                {
+                    "image_id": image.get("image_id"),
+                    "binary_item_id_ref": image.get("binary_item_id_ref"),
+                }
+                for image in as_list(cell.get("images"))
+                if image.get("image_id") is not None
+            ],
+            "draw_objects": as_list(cell.get("draw_objects")),
             "nested_table_ids": nested_table_ids,
         },
+
+        "style_features": build_cell_style_features(cell),
     }
 
 
@@ -573,10 +644,6 @@ def build_preprocess_table_item(
     table: dict[str, Any],
     depth: int = 0,
 ) -> dict[str, Any]:
-    """
-    원본 table 전체를 복사하지 않고,
-    우리가 구상한 최종 JSON 템플릿만 만든다.
-    """
     children = [
         build_preprocess_table_item(
             table=nested_table,
@@ -601,10 +668,6 @@ def build_preprocess_table_item(
 def build_preprocess_tables_json(
     tables_json: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
-    """
-    tables.json 전체에서 preprocess 요약본만 추출한다.
-    원본 rows/cells/paragraphs/runs/nested_tables 전체는 출력하지 않는다.
-    """
     return [
         build_preprocess_table_item(
             table=table,
@@ -615,49 +678,18 @@ def build_preprocess_tables_json(
 
 
 #================================================
-# 파일 입출력
+# 진입점 (인메모리)
 #================================================
 
-def load_tables_json(path: str | Path) -> list[dict[str, Any]]:
-    source_path = Path(path)
-
-    with source_path.open("r", encoding="utf-8") as f:
-        data = json.load(f)
-
-    if not isinstance(data, list):
-        raise ValueError("tables.json 최상위 구조는 list[dict] 이어야 합니다.")
-
-    return data
-
-
-def save_tables_json(
+def preprocess_tables(
     tables: list[dict[str, Any]],
-    path: str | Path,
-) -> None:
-    output_path = Path(path)
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-
-    with output_path.open("w", encoding="utf-8") as f:
-        json.dump(
-            tables,
-            f,
-            ensure_ascii=False,
-            indent=2,
-        )
-
-
-def convert_tables_json_with_preprocess(
-    input_path: str | Path,
-    output_path: str | Path,
-) -> None:
+) -> list[dict[str, Any]]:
     """
-    기존 함수명은 유지한다.
-    test.py에서 이미 이 함수를 import해서 쓰고 있으면 수정하지 않아도 된다.
-
-    동작:
-    - 입력: tables.json
-    - 출력: preprocess 요약 JSON
+    역할: 파서 직렬화 표 리스트에서 preprocess 요약 표 리스트를 생성한다.
+    입력 데이터: tables(직렬화된 표 dict 리스트). 원본은 수정하지 않는다.
+    출력 데이터: preprocess/children 구조의 새 표 dict 리스트.
     """
-    tables = load_tables_json(input_path)
-    result = build_preprocess_tables_json(tables)
-    save_tables_json(result, output_path)
+    if not isinstance(tables, list):
+        raise ValueError("tables 최상위 구조는 list[dict] 이어야 합니다.")
+
+    return build_preprocess_tables_json(tables)
