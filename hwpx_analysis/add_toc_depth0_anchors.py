@@ -672,3 +672,53 @@ def add_toc_depth0_anchors(
         + " matched"
     )
     return summary
+
+
+#------------------------------------------------
+# 산출물 렌더링 지원: 목차 표 항목의 선언 depth
+#------------------------------------------------
+
+def iter_toc_entry_levels(
+    internal_blocks: list[dict[str, Any]],
+    toc_table_ids: set[str] | list[str] | None,
+) -> list[tuple[str, int]]:
+    """
+    역할: 목차 표의 셀 텍스트를 문서 순서대로 훑어 (텍스트, 선언 depth)를 만든다.
+          depth는 항목 번호의 성분 수에서 나온다 ('3'->0, '3.1'->1, '3.1.1'->2).
+          번호가 없는 항목(로마숫자 장 표기 등)은 직전 항목의 레벨을 잇는다.
+    입력 데이터: internal_blocks(TableInternalBlocks.internal_blocks),
+                toc_table_ids(quality.toc_depth0_anchor.toc_source_table_ids).
+    출력 데이터: [(텍스트, depth), ...]. 목차 표가 없으면 빈 리스트.
+
+    주의: 목차 표 식별은 문자열 매칭이 아니라 add_toc_depth0_anchors가 이미
+          산출해 둔 toc_source_table_ids를 그대로 쓴다.
+    """
+    if not toc_table_ids:
+        return []
+
+    ids = set(toc_table_ids)
+    entries: list[tuple[str, int]] = []
+    last_level: int | None = None
+
+    for block in internal_blocks:
+        if block.get("root_table_id") not in ids:
+            continue
+        if block.get("internal_block_type") != "table_cell_text":
+            continue
+
+        raw = (block.get("text_content") or "").strip()
+        if not raw:
+            continue
+
+        line, _page = _strip_page_suffix(raw)
+        numbering, _title = _split_numbering(line)
+        level = _numbering_anchor_level(numbering)
+
+        if level is None:
+            level = last_level if last_level is not None else 0
+        else:
+            last_level = level
+
+        entries.append((" ".join(raw.split()), level))
+
+    return entries

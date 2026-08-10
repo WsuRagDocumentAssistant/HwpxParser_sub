@@ -23,6 +23,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from hwpx_analysis.add_toc_depth0_anchors import iter_toc_entry_levels
 from hwpx_analysis.pipeline_models import (
     BlocksDocument,
     LlmContextText,
@@ -103,6 +104,14 @@ def generate_llm_context(
     )
     grouped_internal = _internal_by_root(internal_blocks)
 
+    # 목차 표는 셀을 뭉갠 미리보기 대신 항목을 선언 depth로 펼친다.
+    # 문서 골격이므로 미리보기 한 줄로 접으면 계층 정보가 사라진다.
+    toc_table_ids = set(
+        (blocks_doc.quality.get("toc_depth0_anchor") or {}).get("toc_source_table_ids")
+        or []
+    )
+    toc_entries = iter_toc_entry_levels(internal_blocks, toc_table_ids)
+
     ordered_blocks = sorted(
         blocks,
         key=lambda b: (
@@ -121,6 +130,7 @@ def generate_llm_context(
         "cell_text_emitted": 0,
         "caption_emitted": 0,
         "control_emitted": 0,
+        "toc_entry_emitted": 0,
         "truncated": 0,
     }
 
@@ -160,8 +170,16 @@ def generate_llm_context(
         if block_type != "table":
             continue
 
-        #--- 표 내부: cell text / caption을 계층 위치에 그대로 붙인다 -----
         table_id = (block.get("table_hierarchy_ref") or {}).get("table_id")
+
+        #--- 목차 표: 항목을 선언 depth로 펼친다 (셀 나열 대신) ----------
+        if table_id in toc_table_ids:
+            for entry_text, entry_depth in toc_entries:
+                lines.append(f"{'  ' * entry_depth}(toc) {entry_text}")
+                stats["toc_entry_emitted"] += 1
+            continue
+
+        #--- 표 내부: cell text / caption을 계층 위치에 그대로 붙인다 -----
 
         for internal in grouped_internal.get(table_id) or []:
             internal_type = internal.get("internal_block_type")
@@ -196,7 +214,8 @@ def generate_llm_context(
         f"# blocks: total={stats['block_total']} emitted={stats['block_emitted']} "
         f"skipped_no_text={stats['block_skipped_no_text']}",
         f"# table internals: cell_text={stats['cell_text_emitted']} "
-        f"caption={stats['caption_emitted']} control={stats['control_emitted']}",
+        f"caption={stats['caption_emitted']} control={stats['control_emitted']} "
+        f"toc_entry={stats['toc_entry_emitted']}",
         f"# peripheral_included={stats['peripheral_included']} "
         f"annotation_included={stats['annotation_included']}",
         f"# truncated={stats['truncated']} (this artifact never truncates)",
@@ -211,5 +230,6 @@ def generate_llm_context(
     print(f"cell text lines    : {stats['cell_text_emitted']}")
     print(f"caption lines      : {stats['caption_emitted']}")
     print(f"control lines      : {stats['control_emitted']}")
+    print(f"toc entry lines    : {stats['toc_entry_emitted']}")
 
     return LlmContextText(text=text_out, stats=stats)
