@@ -16,8 +16,7 @@ class ParserContext:
     """
     section.xml, table.xml 등을 파싱할 때 필요한 공통 참조 정보.
 
-    이 Context는 Table / TableCell에 외부 스타일 객체를 직접 넣지 않고,
-    borderFillIDRef 같은 참조 ID를 기준으로 header.xml 정보를 조회하는 역할만 한다.
+    이 Context는 paraPr/charPr/style 같은 참조 ID를 기준으로 header.xml 정보를 조회하는 역할만 한다.
     """
 
     # header.xml 파싱 결과
@@ -25,53 +24,6 @@ class ParserContext:
 
     # 이미지 폴더 경로
     image_dir_path: Optional[Path] = None
-
-    #------------------------------------------------
-    # borderFill 참조 조회
-    #------------------------------------------------
-
-    def get_border_fill_raw(
-        self,
-        border_fill_id: Optional[str],
-    ) -> Optional[dict[str, Any]]:
-        """
-        역할: 표 또는 셀의 borderFillIDRef로 header.xml의 borderFill 원본 데이터를 조회한다.
-        입력 데이터: border_fill_id(문자열 ID 또는 None).
-        출력 데이터: 일치하는 borderFill 원본 dict를 반환하고, 없으면 None을 반환한다.
-        """
-        """
-        hp:tbl@borderFillIDRef 또는 hp:tc@borderFillIDRef가 가리키는
-        header.xml의 hh:borderFill raw 정보를 조회한다.
-
-        Table / TableCell에는 BorderFill 객체를 직접 저장하지 않고,
-        여기서 필요할 때만 조회한다.
-        """
-
-        if border_fill_id is None:
-            return None
-
-        border_fill_id = str(border_fill_id)
-
-        return self.header.get_border_fill_raw(border_fill_id)
-
-    def has_border_fill(
-        self,
-        border_fill_id: Optional[str],
-    ) -> bool:
-        """
-        역할: borderFillIDRef가 header.xml의 borderFill 목록에 실제 존재하는지 확인한다.
-        입력 데이터: border_fill_id(문자열 ID 또는 None).
-        출력 데이터: 존재하면 True, 없거나 입력이 None이면 False를 반환한다.
-        """
-        """
-        borderFillIDRef가 header.xml의 borderFill 목록에 실제 존재하는지 확인한다.
-        검증 단계에서 사용한다.
-        """
-
-        if border_fill_id is None:
-            return False
-
-        return self.get_border_fill_raw(border_fill_id) is not None
 
     #------------------------------------------------
     # paraPr 참조 조회

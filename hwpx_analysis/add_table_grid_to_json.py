@@ -1,24 +1,6 @@
 from __future__ import annotations
 
-import json
-from pathlib import Path
 from typing import Any
-
-
-def load_json(path: str | Path) -> Any:
-    with Path(path).open("r", encoding="utf-8") as f:
-        return json.load(f)
-
-
-def save_json(data: Any, path: str | Path) -> None:
-    with Path(path).open("w", encoding="utf-8") as f:
-        json.dump(
-            data,
-            f,
-            ensure_ascii=False,
-            indent=2,
-            sort_keys=False,
-        )
 
 
 def to_int(value: Any, default: int | None = None) -> int | None:
@@ -204,23 +186,16 @@ def add_grid_to_tables(tables: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return tables
 
 
-def add_table_grid_to_json(
-    input_path: str | Path,
-    output_path: str | Path | None = None,
-) -> list[dict[str, Any]]:
-    tables = load_json(input_path)
-
+def add_table_grid(tables: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """
+    역할: preprocess가 반영된 표 리스트에 grid(slots) 정보를 추가한다.
+    입력 데이터: tables(preprocess 표 dict 리스트). in-place로 grid 키를 추가한다.
+    출력 데이터: grid가 추가된 동일 리스트.
+    """
     if not isinstance(tables, list):
-        raise ValueError("top-level JSON must be list[table]")
+        raise ValueError("tables 최상위 구조는 list[table] 이어야 합니다.")
 
-    add_grid_to_tables(tables)
-
-    save_json(
-        tables,
-        output_path if output_path is not None else input_path,
-    )
-
-    return tables
+    return add_grid_to_tables(tables)
 
 
 def get_direct_cells(table: dict[str, Any]) -> list[dict[str, Any]]:
