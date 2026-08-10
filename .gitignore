@@ -1,0 +1,14 @@
+# 파이썬 바이트코드
+__pycache__/
+*.py[cod]
+
+# 파이프라인 산출물.
+# output/ 전체는 sample.zip 등 원본 문서에서 재생성된다.
+#   output/unpacked/  <- 원본 압축 해제 결과
+#   output/results/   <- 분석 산출물(final_debug.json, llm_context.txt 등)
+# 회귀 검증 기준선은 tools/baseline/ 에 있으므로 여기 포함되지 않는다.
+output/
+
+# 임시 디버그 덤프
+debug_*.txt
+scratchpad_output.txt
