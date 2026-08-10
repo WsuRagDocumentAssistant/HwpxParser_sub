@@ -36,6 +36,7 @@ from hwpx_analysis.add_toc_depth0_anchors import add_toc_depth0_anchors
 from hwpx_analysis.apply_depth_constraints import apply_depth_constraints
 from hwpx_analysis.assign_block_visibility import assign_block_visibility
 from hwpx_analysis.correct_title_box_depths import correct_title_box_depths
+from hwpx_analysis.propagate_toc_anchor_depth import propagate_toc_anchor_depth
 from hwpx_analysis.flatten_table_internal_blocks import (
     flatten_table_internal_blocks,
 )
@@ -102,6 +103,11 @@ def run_analysis_pipeline(
     # 재앵커링 + flow shift/clamp. 8-B의 flow 전파가 보정을 덮어쓰지 않도록
     # 반드시 8-B 이후, flatten(7.5-B) 이전에 실행한다.
     correct_title_box_depths(blocks_doc, tables.analyzed)
+
+    # Stage 8-C: 목차 anchor 하위 flow 전파 + 잔여 구간 clamp.
+    # anchor는 자기 depth만 확정하고 뒤 블록은 옛 좌표에 남아 단절되므로
+    # 모든 depth 보정이 끝난 뒤 마지막으로 연결한다.
+    propagate_toc_anchor_depth(blocks_doc)
 
     # Stage 7.5-B: 표 내부(row/cell/nested table) 평탄화.
     # base_depth로 최종 확정 depth를 쓰기 위해 depth 보정 뒤에 둔다.

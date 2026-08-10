@@ -808,7 +808,7 @@
     "Contents/section0.xml#hp:p[78]|0": {
       "block_type": "paragraph",
       "semantic_role": "empty_paragraph",
-      "depth": 8,
+      "depth": 2,
       "reading_order_index": 112,
       "text_content": ""
     },
@@ -1333,7 +1333,7 @@
     "Contents/section1.xml#hp:p[0]|0": {
       "block_type": "paragraph",
       "semantic_role": "empty_paragraph",
-      "depth": 8,
+      "depth": 6,
       "reading_order_index": 187,
       "text_content": ""
     },
@@ -1879,21 +1879,21 @@
     "Contents/section2.xml#hp:p[38]|0": {
       "block_type": "paragraph",
       "semantic_role": "empty_paragraph",
-      "depth": 6,
+      "depth": 1,
       "reading_order_index": 265,
       "text_content": ""
     },
     "Contents/section2.xml#hp:p[38]/hp:tbl|0": {
       "block_type": "table",
       "semantic_role": "table",
-      "depth": 6,
+      "depth": 1,
       "reading_order_index": 266,
       "text_content": null
     },
     "Contents/section2.xml#hp:p[39]|0": {
       "block_type": "paragraph",
       "semantic_role": "empty_paragraph",
-      "depth": 6,
+      "depth": 1,
       "reading_order_index": 267,
       "text_content": ""
     },
@@ -1907,14 +1907,14 @@
     "Contents/section2.xml#hp:p[40]|0": {
       "block_type": "paragraph",
       "semantic_role": "empty_paragraph",
-      "depth": 6,
+      "depth": 1,
       "reading_order_index": 269,
       "text_content": ""
     },
     "Contents/section2.xml#hp:p[40]/hp:pic|0": {
       "block_type": "image",
       "semantic_role": "figure",
-      "depth": 6,
+      "depth": 1,
       "reading_order_index": 270,
       "text_content": null
     },
@@ -1928,7 +1928,7 @@
     "Contents/section3.xml#hp:p[0]|0": {
       "block_type": "paragraph",
       "semantic_role": "empty_paragraph",
-      "depth": 6,
+      "depth": 2,
       "reading_order_index": 272,
       "text_content": ""
     },
@@ -1970,63 +1970,63 @@
     "Contents/section3.xml#hp:p[2]|0": {
       "block_type": "paragraph",
       "semantic_role": "empty_paragraph",
-      "depth": 6,
+      "depth": 1,
       "reading_order_index": 278,
       "text_content": ""
     },
     "Contents/section3.xml#hp:p[2]/hp:tbl|0": {
       "block_type": "table",
       "semantic_role": "table",
-      "depth": 6,
+      "depth": 1,
       "reading_order_index": 279,
       "text_content": null
     },
     "Contents/section3.xml#hp:p[3]|0": {
       "block_type": "paragraph",
       "semantic_role": "body_text",
-      "depth": 6,
+      "depth": 1,
       "reading_order_index": 280,
       "text_content": "- (자율성과지표 정의) 대학의 중장기 발전계획 및 혁신사업 목적에 부합한 전략 목표를 수립하고, 이를 달성하기 위한 성과지표를 SMART 기준 (Specific: 구체성, Measurable: 측정가능성, Attributable: 달성가능성, Reliable: 신뢰성, Timely: 적시성)에 따라 선정 및 정의"
     },
     "Contents/section3.xml#hp:p[4]|0": {
       "block_type": "paragraph",
       "semantic_role": "body_text",
-      "depth": 6,
+      "depth": 1,
       "reading_order_index": 281,
       "text_content": "- (기준값 및 목표값 설정) 기초 데이터 수집 및 현황 분석 등 체계적 절차를 통해 기준값을 설정하고, 이를 바탕으로 혁신적 사업성과 도출을 위한 목표값을 도전적으로 설정"
     },
     "Contents/section3.xml#hp:p[5]|0": {
       "block_type": "paragraph",
       "semantic_role": "empty_paragraph",
-      "depth": 6,
+      "depth": 1,
       "reading_order_index": 282,
       "text_content": ""
     },
     "Contents/section3.xml#hp:p[5]/hp:pic|0": {
       "block_type": "image",
       "semantic_role": "figure",
-      "depth": 6,
+      "depth": 1,
       "reading_order_index": 283,
       "text_content": null
     },
     "Contents/section3.xml#hp:p[6]|0": {
       "block_type": "paragraph",
       "semantic_role": "body_text",
-      "depth": 6,
+      "depth": 1,
       "reading_order_index": 284,
       "text_content": "- (성과관리 거버넌스 중심 지표 관리)  P : 계획수립 및 확정 → D : 사업 운영 및 성과(지표) 모니터링 → C : 사업성과 분석 및 Agile (2개월, 4개월) 자체평가 → A : 평가 결과 반영 개선안 마련"
     },
     "Contents/section3.xml#hp:p[7]|0": {
       "block_type": "paragraph",
       "semantic_role": "empty_paragraph",
-      "depth": 6,
+      "depth": 1,
       "reading_order_index": 285,
       "text_content": ""
     },
     "Contents/section3.xml#hp:p[8]|0": {
       "block_type": "paragraph",
       "semantic_role": "empty_paragraph",
-      "depth": 6,
+      "depth": 1,
       "reading_order_index": 286,
       "text_content": ""
     },
@@ -2292,21 +2292,21 @@
     "Contents/section3.xml#hp:p[32]|0": {
       "block_type": "paragraph",
       "semantic_role": "empty_paragraph",
-      "depth": 7,
+      "depth": 2,
       "reading_order_index": 324,
       "text_content": ""
     },
     "Contents/section3.xml#hp:p[32]/hp:tbl|0": {
       "block_type": "table",
       "semantic_role": "table",
-      "depth": 7,
+      "depth": 2,
       "reading_order_index": 325,
       "text_content": null
     },
     "Contents/section3.xml#hp:p[33]|0": {
       "block_type": "paragraph",
       "semantic_role": "empty_paragraph",
-      "depth": 7,
+      "depth": 2,
       "reading_order_index": 326,
       "text_content": ""
     },
@@ -2362,7 +2362,7 @@
     "Contents/section3.xml#hp:p[38]|0": {
       "block_type": "paragraph",
       "semantic_role": "empty_paragraph",
-      "depth": 7,
+      "depth": 1,
       "reading_order_index": 334,
       "text_content": ""
     },
@@ -2900,7 +2900,7 @@
     }
   },
   "internal_block_count": 5072,
-  "internal_blocks_hash": "b1958e7d5b011fddd4c07aadde2bb2f078ee7cfc1b5c8dd7858e092d70b29f69",
+  "internal_blocks_hash": "a9f8d63d8b35a6b8c422b2d25bca533e1fb17d1d0593d37e41e1db7f623540c7",
   "internal_text_hash": "d74d4d19e2e541207e06a692b6ae5483311c44d5fd251de70cc7e8aa72b0b309",
   "table_hierarchy_link": {
     "top_level_block_stats": {

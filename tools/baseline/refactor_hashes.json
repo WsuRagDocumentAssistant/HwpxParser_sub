@@ -1,20 +1,20 @@
 {
   "output\\results\\sample": {
-    "final_debug.json": "d6677f89dc85029d90e9b3b51a9fba37a1cc88599f8ce219ca3205a5d226163f",
-    "llm_context.txt": "c2668aee65e8678288d9e10c00ad4336216e1f21801d30703192b6d4ef79a59f",
-    "depth_text_preview_raw.txt": "3a65f59ea820a3feac881c659d748a13ec25406c27340e00fa63c3f983fd5e92",
-    "depth_text_preview_clean.txt": "b8ea94ba1509a5b0c1d95a3bd0aebb90b70420e2a4c701c310c056fb3ae4c1e3"
+    "final_debug.json": "a84a11cede2ee8b8858cbfb75db86ed175bb64af823a48d7383a5c6b32a34289",
+    "llm_context.txt": "5abfed16c1d33198a0124fd986fbce2d49817bb1d647e08b58ce23af35902085",
+    "depth_text_preview_raw.txt": "f07e7ceea33e200caf4b69b491f375b226736f98a1253e609b03d7738d10ae6a",
+    "depth_text_preview_clean.txt": "258ff5ab997deece76a53dc824d296b0ab9b4f4e2896bf688712896d68b45a4c"
   },
   "C:\\Users\\aaa\\AppData\\Local\\Temp\\claude\\C--Users-aaa-Desktop-test3\\c5124988-bfb7-460c-b66d-e45f24ca06f7\\scratchpad\\doc_a\\results\\2주기(2022년) 대학혁신지원수정사업계획서(본문)_221107_0930(증빙 포함)": {
-    "final_debug.json": "3a5d9636e6602014051dc846ce84e07935ae2ef087736b0a0da808509b54288d",
-    "llm_context.txt": "f1c5481544b4b85833c880c59a82ed3e12fa0f92639b8cba512ea6fa61ab91cf",
-    "depth_text_preview_raw.txt": "b1a76b2621506d1da956aa9797c3ed322063b31e2b437f42980928b877e755be",
-    "depth_text_preview_clean.txt": "f9e0174eedf1793e345192c5c2f61d4c2fa6893017845b7726cf8b7ed3072399"
+    "final_debug.json": "7c4d7f49ea237e13b0873af8dca468b01bb32041781c29e559167df1e11640f1",
+    "llm_context.txt": "d342d6e4598769800794478490b6e4a4161f9df71594950107e11947fb6f8754",
+    "depth_text_preview_raw.txt": "eeac4c69bdc9fb5c8ef5202c156456615d17bd01fa766d7daecae1ce985ef3c5",
+    "depth_text_preview_clean.txt": "8c93b8487759d731b654357295781861f433292b38069f93b3cdabd40005fcc1"
   },
   "C:\\Users\\aaa\\AppData\\Local\\Temp\\claude\\C--Users-aaa-Desktop-test3\\c5124988-bfb7-460c-b66d-e45f24ca06f7\\scratchpad\\doc_b\\results\\2주기(2022년) 대학혁신지원사업 1차년도 연차평가보고서(최종)_2307031705": {
-    "final_debug.json": "5edf491ec85205f543c5ae778221494209df0135d2164ec362301bb4b0ab4396",
-    "llm_context.txt": "f2e3251e9f69531c35983fa7750bfa01694660d0f41464e174db591fd9b365da",
-    "depth_text_preview_raw.txt": "867c7f7941db3e36bc672bef251695f4b4a6760e305bf483c6f60d3d1c00b45e",
-    "depth_text_preview_clean.txt": "68e5a668319e11d8a406b62dd9d8f8dd53233683006c51764f81049b2997288c"
+    "final_debug.json": "eccd604db0190489ea15c0c050e0cd83e42d6ebdc66254154038f0a0fa7f1a6e",
+    "llm_context.txt": "1ae38f409d223f37a4fe43750e4269707372e4427ad4b41bfb3d70f4196a4fb0",
+    "depth_text_preview_raw.txt": "31b4e8a9ba174b2abc256fcd0c6307f769727d417c94eaf27469b7ef7fbf5497",
+    "depth_text_preview_clean.txt": "50ecdf1fece125233f77166729a1c2859d1b6977380cdbd33c711613ffa4ed2f"
   }
 }
