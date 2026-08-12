@@ -7,6 +7,9 @@
     무엇에 근거해 그렇게 보는가                 evidence_kind
 
 근거의 종류 (evidence_kind)
+    instance  산출물 값을 원본의 바로 그 노드와 1:1로 맞춰 봤다. 표/셀은
+              xml_table_id 와 셀 좌표로 이을 수 있어 도메인 멤버십이 아니라
+              인스턴스 대응을 말한다. 값이 CENTER 하나뿐이어도 출처가 확정된다.
     code    추출식을 직접 확인했다. 가장 결정적이다. 속성 출처는 파서 시점의
             단일 표현식이라 코드를 읽으면 끝나는 문제다. 단계 순서와 달리
             제자리 변형/동명 키 위험이 없어 코드 읽기를 피할 이유가 없다.
@@ -282,7 +285,8 @@ def domain_evidence(stat, index, power):
     }
 
 
-def judge(path, stat, index, power, sites, text_unique, birth_module, claims):
+def judge(path, stat, index, power, sites, text_unique, birth_module, claims,
+          joined):
     """(verdict, evidence_kind, basis, blocked_reason, needed_info)
 
     평가 순서는 근거가 강한 것부터다. 약한 근거가 먼저 통과해 판정을
@@ -303,6 +307,26 @@ def judge(path, stat, index, power, sites, text_unique, birth_module, claims):
         return ('placeholder', 'none',
                 f'비지 않은 값이 전부 형식값 ({len(nonempty)}종), {fill_note}',
                 None, None)
+
+    # 0) instance - 가장 강한 근거. 원본의 그 노드와 값이 1:1로 맞는다.
+    if joined:
+        total = joined['total']
+        if joined['grade'] == '일치' and total:
+            if joined['lossy']:
+                # 값은 원본과 맞지만 대응이 단사가 아니다. 산출물만 받은 쪽은
+                # 원래 값을 복원할 수 없다. 판정은 valid 로 두되 이 사실이
+                # 레코드에 남아야 쓰는 사람에게 전달된다.
+                return ('valid', 'instance',
+                        f'원본 노드와 1:1 대조 {total}건 일치, 다만 손실 변환 '
+                        f'{joined["mapping"]}', None, None)
+            return ('valid', 'instance',
+                    f'원본 노드와 인스턴스 1:1 대조 {total}건 완전 일치',
+                    None, None)
+        if total:
+            return ('unresolved', 'instance',
+                    f'인스턴스 1:1 대조에서 같은 원본 값이 서로 다른 산출물 값으로 감',
+                    f'모호한 대응: {joined["ambiguous"]}',
+                    '변환 규칙, 또는 추출 결함 여부')
 
     dom = domain_evidence(stat, index, power)
     dom_note = ''
@@ -465,6 +489,17 @@ def main(argv=None):
         values = {v for v in st['distinct'] if isinstance(v, str)}
         unique_counts[path] = sum(1 for v in values if len(value_owners[v]) == 1)
 
+    # 인스턴스 1:1 대조 결과. 조인 키가 있는 표/셀 컬럼만 대상이다.
+    from tools.audit.instance_join import main as _join_main
+    import io as _io
+    import contextlib as _ctx
+    _tmp = Path(REPO_ROOT) / 'output' / '.join_tmp.json'
+    with _ctx.redirect_stdout(_io.StringIO()):
+        _join_main(['--json', str(_tmp)])
+    join_result = json.loads(_tmp.read_text(encoding='utf-8'))
+    _tmp.unlink()
+    print(f"인스턴스 1:1 대조 대상 {len(join_result)}개 컬럼")
+
     # 역방향 유일성용: 어느 원본 속성을 어느 컬럼들이 주장하는가.
     claims = defaultdict(list)
     for path in prov['fields']:
@@ -485,9 +520,11 @@ def main(argv=None):
         last = writers[-1] if writers else info['birth']
         sites = find_extraction_sites(path.split('.')[-1])
         birth_module = stage_module.get(info['birth'], '')
+        j = join_result.get(path)
         verdict, kind, basis, blocked, needed = judge(
             path, stat, index, power, sites, unique_counts.get(path, 0),
-            birth_module, claims)
+            birth_module, claims,
+            j)
 
         out[path] = {
             # 최종값이 아니라 표본이다. 한 컬럼에 인스턴스가 수백 개이므로
@@ -501,6 +538,10 @@ def main(argv=None):
             'basis': basis,
             'blocked_reason': blocked,
             'needed_info': needed,
+            # 원본 3상태가 산출물 2상태로 접히는 것 같은 손실 변환.
+            # 값은 원본과 맞지만 산출물만으로는 원래 값을 복원할 수 없다.
+            'lossy': bool((join_result.get(path) or {}).get('lossy')),
+            'value_mapping': (join_result.get(path) or {}).get('mapping'),
             'evidence_detail': {
                 'extraction_sites': [x['location'] for x in sites][:3],
                 'birth_module': birth_module,
