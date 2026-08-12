@@ -352,6 +352,8 @@ def main(argv=None):
     ap.add_argument('source', nargs='?', default=str(REPO_ROOT / 'sample.zip'),
                     help="HWPX 또는 ZIP 문서 (생략 시 저장소 sample.zip)")
     ap.add_argument('--out', default=None, help="산출물 임시 저장 루트")
+    ap.add_argument('--json', default=None,
+                    help="경로별 생성/수정 단계를 JSON으로 저장 (field_usage 입력)")
     args = ap.parse_args(argv)
 
     source = Path(args.source)
@@ -458,6 +460,18 @@ def main(argv=None):
                  if any(order[a] > order[b] for a, b in zip(ws, ws[1:]))]
     print(f"  기록 순서가 실행 순서를 어기는 필드 {len(bad_order)}개")
     print(f"  동적 키로 접은 경로 {len(recorder.dynamic)}개")
+
+    if args.json:
+        payload = {
+            'source': str(source),
+            'stage_order': recorder.stages,
+            'stage_module': {s: module_of(s) for s in recorder.stages},
+            'fields': {p: {'birth': birth[p], 'writers': writers.get(p, [])}
+                       for p in sorted(birth)},
+        }
+        Path(args.json).write_text(
+            json.dumps(payload, ensure_ascii=False, indent=2), encoding='utf-8')
+        print(f"  -> {args.json} 저장")
     return 0
 
 
