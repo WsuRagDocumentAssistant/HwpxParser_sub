@@ -111,19 +111,21 @@ ENUM_TOKEN = re.compile(r'^[A-Z][A-Z0-9_]*$')
 # '구분할 수 없음'을 뜻하므로 여기서 막는다.
 MIN_DISTINCT_FOR_VALID = 2
 
-# 결함으로 확정된 컬럼. valid 로 나오면 판정 체계가 무너진 것이다.
+# 상수라 출처를 가릴 수 없는 컬럼. valid 로 나오면 규칙이 무너진 것이다.
+#
+# 결함이라서 막는 것이 아니다. 값이 한 종류뿐이면 원본에서 온 값인지 단계가
+# 채우는 기본값인지 문자열 대조로 구분할 수 없다는, 판정 체계 자체의 한계다.
 #
 # 규칙은 재작성 중에 조용히 사라진다. 실제로 상수 배제 규칙이 한 번 소실돼
-# heading_type 이 valid 로 인증됐고, 같은 세션의 결함 기록은 그 컬럼이
-# 망가졌다고 적고 있었다. 그걸 알아챈 것은 우연히 그 컬럼을 따로 조사하고
-# 있었기 때문이다. 다음에는 이 검사가 잡는다.
+# heading_type 이 valid 로 인증됐고, 그걸 알아챈 것은 우연히 그 컬럼을 따로
+# 조사하고 있었기 때문이다. 다음에는 이 검사가 잡는다.
 KNOWN_NOT_VALID = [
     ('blocks_document.blocks[].style_features.heading_type',
      'unresolved',
-     '본문 57개 문단이 BULLET 선언 paraPr 를 참조하는데 산출물은 전부 NONE'),
+     '251개 전부 NONE. 상수라 원본 유래인지 기본값인지 대조로 못 가림'),
     ('blocks_document.blocks[].style_features.numbering_level',
      'unresolved',
-     '411개 전부 null. heading_type 과 같은 원인'),
+     '411개 전부 null. 본문 문단의 paraPr 에 BULLET/NUMBER 선언이 없어 정상'),
 ]
 
 
