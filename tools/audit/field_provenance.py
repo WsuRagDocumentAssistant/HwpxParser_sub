@@ -40,6 +40,7 @@ import argparse
 import functools
 import hashlib
 import json
+import os
 import sys
 import tempfile
 from collections import defaultdict
@@ -229,8 +230,6 @@ def _capture_summary(recorder: Recorder, originals: dict):
     파서가 넘겨주므로 어느 단계도 손대지 않는다. 진입 지점을 감싸 붙잡지
     않으면 산출물에는 있는데 생성 단계가 없는 필드로 남는다.
     """
-    import tools.run_document as run_document
-
     original = pipeline_mod.run_analysis_pipeline
     originals['run_analysis_pipeline'] = original
 
@@ -242,7 +241,8 @@ def _capture_summary(recorder: Recorder, originals: dict):
         return original(*args, **kwargs)
 
     pipeline_mod.run_analysis_pipeline = wrapper
-    # run_document 는 이름을 직접 import 해 두었으므로 그쪽도 바꿔야 한다.
+    # 진입점 모듈들은 이름을 직접 import 해 두었으므로 그쪽도 바꿔야 한다.
+    import tools.run_document as run_document
     originals['__run_document__'] = run_document.run_analysis_pipeline
     run_document.run_analysis_pipeline = wrapper
 
@@ -319,7 +319,40 @@ def module_of(name):
     return getattr(func, '__module__', '?').replace('hwpx_analysis.', '')
 
 
-def _run_document(source: Path, out_root: Path):
+def _load_test_module():
+    """저장소 루트의 test.py 를 파일 경로로 직접 읽는다.
+
+    import test 로 가져오면 표준 라이브러리의 test 패키지와 부딪힐 수 있다.
+    """
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(
+        'hwpx_test_entry', REPO_ROOT / 'test.py')
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def _run_document(source: Path, out_root: Path, entry: str = 'test'):
+    """정본 진입점으로 파이프라인을 돌리고 final_debug.json 경로를 준다.
+
+    test.py 와 tools/run_document.py 는 build_summary 가 각각 따로 구현돼 있어
+    summary 구성이 다르다(15키 / 7키). 산출물 컬럼이 134개 어긋나므로 어느
+    쪽으로 도는지가 감사 결과를 바꾼다. 기본은 test.py 다. output/results 에
+    실제로 쌓이는 산출물이고 회귀 기준선도 그쪽을 본다.
+    """
+    if entry == 'test':
+        module = _load_test_module()
+        cwd = Path.cwd()
+        os.chdir(REPO_ROOT)          # test.py 는 상대경로 output/ 에 쓴다
+        try:
+            module.main()
+        finally:
+            os.chdir(cwd)
+        produced = REPO_ROOT / 'output' / 'results' / 'sample' / 'final_debug.json'
+        if not produced.exists():
+            sys.exit(f"산출물이 없습니다: {produced}")
+        return produced
+
     import tools.run_document as run_document
     code = run_document.main([str(source), '--out', str(out_root)])
     if code != 0:
@@ -330,17 +363,17 @@ def _run_document(source: Path, out_root: Path):
     return produced[0]
 
 
-def run_plain(source: Path, out_root: Path) -> Path:
+def run_plain(source: Path, out_root: Path, entry: str) -> Path:
     """계측 없이 실행. 동적 키 판정과 무해성 대조의 기준이 된다."""
-    return _run_document(source, out_root)
+    return _run_document(source, out_root, entry)
 
 
-def run_instrumented(source: Path, out_root: Path, dynamic: set[str]):
+def run_instrumented(source: Path, out_root: Path, dynamic: set[str], entry: str):
     recorder = Recorder()
     recorder.dynamic = dynamic
     originals = instrument(recorder)
     try:
-        produced = _run_document(source, out_root)
+        produced = _run_document(source, out_root, entry)
     finally:
         restore(originals)
     recorder.finish()
@@ -352,6 +385,8 @@ def main(argv=None):
     ap.add_argument('source', nargs='?', default=str(REPO_ROOT / 'sample.zip'),
                     help="HWPX 또는 ZIP 문서 (생략 시 저장소 sample.zip)")
     ap.add_argument('--out', default=None, help="산출물 임시 저장 루트")
+    ap.add_argument('--entry', choices=('test', 'run_document'), default='test',
+                    help="정본 진입점. test.py 가 기본 (summary 구성이 다르다)")
     ap.add_argument('--json', default=None,
                     help="경로별 생성/수정 단계를 JSON으로 저장 (field_usage 입력)")
     args = ap.parse_args(argv)
@@ -370,13 +405,13 @@ def main(argv=None):
     # 그래서 같은 진입점으로, 같은 출력 디렉토리에 두 번 돌려 비교한다.
     work = tmp / 'run'
     print(f"[1/3] 기준 실행 (계측 없음) - {source.name}")
-    plain = run_plain(source, work)
+    plain = run_plain(source, work, args.entry)
     baseline_bytes = plain.read_bytes()
 
     print("[2/3] 동적 키 판정 후 계측 실행")
     probe = Recorder()
     dynamic = probe.find_dynamic(json.loads(baseline_bytes.decode('utf-8')))
-    recorder, produced = run_instrumented(source, work, dynamic)
+    recorder, produced = run_instrumented(source, work, dynamic, args.entry)
 
     print("[3/3] 분석")
     birth, writers, _ = analyze(recorder)
