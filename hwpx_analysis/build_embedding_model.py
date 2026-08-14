@@ -323,7 +323,7 @@ def build_document_model(result, unpacked_dir=None) -> DocumentModel:
             toc=toc, toc_entries=entries, excluded_table=excluded,
             figure=figure, table=table))
 
-    file_info = FileInfo(
+    model_file = FileInfo(
         title=summary.get('filename') or '',
         filename=summary.get('filename') or '',
         creator=meta.get('creator') or None,
@@ -336,4 +336,90 @@ def build_document_model(result, unpacked_dir=None) -> DocumentModel:
         section_count=summary.get('section_count') or 0,
         table_count=len([t for t, label in labels.items() if label.startswith('포함')]),
     )
-    return DocumentModel(file=file_info, images=images, blocks=blocks)
+    return DocumentModel(file=model_file, images=images, blocks=blocks)
+
+
+#------------------------------------------------
+# 검증
+#------------------------------------------------
+
+_MD_SEPARATOR = re.compile(r'^\|(\s*-{3,}\s*\|)+$')
+
+
+def verify_model(model: DocumentModel, result) -> list[tuple[str, str, bool, str]]:
+    """모델이 파이프라인 상태와 어긋나지 않는지 매 실행 확인한다.
+
+    하나라도 깨지면 조립이 잘못된 것이므로 저장하지 않는다.
+    """
+    checks: list[tuple[str, str, bool, str]] = []
+
+    def check(cid, claim, ok, detail):
+        checks.append((cid, claim, bool(ok), detail))
+
+    raw_blocks = {b['block_id']: b for b in result.blocks.blocks}
+    tables = list(model.tables())
+
+    check('M2', '블록 수가 파이프라인과 같다',
+          len(model.blocks) == len(raw_blocks),
+          f'{len(model.blocks)} / {len(raw_blocks)}')
+
+    bad = [b.id for b in model.blocks
+           if b.id not in raw_blocks
+           or b.depth != raw_blocks[b.id]['depth']
+           or b.order != raw_blocks[b.id]['reading_order_index']
+           or b.section != raw_blocks[b.id]['section_index']]
+    check('M9', 'depth·순서·섹션이 파이프라인 최종값과 같다',
+          not bad, f'어긋난 블록 {len(bad)}개')
+
+    verdicts = collections.Counter(t.numeric_verdict for t in tables)
+    check('M4', '수치표 판정이 네 갈래로 빠짐없이 붙는다',
+          sum(verdicts.values()) == len(tables) and '' not in verdicts,
+          f'{dict(verdicts)}')
+
+    refs = [f.image for f in (b.figure for b in model.blocks) if f and f.image]
+    cell_refs = [i for t in tables for c in t.cells for i in c.images]
+    unresolved = [r.ref for r in refs + cell_refs if not r.path]
+    check('M5', '이미지 참조가 전부 실제 경로로 풀린다',
+          not unresolved,
+          f'참조 {len(refs) + len(cell_refs)}개 중 미해소 {len(unresolved)}개')
+
+    depth_of = {b.id: b.depth for b in model.blocks}
+    broken = []
+    for block in model.blocks:
+        if not block.heading_path:
+            continue
+        depths = [depth_of[x] for x in block.heading_path if x in depth_of]
+        if any(a >= b for a, b in zip(depths, depths[1:])):
+            broken.append(block.id)
+    check('M6', '제목 경로의 depth 가 단조 증가한다',
+          not broken, f'경로 {sum(1 for b in model.blocks if b.heading_path)}개 중 '
+                      f'어긋남 {len(broken)}개')
+
+    mismatched = []
+    for table in tables:
+        if not table.markdown:
+            continue
+        lines = [ln for ln in table.markdown.split('\n') if not _MD_SEPARATOR.match(ln)]
+        rows = len(lines)
+        cols = max((ln.count('|') - 1 for ln in lines), default=0)
+        if rows != table.rows or cols != table.cols:
+            mismatched.append((table.id, rows, table.rows, cols, table.cols))
+    check('M7', '마크다운 격자가 선언 크기와 맞는다',
+          not mismatched,
+          f'표 {sum(1 for t in tables if t.markdown)}개 중 불일치 {len(mismatched)}개 '
+          f'{mismatched[:2]}')
+
+    joined = repr(model.to_dict())
+    leaked = [k for k in ('source_block_id', 'internal_block_type', 'local_order_index',
+                          'root_table_id', 'parent_internal_block_id')
+              if k in joined]
+    check('M8', '조립용 연결 키가 모델에 남지 않는다',
+          not leaked, f'남은 키 {leaked}')
+
+    orphan = [t.id for t in tables
+              if t.parent and t.parent.table_id
+              and t.parent.table_id not in {x.id for x in tables}]
+    check('M10', '중첩 표의 상위표가 모델 안에 있다',
+          not orphan, f'끊긴 상위표 참조 {len(orphan)}개')
+
+    return checks
