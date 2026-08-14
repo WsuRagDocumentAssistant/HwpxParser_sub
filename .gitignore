@@ -12,3 +12,6 @@ output/
 # 임시 디버그 덤프
 debug_*.txt
 scratchpad_output.txt
+
+# 필터 적용 전 산출물 백업 (로컬 되돌림용)
+tools/baseline/pre_filter/
