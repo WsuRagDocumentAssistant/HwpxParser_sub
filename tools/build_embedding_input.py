@@ -41,6 +41,77 @@ from hwpx_analysis.add_toc_depth0_anchors import iter_toc_entry_levels  # noqa: 
 # 산출물에 남아도 되는 '빠진 표 id' 경로. 전부 출처 기록이다.
 ALLOWED_ID_PATHS = ('.excluded_table.', '.structure_features.', '.toc_source_table_ids')
 
+# --- 수치표 판정 --------------------------------------------------------
+# 수치표는 table_type 이 아니라 별도 판정으로 붙인다. 기존 유형
+# (data_table / title_box / key_value_table) 은 건드리지 않는다.
+#
+# 임계값을 쓰지 않는다
+#   '숫자 비율 N% 이상' 으로 잡으려 했더니 분포에 골이 없어 임계값을 어디에
+#   두든 임의가 됐다. 그래서 비율을 버리고 '본문 셀이 전부 숫자인 열이
+#   하나라도 있는가' 라는 구조 판정으로 바꿨다.
+#
+# 판정이 세 가지인 이유
+#   헤더를 빼지 않으면 수치열이 하나도 안 잡힌다(헤더 셀이 글자라 열 전체가
+#   숫자가 아니게 된다). 즉 이 판정은 header_rows / header_cols 에 전적으로
+#   의존한다. 헤더가 없는 표는 '아님' 이 아니라 '판정불가' 다. 숫자가 없다는
+#   뜻이 아니라 열의 성격을 가릴 근거가 없다는 뜻이다.
+NUMERIC_TARGET_TYPES = {'data_table', 'key_value_table'}
+_UNIT = (r'(명|건|개|원|점|시간|회|위|억원|백만원|천원|%|％|배|일|년|월|주|시|분|초'
+         r'|㎡|km|kg|톤|권|매|팀|과목|학점|주차)')
+_PURE_NUMBER = re.compile(r'^[\d][\d.,]*$')
+_NUMBER_WITH_UNIT = re.compile(r'^[\d][\d.,]*\s*' + _UNIT + r'$')
+_PERCENT = re.compile(r'^\(?[\d][\d.,]*\s*%\)?$')
+# 2-1, Ⅰ-1-1 같은 항목 번호는 수치가 아니다
+_ID_LIKE = re.compile(r'^[\dⅠ-Ⅻ]+\s*[-·.]\s*[\d]+([-·.][\d]+)*$')
+# 빈칸과 줄표는 미기재다. 세지 않는다
+_NEUTRAL = re.compile(r'^[-–—.\s]*$')
+
+
+def is_numeric_value(value):
+    text = (value or '').strip()
+    if not text or _NEUTRAL.match(text) or _ID_LIKE.match(text):
+        return False
+    return bool(_PURE_NUMBER.match(text) or _NUMBER_WITH_UNIT.match(text)
+                or _PERCENT.match(text))
+
+
+def is_serial_column(values):
+    """1,2,3… 처럼 1(또는 0)부터 1씩 늘어나는 정수열이면 일련번호다."""
+    try:
+        numbers = [int(v.replace(',', '')) for v in values]
+    except ValueError:
+        return False
+    if len(numbers) < 2 or numbers[0] not in (0, 1):
+        return False
+    return numbers == list(range(numbers[0], numbers[0] + len(numbers)))
+
+
+def numeric_table_verdict(table):
+    """'수치표' / '아님' / '판정불가' / '대상아님'."""
+    hierarchy = table['hierarchy'] or {}
+    if hierarchy.get('table_type') not in NUMERIC_TARGET_TYPES:
+        return '대상아님'
+    header_rows = set(hierarchy.get('header_rows') or [])
+    header_cols = set(hierarchy.get('header_cols') or [])
+    if not header_rows and not header_cols:
+        return '판정불가'
+
+    by_column = collections.defaultdict(list)
+    for cell in cells_of(table):
+        pos = cell.get('position') or {}
+        if pos.get('row_addr') in header_rows or pos.get('col_addr') in header_cols:
+            continue
+        value = cell_text(cell).strip()
+        if value and not _NEUTRAL.match(value):
+            by_column[pos.get('col_addr')].append(value)
+    if not by_column:
+        return '판정불가'
+
+    for values in by_column.values():
+        if all(is_numeric_value(v) for v in values) and not is_serial_column(values):
+            return '수치표'
+    return '아님'
+
 one = lambda s: re.sub(r'\s+', ' ', s or '').strip()  # noqa: E731
 
 
@@ -367,7 +438,15 @@ def apply_filter(payload):
     if 'warnings' in out:
         out['warnings'] = kept_warnings
 
-    # 8) 집계 갱신 — 없는 표를 세는 집계를 두면 산출물이 자기모순이 된다
+    # 8) 수치표 판정을 붙인다. 기존 table_type 은 건드리지 않고 필드만 더한다.
+    numeric = collections.Counter()
+    for table in index_tables(out).values():
+        verdict = numeric_table_verdict(table)
+        table['hierarchy']['numeric_table'] = (verdict == '수치표')
+        table['hierarchy']['numeric_verdict'] = verdict
+        numeric[verdict] += 1
+
+    # 9) 집계 갱신 — 없는 표를 세는 집계를 두면 산출물이 자기모순이 된다
     after = index_tables(out)
     top_after = {str((b.get('structure_features') or {}).get('xml_table_id'))
                  for b in out['blocks_document']['blocks']
@@ -390,6 +469,7 @@ def apply_filter(payload):
         'marked': marked, 'toc_blocks': toc_blocks, 'entries': entries,
         'dropped_warnings': dropped_warnings,
         'sensitivity': sensitivity(tables, label),
+        'numeric': numeric,
     }
     return out, report
 
@@ -510,6 +590,49 @@ def verify(before, after, report):
     check('V14', '산출물 전체에 빠진 표 흔적이 없음 (전수 스윕)',
           not hits, f'허용 외 경로 {len(hits)}개 {list(hits)[:2]}')
 
+    # --- 수치표 판정 ---
+    missing = [tid for tid, t in tables_after.items()
+               if 'numeric_verdict' not in (t['hierarchy'] or {})]
+    check('V15', '남은 표 전부에 수치표 판정이 붙음',
+          not missing, f'{len(tables_after)}개 중 누락 {len(missing)}개')
+
+    counted = collections.Counter((t['hierarchy'] or {}).get('numeric_verdict')
+                                  for t in tables_after.values())
+    recomputed = collections.Counter(numeric_table_verdict(t)
+                                     for t in tables_after.values())
+    check('V16', '붙은 판정이 다시 계산한 값과 같음',
+          counted == recomputed, f'{dict(counted)}')
+
+    wrong_flag = [tid for tid, t in tables_after.items()
+                  if bool((t['hierarchy'] or {}).get('numeric_table'))
+                  != ((t['hierarchy'] or {}).get('numeric_verdict') == '수치표')]
+    check('V17', 'numeric_table 불리언이 판정과 어긋나지 않음',
+          not wrong_flag, f'어긋남 {len(wrong_flag)}개')
+
+    # title_box 는 제목이라 수치표 대상이 아니어야 한다
+    bad_type = [tid for tid, t in tables_after.items()
+                if (t['hierarchy'] or {}).get('table_type') not in NUMERIC_TARGET_TYPES
+                and (t['hierarchy'] or {}).get('numeric_verdict') != '대상아님']
+    check('V18', '대상 아닌 유형(title_box 등)은 전부 대상아님',
+          not bad_type, f'예외 {len(bad_type)}개')
+
+    # 수치표로 판정된 표는 헤더가 반드시 있어야 한다 (판정 근거)
+    no_header = [tid for tid, t in tables_after.items()
+                 if (t['hierarchy'] or {}).get('numeric_verdict') == '수치표'
+                 and not ((t['hierarchy'] or {}).get('header_rows')
+                          or (t['hierarchy'] or {}).get('header_cols'))]
+    check('V19', '수치표는 전부 헤더를 가짐 (판정 근거가 있음)',
+          not no_header, f'헤더 없는 수치표 {len(no_header)}개')
+
+    # 판정불가는 헤더가 없어서 그런 것이어야 한다
+    bad_unknown = [tid for tid, t in tables_after.items()
+                   if (t['hierarchy'] or {}).get('numeric_verdict') == '판정불가'
+                   and ((t['hierarchy'] or {}).get('header_rows')
+                        or (t['hierarchy'] or {}).get('header_cols'))
+                   and any(cell_text(c).strip() for c in cells_of(t))]
+    check('V20', '판정불가는 헤더가 없는 표뿐',
+          not bad_unknown, f'헤더 있는데 판정불가 {len(bad_unknown)}개')
+
     return checks
 
 
@@ -558,6 +681,19 @@ def main(argv=None):
     print(f"  {'포함 합계':14s} {sum(counts[k] for k in included):4d}개 "
           f"{sum(chars[k] for k in included):8,}자")
     print(f"  목차 항목 {len(report['entries'])}개 전개, warnings {report['dropped_warnings']}건 제거")
+
+    print()
+    print('=' * 92)
+    print('수치표 판정 (기존 table_type 은 그대로, 판정만 추가)')
+    print('=' * 92)
+    for key in ('수치표', '아님', '판정불가', '대상아님'):
+        note = {'판정불가': '헤더가 없어 열의 성격을 가릴 수 없음',
+                '대상아님': 'title_box 등 표가 아닌 것'}.get(key, '')
+        print(f"  {key:8s} {report['numeric'][key]:4d}개  {note}")
+    decidable = report['numeric']['수치표'] + report['numeric']['아님']
+    if decidable:
+        print(f"  판정 가능 모집단 {decidable}개 중 수치표 "
+              f"{report['numeric']['수치표'] / decidable:.0%}")
 
     print()
     print('=' * 92)
