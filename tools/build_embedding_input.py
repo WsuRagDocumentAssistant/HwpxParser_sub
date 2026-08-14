@@ -520,6 +520,8 @@ def main(argv=None):
     ap.add_argument('--doc', default=None, help='결과 폴더 (기본: output/results/sample)')
     ap.add_argument('--out', default=None, help='저장 경로 (기본: <결과폴더>/embedding_input.json)')
     ap.add_argument('--dry-run', action='store_true', help='쓰지 않고 보고만')
+    ap.add_argument('--preview', action='store_true',
+                    help='필터 결과로 프리뷰 텍스트도 만든다 (사람이 눈으로 볼 용도)')
     args = ap.parse_args(argv)
 
     from tools.audit.documents import enable_utf8_stdout
@@ -587,7 +589,78 @@ def main(argv=None):
     out_path.write_text(json.dumps(after, ensure_ascii=False, indent=2), encoding='utf-8')
     print(f'\n-> {out_path} 저장')
     print('   원본 final_debug.json 은 그대로다. 이 파일을 지우면 되돌아간다.')
+
+    if args.preview:
+        for name, path in write_preview(after, doc_dir, before).items():
+            print(f'-> {path} 저장 ({name})')
     return 0
+
+
+def write_preview(payload, doc_dir, source_payload=None):
+    """필터 결과를 사람이 볼 수 있는 텍스트로 뽑는다.
+
+    파이프라인의 프리뷰 생성기를 그대로 쓴다. 따로 렌더러를 만들면 무엇이
+    실제로 들어갔는지가 아니라 렌더러가 그린 그림을 보게 된다.
+
+    목차 internal 블록만 그리기용으로 되돌린다
+        산출물에서 목차는 blocks[].toc_entries 가 정본이고 internal 블록은
+        중복이라 뺐다. 그런데 프리뷰 생성기는 목차를 internal 블록에서 뽑기
+        때문에, 그대로 넘기면 목차가 통째로 빠진 그림이 나온다. 파일에는
+        넣지 않고 렌더링 입력에만 되돌린다.
+    """
+    from hwpx_analysis.generate_depth_text_preview import generate_depth_text_preview
+    from hwpx_analysis.generate_llm_context import generate_llm_context
+    from hwpx_analysis.pipeline_models import BlocksDocument, TableInternalBlocks
+
+    blocks_doc = BlocksDocument(
+        document=payload['blocks_document'].get('document') or {},
+        blocks=payload['blocks_document']['blocks'],
+        quality=payload['blocks_document'].get('quality') or {},
+    )
+    render_blocks = list(payload['table_internal_blocks']['internal_blocks'])
+    if source_payload is not None:
+        toc_ids = set((payload['blocks_document']['quality'].get('toc_depth0_anchor') or {})
+                      .get('toc_source_table_ids') or [])
+        src_internal = source_payload['table_internal_blocks']['internal_blocks']
+        order = {b['internal_block_id']: i for i, b in enumerate(src_internal)}
+        have = {b['internal_block_id'] for b in render_blocks}
+        render_blocks += [b for b in src_internal
+                          if b.get('root_table_id') in toc_ids
+                          and b['internal_block_id'] not in have]
+        render_blocks.sort(key=lambda b: order.get(b['internal_block_id'], 10 ** 9))
+
+        # 생성기는 block['table_hierarchy_ref']['table_id'] 로 목차 표를 찾는다.
+        # 산출물에서는 그 ref 를 비웠으므로 그리기용 블록에만 되돌린다.
+        src_blocks = {b['block_id']: b for b in source_payload['blocks_document']['blocks']}
+        render_doc_blocks = []
+        for block in blocks_doc.blocks:
+            if block.get('toc_entries'):
+                block = dict(block)
+                block['table_hierarchy_ref'] = \
+                    (src_blocks.get(block['block_id']) or {}).get('table_hierarchy_ref')
+            render_doc_blocks.append(block)
+        blocks_doc.blocks = render_doc_blocks
+
+    internal = TableInternalBlocks(
+        document=payload['table_internal_blocks'].get('document') or {},
+        tables=payload['table_internal_blocks'].get('tables') or [],
+        internal_blocks=render_blocks,
+    )
+    preview = generate_depth_text_preview(blocks_doc, internal)
+    context = generate_llm_context(blocks_doc, internal)
+
+    written = {}
+    for name, text in (
+            ('depth 프리뷰 raw', preview.raw_text),
+            ('depth 프리뷰 clean', preview.clean_text),
+            ('llm context', context.text)):
+        suffix = {'depth 프리뷰 raw': 'depth_text_preview_raw',
+                  'depth 프리뷰 clean': 'depth_text_preview_clean',
+                  'llm context': 'llm_context'}[name]
+        path = doc_dir / f'embedding_{suffix}.txt'
+        path.write_text(text, encoding='utf-8')
+        written[name] = path
+    return written
 
 
 if __name__ == '__main__':
