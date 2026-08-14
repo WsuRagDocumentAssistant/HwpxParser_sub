@@ -732,6 +732,48 @@ def main(argv=None):
     return 0
 
 
+def state_view(result):
+    """PipelineResult 를 payload 모양으로 '가리킨다'. 직렬화하지 않는다.
+
+    단계들은 이미 인메모리 dict/dataclass 를 주고받으므로 같은 객체를 그대로
+    참조한다. JSON 을 거치지 않는다는 뜻이 여기서 지켜진다.
+    """
+    internal = result.table_internal
+    return {
+        'summary': result.summary or {},
+        'tables': {'raw': result.tables.raw,
+                   'analyzed': result.tables.analyzed,
+                   'body_linking': result.tables.body_linking},
+        'blocks_document': {'document': result.blocks.document,
+                            'blocks': result.blocks.blocks,
+                            'quality': result.blocks.quality},
+        'table_internal_blocks': {
+            'document': getattr(internal, 'document', {}) if internal else {},
+            'tables': getattr(internal, 'tables', []) if internal else [],
+            'internal_blocks': getattr(internal, 'internal_blocks', []) if internal else []},
+        'warnings': list(result.validation.warnings) if result.validation else [],
+        'quality_report': (result.validation.quality_report
+                           if result.validation else {}),
+    }
+
+
+def apply_filter_to_state(result):
+    """PipelineResult 에 필터를 적용하고 조립에 필요한 상태를 돌려준다.
+
+    JSON 파일을 읽지 않는다. 파이프라인이 돌려준 객체에서 바로 만든다.
+    반환값의 blocks / tables 는 필터가 적용된 사본이므로 원본 객체는 안 바뀐다.
+    """
+    filtered, report = apply_filter(state_view(result))
+    return {
+        'blocks': filtered['blocks_document']['blocks'],
+        'tables': index_tables(filtered),
+        'labels': report['label'],
+        'toc_entries': report['entries'],
+        'report': report,
+        'payload': filtered,
+    }
+
+
 def write_preview(payload, doc_dir, source_payload=None):
     """필터 결과를 사람이 볼 수 있는 텍스트로 뽑는다.
 
