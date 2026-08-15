@@ -34,7 +34,7 @@ from hwpx_analysis.build_document_model import (  # noqa: E402
 from hwpx_analysis.pipeline import run_analysis_pipeline, save_pipeline_outputs  # noqa: E402
 from hwpx_analysis.table_json_serializer import table_to_dict  # noqa: E402
 from hwpx_parser.parser import HwpxParser  # noqa: E402
-from tools.run_document import build_summary  # noqa: E402
+from hwpx_analysis.build_summary import build_summary  # noqa: E402
 
 
 def run_pipeline(source: Path, out_root: Path):
@@ -100,9 +100,9 @@ def main(argv=None):
                     help='압축 해제 위치 (기본: output)')
     ap.add_argument('--dry-run', action='store_true', help='쓰지 않고 보고만')
     ap.add_argument('--save-pipeline', action='store_true',
-                    help='기존 파이프라인 산출물도 함께 쓴다 (기본은 쓰지 않음)')
+                    help='조사용 산출물(프리뷰, llm_context)도 함께 쓴다')
     ap.add_argument('--debug', action='store_true',
-                    help='--save-pipeline 과 같이 주면 final_debug.json 도 쓴다')
+                    help='--save-pipeline 에 더해 final_debug.json 까지 쓴다')
     args = ap.parse_args(argv)
 
     from tools.audit.documents import enable_utf8_stdout
@@ -133,7 +133,9 @@ def main(argv=None):
         print('\n검증이 깨졌습니다. 저장하지 않습니다.')
         return 1
 
-    if args.save_pipeline:
+    # --debug 는 --save-pipeline 을 포함한다. final_debug.json 만 있고
+    # 프리뷰가 없는 상태를 만들 이유가 없다.
+    if args.save_pipeline or args.debug:
         save_pipeline_outputs(result=result,
                               output_dir=out_root / 'results' / parser.filename,
                               debug=args.debug)

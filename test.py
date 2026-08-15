@@ -1,83 +1,49 @@
 #================================================
 # test.py
+#
+# 실제 서비스가 쓰는 방식 그대로 돌려서 결과를 눈으로 확인한다.
+#
+# 서비스는 파일을 거치지 않는다. 문서를 파싱하고 파이프라인을 돌린 뒤
+# 결과 객체에서 DocumentModel 을 조립해 그대로 쓴다. 아래 세 줄이 전부다.
+#
+#     parser, result = run_pipeline(source, out_root)
+#     model = build_document_model(result)
+#     model.blocks / model.tables() / model.numeric_tables() ...
+#
+# 이 파일은 그 세 줄을 돌리고, 사람이 볼 수 있게 내용을 찍고,
+# 뜯어보라고 document_model.json 으로 한 번 떨어뜨린다. 서비스에는
+# 그 저장 단계가 없어도 된다.
+#
+# 사용:
+#   python test.py            문서 -> 파이프라인 -> 모델 -> 검증 -> 저장
+#   python test.py --debug    조사용 산출물까지 함께 저장
+#                             (final_debug.json, 프리뷰 2종, llm_context.txt)
+#
+# 매 실행 M2~M13 을 검증하고 하나라도 깨지면 저장하지 않는다.
+#
+# 다른 문서로 돌리거나 저장 위치를 바꾸려면 tools/build_document_model.py 를
+# 직접 쓴다. 이 파일은 저장소의 sample.zip 을 보는 용도로 고정해 둔다.
 #================================================
 
 from __future__ import annotations
 
-import argparse
-from pathlib import Path
+import sys
 
-from hwpx_analysis.build_summary import build_summary
-from hwpx_analysis.pipeline import run_analysis_pipeline, save_pipeline_outputs
-from hwpx_analysis.table_json_serializer import (
-    table_to_dict as serialize_table_to_dict,
-)
-from hwpx_parser.parser import HwpxParser
+from tools.build_document_model import main
 
 
-#------------------------------------------------
-# 실행부
-#------------------------------------------------
-
-def main(argv: list[str] | None = None) -> None:
+def run(argv: list[str] | None = None) -> int:
     """
-    역할: sample.zip을 대상으로 HWPX 표 파싱 샘플 실행 흐름을 수행한다.
-    입력 데이터: argv(--debug), 현재 작업 폴더의 sample.zip과 output 저장 경로.
-    출력 데이터: 반환값은 없고, output/results/<문서명>/ 아래에
-                 계층 시각화용 txt(depth_text_preview_raw/clean.txt)와
-                 llm_context.txt 를 저장한다.
-                 --debug 를 주면 final_debug.json 도 함께 저장한다.
+    역할: 모델 생성 진입점을 그대로 부른다.
+    입력 데이터: argv(--debug 등).
+    출력 데이터: 종료 코드.
+
+    같은 절차를 두 벌로 두지 않는다. build_summary 가 test.py 와
+    tools/run_document.py 에 따로 있다가 서로 다른 값을 냈던 일이 있어서,
+    여기서는 베끼지 않고 부르기만 한다.
     """
-    cli = argparse.ArgumentParser(description="sample.zip 파싱 파이프라인 실행")
-    cli.add_argument("--debug", action="store_true",
-                     help="final_debug.json 도 저장 (tools/audit/* 를 쓸 때 필요)")
-    args = cli.parse_args(argv)
-    """
-    test.py는 실행기 역할만 한다.
-
-    전체 파싱은 HwpxParser.parse()에, 분석은 run_analysis_pipeline()에 맡긴다.
-    파이프라인 단계 간 데이터는 데이터 클래스(pipeline_models)로 인메모리 전달되며
-    중간 JSON 파일은 만들지 않는다.
-    """
-
-    source = "sample.zip"
-    output_root = Path("output")
-
-    parser = HwpxParser(
-        doc_save_path=str(output_root),
-        source=source,
-    )
-
-    tables = parser.parse()
-
-    parser.file_info()
-
-    # 파서 결과(Table 객체)를 직렬화 dict 리스트로 변환 (구 tables.json 내용)
-    char_pr_lookup = parser.header.char_properties if parser.header is not None else None
-    raw_tables = [
-        serialize_table_to_dict(
-            table,
-            char_pr_lookup=char_pr_lookup,
-            header=parser.header,
-        )
-        for table in tables
-    ]
-
-    summary = build_summary(parser, tables)
-
-    result = run_analysis_pipeline(
-        raw_tables=raw_tables,
-        section_paths=parser.section_file_paths,
-        header=parser.header,
-        summary=summary,
-    )
-
-    save_pipeline_outputs(
-        result=result,
-        output_dir=output_root / "results" / parser.filename,
-        debug=args.debug,
-    )
+    return main(argv)
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(run())

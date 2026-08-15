@@ -39,6 +39,7 @@ from __future__ import annotations
 import argparse
 import functools
 import hashlib
+import importlib
 import json
 import os
 import sys
@@ -242,9 +243,13 @@ def _capture_summary(recorder: Recorder, originals: dict):
 
     pipeline_mod.run_analysis_pipeline = wrapper
     # 진입점 모듈들은 이름을 직접 import 해 두었으므로 그쪽도 바꿔야 한다.
-    import tools.run_document as run_document
-    originals['__run_document__'] = run_document.run_analysis_pipeline
-    run_document.run_analysis_pipeline = wrapper
+    # 여기 빠진 모듈로 파이프라인이 돌면 summary 30개 필드가 관측되지 않고
+    # "산출물에만 있음"으로 남는다. 단계 함수는 pipeline 이름공간을 거쳐
+    # 불리므로 영향이 없어서, 티가 summary 에서만 난다.
+    for module_name in ('tools.run_document', 'tools.build_document_model'):
+        module = importlib.import_module(module_name)
+        originals[f'__entry__{module_name}'] = module.run_analysis_pipeline
+        module.run_analysis_pipeline = wrapper
 
 
 def instrument(recorder: Recorder):
@@ -271,10 +276,10 @@ def instrument(recorder: Recorder):
 
 
 def restore(originals):
-    import tools.run_document as run_document
     for name, func in originals.items():
-        if name == '__run_document__':
-            run_document.run_analysis_pipeline = func
+        if name.startswith('__entry__'):
+            module = importlib.import_module(name[len('__entry__'):])
+            module.run_analysis_pipeline = func
         else:
             setattr(pipeline_mod, name, func)
 
