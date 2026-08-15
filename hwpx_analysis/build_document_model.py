@@ -232,14 +232,28 @@ def build_document_model(result, unpacked_dir=None) -> DocumentModel:
             records.append(TableRecord(index=record['row_index'], values=values,
                                        inherited=inherited))
 
+        # 파이프라인은 행 단위 표를 structured_records 에, 키-값 표를
+        # key_value_records 에 담는다. 앞의 것만 읽으면 키값표는 칸만 남고
+        # 쌍이 사라진다. 원천이 둘이니 둘 다 받는다.
+        if not records:
+            for record in (hier.get('key_value_records') or []):
+                key = _one(record.get('key'))
+                if not key:
+                    continue
+                records.append(TableRecord(index=record.get('row_addr') or 0,
+                                           values={key: _one(record.get('value'))}))
+
+        # 헤더가 있는지는 헤더 지정으로 판단한다. 전에는 columns 유무로 갈랐는데
+        # columns 는 31개 표에만 있고 header_rows/cols 는 57개 표에 있다.
+        # 그 차이인 26개 표가 헤더 지정을 통째로 잃고 있었다.
         header = None
-        if hier.get('columns'):
+        if hier.get('columns') or hier.get('header_rows') or hier.get('header_cols'):
             header = TableHeader(
                 header_rows=hier.get('header_rows') or [],
                 header_cols=hier.get('header_cols') or [],
                 columns=[TableColumn(index=c['col_index'], name=c['name'],
                                      is_row_header=bool(c.get('is_row_header')))
-                         for c in hier['columns']])
+                         for c in (hier.get('columns') or [])])
 
         parent = None
         if nesting.get('is_nested'):
@@ -454,5 +468,28 @@ def verify_model(model: DocumentModel, result) -> list[tuple[str, str, bool, str
                      and b.figure.image.ref not in model.images]
     check('M13', '그림이 가리키는 파일이 이미지 목록에 있다',
           not unknown_image, f'목록에 없는 참조 {len(unknown_image)}개')
+
+    # 파이프라인이 만든 헤더·레코드가 조립에서 새는지 본다.
+    # 전에는 columns 가 있을 때만 헤더를 만들어서, columns 없이 header_rows 만
+    # 있는 표 26개가 헤더를 잃었다. 키값표의 쌍도 통째로 빠져 있었다.
+    # 어느 쪽도 M2~M13 에 걸리지 않았다. 값이 틀린 게 아니라 없어진 것이라
+    # 개수만 맞춰 보는 검사에는 안 잡힌다.
+    from hwpx_analysis.table_filter import index_tables, state_view
+
+    source_tables = index_tables(state_view(result))
+    model_tables = {t.id: t for t in model.tables()}
+    header_lost, record_lost = [], []
+    for table_id, table in model_tables.items():
+        hier = (source_tables.get(table_id) or {}).get('hierarchy') or {}
+        if (hier.get('header_rows') or hier.get('header_cols')
+                or hier.get('columns')) and table.header is None:
+            header_lost.append(table_id)
+        if (hier.get('structured_records') or hier.get('key_value_records')) \
+                and not table.records:
+            record_lost.append(table_id)
+    check('M14', '파이프라인이 만든 헤더·레코드가 모델에 남아 있다',
+          not header_lost and not record_lost,
+          f'헤더 잃은 표 {len(header_lost)}개 {header_lost[:3]} / '
+          f'레코드 잃은 표 {len(record_lost)}개 {record_lost[:3]}')
 
     return checks

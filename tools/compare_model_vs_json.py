@@ -80,9 +80,19 @@ def compare(model, filtered):
                  if len(model_tables[tid].cells) != len(cells_of(json_tables[tid]))]
     check('셀 수', not cell_diff, f'다른 표 {len(cell_diff)}개')
 
+    # 레코드 원천은 둘이다. 행 단위 표는 structured_records, 키-값 표는
+    # key_value_records. 모델과 같은 규칙으로 세야 대조가 성립한다.
+    def json_record_count(table):
+        hier = table['hierarchy'] or {}
+        rows = hier.get('structured_records') or []
+        if rows:
+            return len(rows)
+        return len([r for r in (hier.get('key_value_records') or [])
+                    if one(r.get('key'))])
+
     record_diff = [tid for tid in model_tables
                    if len(model_tables[tid].records)
-                   != len((json_tables[tid]['hierarchy'] or {}).get('structured_records') or [])]
+                   != json_record_count(json_tables[tid])]
     check('레코드 수', not record_diff, f'다른 표 {len(record_diff)}개')
 
     model_chars = sum(len(c.text) for t in model.tables() for c in t.cells)
