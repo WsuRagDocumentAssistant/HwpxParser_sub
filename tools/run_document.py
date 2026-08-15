@@ -71,6 +71,11 @@ def main(argv: list[str] | None = None) -> int:
         required=True,
         help="압축 해제/산출물 저장 루트 (저장소 밖 경로 권장)",
     )
+    parser_cli.add_argument(
+        "--debug",
+        action="store_true",
+        help="final_debug.json 도 저장 (tools/audit/* 를 쓸 때 필요)",
+    )
 
     args = parser_cli.parse_args(argv)
 
@@ -101,14 +106,21 @@ def main(argv: list[str] | None = None) -> int:
     save_pipeline_outputs(
         result=result,
         output_dir=output_root / "results" / parser.filename,
+        debug=args.debug,
     )
 
     print("===========================================")
     print("[검증 명령]")
-    print("python tools/regression_check.py check \\")
-    print(f'  --contents "{parser.contents_dir_path}" \\')
-    print(f'  --current  "{output_root / "results" / parser.filename / "final_debug.json"}" \\')
-    print(f'  --baseline "{output_root / (parser.filename + ".baseline.json")}"')
+    if args.debug:
+        print("python tools/regression_check.py check \\")
+        print(f'  --contents "{parser.contents_dir_path}" \\')
+        print(f'  --current  "{output_root / "results" / parser.filename / "final_debug.json"}" \\')
+        print(f'  --baseline "{output_root / (parser.filename + ".baseline.json")}"')
+    else:
+        # --debug 없이 돌면 final_debug.json 이 없다. 없는 파일을 가리키는
+        # 명령을 안내하면 안 되므로 파일을 안 읽는 쪽을 알려준다.
+        print("python tools/regression_check.py check-pipeline \\")
+        print(f'  --source "{source_path}" --work "{output_root}"')
     print("===========================================")
 
     return 0

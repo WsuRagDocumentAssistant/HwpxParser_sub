@@ -9,7 +9,8 @@
 # 사용 순서:
 #   1) python tools/regression_check.py freeze     # 수정 전 상태를 baseline으로 동결
 #   2) (파서/분석 코드 수정)
-#   3) python test.py                              # 산출물 재생성
+#   3) python test.py --debug                      # 산출물 재생성 (--debug 가 있어야
+#                                                  #   final_debug.json 이 나온다)
 #   4) python tools/regression_check.py check      # 불변식 + baseline diff 검증
 #
 # 산출물 파일 없이 검사하기:
@@ -999,7 +1000,10 @@ def command_freeze(args: argparse.Namespace) -> int:
 
     if not current_path.exists():
         print(f"[ERROR] 산출물이 없습니다: {current_path}")
-        print("        먼저 python test.py 를 실행하세요.")
+        print("        final_debug.json 은 --debug 를 줄 때만 저장됩니다.")
+        print("        python test.py --debug              파일을 만든 뒤 다시 실행")
+        print("        python tools/regression_check.py check-pipeline")
+        print("                                            파일 없이 바로 검증")
         return 1
 
     if baseline_path.exists() and not args.force:
@@ -1039,6 +1043,8 @@ def command_check(args: argparse.Namespace) -> int:
 
     if not current_path.exists():
         print(f"[ERROR] 산출물이 없습니다: {current_path}")
+        print("        final_debug.json 은 --debug 를 줄 때만 저장됩니다.")
+        print("        python test.py --debug 로 만든 뒤 다시 실행하세요.")
         return 1
 
     paths = section_paths(contents_dir)

@@ -147,14 +147,23 @@ def run_analysis_pipeline(
 def save_pipeline_outputs(
     result: PipelineResult,
     output_dir: str | Path,
+    debug: bool = False,
 ) -> dict[str, Path]:
     """
     역할: 파이프라인 최종 산출물을 저장한다.
-          - final_debug.json: 디버깅용 최종 JSON (전체 최종 상태)
           - depth_text_preview_raw.txt / depth_text_preview_clean.txt:
             계층 시각화용 txt
-    입력 데이터: result(PipelineResult), output_dir(저장 폴더).
-    출력 데이터: 산출물 이름 -> 경로 dict.
+          - llm_context.txt
+          - final_debug.json: debug=True 일 때만. 디버깅용 전체 최종 상태.
+    입력 데이터: result(PipelineResult), output_dir(저장 폴더),
+                debug(final_debug.json 도 쓸지).
+    출력 데이터: 산출물 이름 -> 경로 dict. 쓰지 않은 것은 키가 없다.
+
+    final_debug.json 은 조사용이지 제품이 아니다. 200MB 가까이 되는 데다
+    파이프라인 단계들은 이미 인메모리로 주고받으므로 평소 실행에는 필요가 없다.
+    회귀 검증(regression_check check-pipeline)과 동일성 가드
+    (refactor_guard verify-pipeline)는 파일 없이 결과 객체를 직접 본다.
+    tools/audit/* 처럼 이 파일을 읽는 조사 도구를 쓸 때만 debug=True 로 켠다.
     """
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -164,8 +173,9 @@ def save_pipeline_outputs(
     clean_preview_path = output_dir / "depth_text_preview_clean.txt"
     llm_context_path = output_dir / "llm_context.txt"
 
-    with debug_json_path.open("w", encoding="utf-8") as f:
-        json.dump(result.to_debug_dict(), f, ensure_ascii=False, indent=2)
+    if debug:
+        with debug_json_path.open("w", encoding="utf-8") as f:
+            json.dump(result.to_debug_dict(), f, ensure_ascii=False, indent=2)
 
     if result.preview is not None:
         with raw_preview_path.open("w", encoding="utf-8", newline="\n") as f:
@@ -179,15 +189,22 @@ def save_pipeline_outputs(
 
     print("===========================================")
     print("[RESULT SAVED]")
-    print("final_debug        :", debug_json_path)
+    if debug:
+        print("final_debug        :", debug_json_path)
+    else:
+        # 여기서 em dash 를 쓰면 cp949 콘솔에서 죽는다. 라이브러리 출력은
+        # 콘솔 인코딩에 기대지 않는다.
+        print("final_debug        : (안 씀. 필요하면 --debug)")
     print("depth_preview_raw  :", raw_preview_path)
     print("depth_preview_clean:", clean_preview_path)
     print("llm_context        :", llm_context_path)
     print("===========================================")
 
-    return {
-        "final_debug": debug_json_path,
+    saved = {
         "depth_text_preview_raw": raw_preview_path,
         "depth_text_preview_clean": clean_preview_path,
         "llm_context": llm_context_path,
     }
+    if debug:
+        saved["final_debug"] = debug_json_path
+    return saved

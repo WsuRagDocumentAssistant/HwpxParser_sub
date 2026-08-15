@@ -101,6 +101,8 @@ def main(argv=None):
     ap.add_argument('--dry-run', action='store_true', help='쓰지 않고 보고만')
     ap.add_argument('--save-pipeline', action='store_true',
                     help='기존 파이프라인 산출물도 함께 쓴다 (기본은 쓰지 않음)')
+    ap.add_argument('--debug', action='store_true',
+                    help='--save-pipeline 과 같이 주면 final_debug.json 도 쓴다')
     args = ap.parse_args(argv)
 
     from tools.audit.documents import enable_utf8_stdout
@@ -133,7 +135,8 @@ def main(argv=None):
 
     if args.save_pipeline:
         save_pipeline_outputs(result=result,
-                              output_dir=out_root / 'results' / parser.filename)
+                              output_dir=out_root / 'results' / parser.filename,
+                              debug=args.debug)
         print(f"\n-> 파이프라인 산출물도 저장 ({out_root / 'results' / parser.filename})")
 
     if args.dry_run:

@@ -92,17 +92,34 @@ def resolve(argv: list[str] | None = None) -> list[Document]:
         documents = _default_documents()
 
     if not documents:
+        # 자동 탐색은 final_debug.json 이 있는 폴더만 문서로 센다. 그 파일은
+        # --debug 를 줄 때만 저장되므로, 폴더가 있어도 여기서 걸릴 수 있다.
+        # "실행을 안 했다"가 아니라 "--debug 없이 실행했다"가 흔한 원인이다.
+        hint = ""
+        root = REPO_ROOT / 'output' / 'results'
+        if root.is_dir() and any(root.iterdir()):
+            hint = ("\n분석 결과 폴더는 있는데 final_debug.json 이 없습니다.\n"
+                    "감사 도구는 그 파일을 읽으므로 --debug 로 다시 만드세요.\n")
         sys.exit(
-            "감사할 문서가 없습니다.\n"
-            "  python test.py                     저장소의 sample.zip 분석\n"
-            "  python tools/run_document.py <문서> 다른 문서 분석\n"
-            "그 뒤 결과 디렉토리를 인자로 주거나 인자 없이 다시 실행하세요."
+            "감사할 문서가 없습니다."
+            + hint
+            + "\n  python test.py --debug                     저장소의 sample.zip 분석\n"
+              "  python tools/run_document.py <문서> --out <폴더> --debug\n"
+              "그 뒤 결과 디렉토리를 인자로 주거나 인자 없이 다시 실행하세요."
         )
 
     missing = [d for d in documents if not d.final_debug.is_file()]
     if missing:
-        sys.exit("final_debug.json 이 없습니다:\n" +
-                 "\n".join(f"  {d.final_debug}" for d in missing))
+        # final_debug.json 은 --debug 를 줄 때만 저장된다. 감사 도구는 이 파일을
+        # 읽으므로, 없을 때 "왜 없는지"를 같이 알려주지 않으면 막힌다.
+        sys.exit(
+            "final_debug.json 이 없습니다:\n"
+            + "\n".join(f"  {d.final_debug}" for d in missing)
+            + "\n\n이 파일은 --debug 를 줄 때만 저장됩니다. 감사 도구는 이 파일을\n"
+              "읽으므로 아래처럼 다시 만드세요.\n"
+              "  python test.py --debug                       저장소의 sample.zip\n"
+              "  python tools/run_document.py <문서> --out <폴더> --debug"
+        )
 
     return documents
 

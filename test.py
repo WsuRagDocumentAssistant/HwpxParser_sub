@@ -4,6 +4,7 @@
 
 from __future__ import annotations
 
+import argparse
 from pathlib import Path
 from typing import Any
 
@@ -114,14 +115,19 @@ def build_summary(parser: HwpxParser, tables: list[Any]) -> dict[str, Any]:
 # 실행부
 #------------------------------------------------
 
-def main() -> None:
+def main(argv: list[str] | None = None) -> None:
     """
     역할: sample.zip을 대상으로 HWPX 표 파싱 샘플 실행 흐름을 수행한다.
-    입력 데이터: 현재 작업 폴더의 sample.zip 파일과 output 저장 경로.
+    입력 데이터: argv(--debug), 현재 작업 폴더의 sample.zip과 output 저장 경로.
     출력 데이터: 반환값은 없고, output/results/<문서명>/ 아래에
-                 디버깅용 최종 JSON(final_debug.json)과
-                 계층 시각화용 txt(depth_text_preview_raw/clean.txt)를 저장한다.
+                 계층 시각화용 txt(depth_text_preview_raw/clean.txt)와
+                 llm_context.txt 를 저장한다.
+                 --debug 를 주면 final_debug.json 도 함께 저장한다.
     """
+    cli = argparse.ArgumentParser(description="sample.zip 파싱 파이프라인 실행")
+    cli.add_argument("--debug", action="store_true",
+                     help="final_debug.json 도 저장 (tools/audit/* 를 쓸 때 필요)")
+    args = cli.parse_args(argv)
     """
     test.py는 실행기 역할만 한다.
 
@@ -165,6 +171,7 @@ def main() -> None:
     save_pipeline_outputs(
         result=result,
         output_dir=output_root / "results" / parser.filename,
+        debug=args.debug,
     )
 
 
