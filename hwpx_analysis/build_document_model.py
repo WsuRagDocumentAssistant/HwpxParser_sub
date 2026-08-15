@@ -422,4 +422,37 @@ def verify_model(model: DocumentModel, result) -> list[tuple[str, str, bool, str
     check('M10', '중첩 표의 상위표가 모델 안에 있다',
           not orphan, f'끊긴 상위표 참조 {len(orphan)}개')
 
+    # regression_check 의 I5(무결성) / I6(depth 해소)를 모델 형태로 옮긴 것.
+    # 모델에는 internal_blocks 가 없다(칸·표로 흡수됐다). 그래서 같은 취지를
+    # 모델이 실제로 가진 id 로 다시 세운다.
+    block_ids = [b.id for b in model.blocks]
+    table_ids = [t.id for t in tables]
+    cell_dup = 0
+    for table in tables:
+        seen = collections.Counter((c.row, c.col) for c in table.cells)
+        cell_dup += sum(n - 1 for n in seen.values() if n > 1)
+    orders = [b.order for b in model.blocks]
+    child_ids = {c.id for t in tables for c in t.children}
+    no_parent = [t.id for t in tables if t.id in child_ids and t.parent is None]
+    duplicates = (len(block_ids) - len(set(block_ids))
+                  + len(table_ids) - len(set(table_ids))
+                  + cell_dup + len(orders) - len(set(orders)))
+    check('M11', 'id·좌표·순서에 중복이 없고 자식 표에 상위표가 있다',
+          duplicates == 0 and not no_parent,
+          f'블록 id 중복 {len(block_ids) - len(set(block_ids))} / '
+          f'표 id 중복 {len(table_ids) - len(set(table_ids))} / '
+          f'셀 좌표 중복 {cell_dup} / order 중복 {len(orders) - len(set(orders))} / '
+          f'parent 없는 자식 표 {len(no_parent)}')
+
+    missing_field = [b.id for b in model.blocks
+                     if b.depth is None or b.order is None or b.section is None]
+    check('M12', '모든 블록에 depth·순서·섹션이 해소되어 있다',
+          not missing_field, f'미해소 블록 {len(missing_field)}개')
+
+    unknown_image = [b.id for b in model.blocks
+                     if b.figure and b.figure.image
+                     and b.figure.image.ref not in model.images]
+    check('M13', '그림이 가리키는 파일이 이미지 목록에 있다',
+          not unknown_image, f'목록에 없는 참조 {len(unknown_image)}개')
+
     return checks
