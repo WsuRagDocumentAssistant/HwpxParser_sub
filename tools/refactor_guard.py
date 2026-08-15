@@ -43,6 +43,8 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
+from tools.defaults import DEFAULT_SOURCE  # noqa: E402
+
 DEFAULT_STORE = REPO_ROOT / "tools" / "baseline" / "refactor_hashes.json"
 DEFAULT_PIPELINE_STORE = REPO_ROOT / "tools" / "baseline" / "pipeline_hashes.json"
 
@@ -297,7 +299,7 @@ def main(argv: list[str] | None = None) -> int:
                                             "verify-pipeline"))
     parser.add_argument("dirs", nargs="*", help="결과 폴더 (snapshot에서만 사용)")
     parser.add_argument("--store", default=None)
-    parser.add_argument("--source", default=str(REPO_ROOT / "sample.zip"),
+    parser.add_argument("--source", default=str(DEFAULT_SOURCE),
                         help="*-pipeline 대상 문서")
     parser.add_argument("--work", default=str(REPO_ROOT / "output"),
                         help="*-pipeline 압축 해제 위치")

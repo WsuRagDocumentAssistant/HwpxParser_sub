@@ -31,7 +31,7 @@
 
 사용
     python -m tools.audit.field_provenance <문서경로> [--out <임시루트>]
-    python -m tools.audit.field_provenance sample.zip
+    python -m tools.audit.field_provenance            # 기본 문서
 """
 
 from __future__ import annotations
@@ -48,6 +48,7 @@ from collections import defaultdict
 from pathlib import Path
 
 from tools.audit.documents import REPO_ROOT, enable_utf8_stdout
+from tools.defaults import DEFAULT_SOURCE
 
 sys.path.insert(0, str(REPO_ROOT))
 enable_utf8_stdout()
@@ -358,7 +359,8 @@ def _run_document(source: Path, out_root: Path, entry: str = 'test'):
             module.main(['--debug'])
         finally:
             os.chdir(cwd)
-        produced = REPO_ROOT / 'output' / 'results' / 'sample' / 'final_debug.json'
+        produced = (REPO_ROOT / 'output' / 'results' / DEFAULT_SOURCE.stem
+                    / 'final_debug.json')
         if not produced.exists():
             sys.exit(f"산출물이 없습니다: {produced}")
         return produced
@@ -392,8 +394,8 @@ def run_instrumented(source: Path, out_root: Path, dynamic: set[str], entry: str
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description="필드별 생성/수정 단계 관측")
-    ap.add_argument('source', nargs='?', default=str(REPO_ROOT / 'sample.zip'),
-                    help="HWPX 또는 ZIP 문서 (생략 시 저장소 sample.zip)")
+    ap.add_argument('source', nargs='?', default=str(DEFAULT_SOURCE),
+                    help=f'HWPX 또는 ZIP 문서 (생략 시 {DEFAULT_SOURCE.name})')
     ap.add_argument('--out', default=None, help="산출물 임시 저장 루트")
     ap.add_argument('--entry', choices=('test', 'run_document'), default='test',
                     help="정본 진입점. test.py 가 기본 (summary 구성이 다르다)")

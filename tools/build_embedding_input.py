@@ -220,7 +220,7 @@ def verify(before, after, report):
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description='임베딩 입력 산출물 생성')
-    ap.add_argument('--doc', default=None, help='결과 폴더 (기본: output/results/sample)')
+    ap.add_argument('--doc', default=None, help='결과 폴더 (기본: 기본 문서의 결과 폴더)')
     ap.add_argument('--out', default=None,
                     help='저장 경로. 주지 않으면 파일을 쓰지 않는다')
     ap.add_argument('--preview', action='store_true',
@@ -230,7 +230,9 @@ def main(argv=None):
     from tools.audit.documents import enable_utf8_stdout
     enable_utf8_stdout()
 
-    doc_dir = Path(args.doc) if args.doc else REPO_ROOT / 'output' / 'results' / 'sample'
+    from tools.defaults import DEFAULT_SOURCE
+    doc_dir = (Path(args.doc) if args.doc
+               else REPO_ROOT / 'output' / 'results' / DEFAULT_SOURCE.stem)
     src = doc_dir / 'final_debug.json'
     if not src.exists():
         sys.exit(f'입력이 없습니다: {src}')

@@ -30,7 +30,7 @@
     추적이 결과를 바꾸지 않았음을 확인하지 못하면 기록을 신뢰하지 않는다.
 
 사용
-    python -m tools.audit.field_reads sample.zip --json reads.json
+    python -m tools.audit.field_reads --json reads.json   # 기본 문서
 """
 
 from __future__ import annotations
@@ -183,7 +183,7 @@ def _run(source: Path, out_root: Path) -> Path:
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description="필드 읽기 단계 관측")
-    ap.add_argument('source', nargs='?', default=str(REPO_ROOT / 'sample.zip'))
+    ap.add_argument('source', nargs='?', default=str(DEFAULT_SOURCE))
     ap.add_argument('--out', default=None)
     ap.add_argument('--json', default=None, help="읽기 기록 저장")
     args = ap.parse_args(argv)

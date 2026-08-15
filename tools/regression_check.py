@@ -78,9 +78,14 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-DEFAULT_CONTENTS_DIR = REPO_ROOT / "output" / "unpacked" / "sample" / "Contents"
-DEFAULT_CURRENT = REPO_ROOT / "output" / "results" / "sample" / "final_debug.json"
-DEFAULT_BASELINE = REPO_ROOT / "tools" / "baseline" / "sample.baseline.json"
+from tools.defaults import DEFAULT_SOURCE  # noqa: E402
+
+DEFAULT_CONTENTS_DIR = (REPO_ROOT / "output" / "unpacked"
+                        / DEFAULT_SOURCE.stem / "Contents")
+DEFAULT_CURRENT = (REPO_ROOT / "output" / "results" / DEFAULT_SOURCE.stem
+                   / "final_debug.json")
+DEFAULT_BASELINE = (REPO_ROOT / "tools" / "baseline"
+                    / (DEFAULT_SOURCE.stem + ".baseline.json"))
 
 # 블록 텍스트 diff의 조인 키.
 # block_id는 블록 수가 바뀌면 전면 재부여되므로 키로 쓸 수 없다.
@@ -1254,7 +1259,7 @@ def main(argv: list[str] | None = None) -> int:
              "check=산출물 파일로 검증, "
              "check-pipeline=파일 없이 파이프라인 결과로 검증",
     )
-    parser.add_argument("--source", default=str(REPO_ROOT / "sample.zip"),
+    parser.add_argument("--source", default=str(DEFAULT_SOURCE),
                         help="check-pipeline 대상 문서")
     parser.add_argument("--work", default=str(REPO_ROOT / "output"),
                         help="check-pipeline 압축 해제 위치")

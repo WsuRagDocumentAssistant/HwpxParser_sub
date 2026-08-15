@@ -33,6 +33,7 @@ from hwpx_analysis.table_filter import (  # noqa: E402
     apply_filter, cell_text, cells_of, index_tables, one, state_view,
 )
 from tools.build_document_model import run_pipeline  # noqa: E402
+from tools.defaults import DEFAULT_SOURCE  # noqa: E402
 
 
 def compare(model, filtered):
@@ -117,7 +118,7 @@ def compare(model, filtered):
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description='객체 경로 vs JSON 경로 대조')
-    ap.add_argument('source', nargs='?', default=str(REPO_ROOT / 'sample.zip'))
+    ap.add_argument('source', nargs='?', default=str(DEFAULT_SOURCE))
     ap.add_argument('--work', default=str(REPO_ROOT / 'output'))
     args = ap.parse_args(argv)
 

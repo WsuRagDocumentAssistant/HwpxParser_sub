@@ -21,8 +21,8 @@
   버릴지 말지는 값 통계와 함께 사람이 정해야 한다.
 
 사용
-    python -m tools.audit.field_provenance sample.zip --json prov.json
-    python -m tools.audit.field_reads      sample.zip --json reads.json
+    python -m tools.audit.field_provenance --json prov.json
+    python -m tools.audit.field_reads      --json reads.json
     python -m tools.audit.field_usage prov.json reads.json
 """
 

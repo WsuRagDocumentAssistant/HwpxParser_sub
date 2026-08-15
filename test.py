@@ -22,7 +22,7 @@
 # 매 실행 M2~M13 을 검증하고 하나라도 깨지면 저장하지 않는다.
 #
 # 다른 문서로 돌리거나 저장 위치를 바꾸려면 tools/build_document_model.py 를
-# 직접 쓴다. 이 파일은 저장소의 sample.zip 을 보는 용도로 고정해 둔다.
+# 직접 쓴다. 이 파일은 tools/defaults.py 가 정한 기본 문서를 본다.
 #================================================
 
 from __future__ import annotations

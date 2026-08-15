@@ -1,0 +1,2930 @@
+{
+  "schema_version": 1,
+  "block_count": 409,
+  "block_type_counts": {
+    "paragraph": 270,
+    "section_control": 1,
+    "control": 23,
+    "table": 90,
+    "shape_group": 11,
+    "image": 12,
+    "caption": 1,
+    "footer": 1
+  },
+  "semantic_role_counts": {
+    "empty_paragraph": 167,
+    "document_control": 24,
+    "table": 90,
+    "section_heading": 16,
+    "figure": 22,
+    "list_item": 47,
+    "body_text": 40,
+    "decorative_shape_candidate": 1,
+    "caption": 1,
+    "page_footer": 1
+  },
+  "blocks": {
+    "Contents/section0.xml#hp:p[0]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 1,
+      "reading_order_index": 0,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[0]/hp:secPr|0": {
+      "block_type": "section_control",
+      "semantic_role": "document_control",
+      "depth": 0,
+      "reading_order_index": 1,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[0]/hp:colPr|0": {
+      "block_type": "control",
+      "semantic_role": "document_control",
+      "depth": 0,
+      "reading_order_index": 2,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[0]/hp:pageNum|0": {
+      "block_type": "control",
+      "semantic_role": "document_control",
+      "depth": 0,
+      "reading_order_index": 3,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[0]/hp:pageNum|1": {
+      "block_type": "control",
+      "semantic_role": "document_control",
+      "depth": 0,
+      "reading_order_index": 4,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[1]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 1,
+      "reading_order_index": 5,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[1]/hp:pageHiding|0": {
+      "block_type": "control",
+      "semantic_role": "document_control",
+      "depth": 0,
+      "reading_order_index": 6,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[2]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 1,
+      "reading_order_index": 7,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[3]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 1,
+      "reading_order_index": 8,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[3]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 1,
+      "reading_order_index": 9,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[4]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 1,
+      "reading_order_index": 10,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[5]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 1,
+      "reading_order_index": 11,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[6]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 1,
+      "reading_order_index": 12,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[7]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "section_heading",
+      "depth": 1,
+      "reading_order_index": 13,
+      "text_content": "『2025~2027년 대학혁신지원사업 "
+    },
+    "Contents/section0.xml#hp:p[8]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "section_heading",
+      "depth": 1,
+      "reading_order_index": 14,
+      "text_content": "자율혁신계획』"
+    },
+    "Contents/section0.xml#hp:p[9]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 15,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[10]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "section_heading",
+      "depth": 2,
+      "reading_order_index": 16,
+      "text_content": "- 2025년 대학혁신지원사업 수정 사업계획 -"
+    },
+    "Contents/section0.xml#hp:p[11]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 3,
+      "reading_order_index": 17,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[12]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 3,
+      "reading_order_index": 18,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[13]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 3,
+      "reading_order_index": 19,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[14]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 3,
+      "reading_order_index": 20,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[15]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "section_heading",
+      "depth": 4,
+      "reading_order_index": 21,
+      "text_content": "2026. 1. "
+    },
+    "Contents/section0.xml#hp:p[16]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 5,
+      "reading_order_index": 22,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[17]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 5,
+      "reading_order_index": 23,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[18]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 5,
+      "reading_order_index": 24,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[19]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 5,
+      "reading_order_index": 25,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[20]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 5,
+      "reading_order_index": 26,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[21]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 5,
+      "reading_order_index": 27,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[21]/hp:pageHiding|0": {
+      "block_type": "control",
+      "semantic_role": "document_control",
+      "depth": 0,
+      "reading_order_index": 28,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[22]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "section_heading",
+      "depth": 3,
+      "reading_order_index": 29,
+      "text_content": "우송대학교"
+    },
+    "Contents/section0.xml#hp:p[23]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 4,
+      "reading_order_index": 30,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[24]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 4,
+      "reading_order_index": 31,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[24]/hp:pageHiding|0": {
+      "block_type": "control",
+      "semantic_role": "document_control",
+      "depth": 0,
+      "reading_order_index": 32,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[25]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 4,
+      "reading_order_index": 33,
+      "text_content": "  "
+    },
+    "Contents/section0.xml#hp:p[25]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 4,
+      "reading_order_index": 34,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[26]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 4,
+      "reading_order_index": 35,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[26]/hp:pageHiding|0": {
+      "block_type": "control",
+      "semantic_role": "document_control",
+      "depth": 0,
+      "reading_order_index": 36,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[27]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "section_heading",
+      "depth": 5,
+      "reading_order_index": 37,
+      "text_content": "【대학혁신지원사업 개요】"
+    },
+    "Contents/section0.xml#hp:p[27]/hp:pageHiding|0": {
+      "block_type": "control",
+      "semantic_role": "document_control",
+      "depth": 0,
+      "reading_order_index": 38,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[28]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 6,
+      "reading_order_index": 39,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[28]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 6,
+      "reading_order_index": 40,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[29]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 6,
+      "reading_order_index": 41,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[29]/hp:pageHiding|0": {
+      "block_type": "control",
+      "semantic_role": "document_control",
+      "depth": 0,
+      "reading_order_index": 42,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[30]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 6,
+      "reading_order_index": 43,
+      "text_content": "\n"
+    },
+    "Contents/section0.xml#hp:p[30]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 6,
+      "reading_order_index": 44,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[31]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 6,
+      "reading_order_index": 45,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[31]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 6,
+      "reading_order_index": 46,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[32]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 6,
+      "reading_order_index": 47,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[32]/hp:pageHiding|0": {
+      "block_type": "control",
+      "semantic_role": "document_control",
+      "depth": 0,
+      "reading_order_index": 48,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[33]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 6,
+      "reading_order_index": 49,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[33]/hp:container|0": {
+      "block_type": "shape_group",
+      "semantic_role": "figure",
+      "depth": 6,
+      "reading_order_index": 50,
+      "text_content": "Ⅰ Ⅰ. 대학혁신전략 대학혁신지원사업"
+    },
+    "Contents/section0.xml#hp:p[34]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 6,
+      "reading_order_index": 51,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[34]/hp:pageHiding|0": {
+      "block_type": "control",
+      "semantic_role": "document_control",
+      "depth": 0,
+      "reading_order_index": 52,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[35]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 6,
+      "reading_order_index": 53,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[35]/hp:container|0": {
+      "block_type": "shape_group",
+      "semantic_role": "figure",
+      "depth": 6,
+      "reading_order_index": 54,
+      "text_content": "1. ‘ 25~ ’ 27년 대학 혁신전략 방향 (총괄)"
+    },
+    "Contents/section0.xml#hp:p[36]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 6,
+      "reading_order_index": 55,
+      "text_content": "대학혁신 방향 및 전략"
+    },
+    "Contents/section0.xml#hp:p[37]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 6,
+      "reading_order_index": 56,
+      "text_content": "대학의 비전 및 중장기 발전계획"
+    },
+    "Contents/section0.xml#hp:p[37]/hp:newNum|0": {
+      "block_type": "control",
+      "semantic_role": "document_control",
+      "depth": 0,
+      "reading_order_index": 57,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[38]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 6,
+      "reading_order_index": 58,
+      "text_content": "- (비전) 미래사회를 선도하는‘The Smart University for the World’"
+    },
+    "Contents/section0.xml#hp:p[39]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 6,
+      "reading_order_index": 59,
+      "text_content": "- (중장기 발전계획) 창의 융․복합 교육을 위한 디지털 혁신 캠퍼스 실현을 중장기 발전목표로 설정하고 역량중심 교육, 생애주기 학생지원, 디지털캠퍼스 구축의 3대 실천목표 도출"
+    },
+    "Contents/section0.xml#hp:p[40]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 6,
+      "reading_order_index": 60,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[40]/hp:pic|0": {
+      "block_type": "image",
+      "semantic_role": "figure",
+      "depth": 6,
+      "reading_order_index": 61,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[41]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 6,
+      "reading_order_index": 62,
+      "text_content": "대내·외 환경 분석"
+    },
+    "Contents/section0.xml#hp:p[42]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 6,
+      "reading_order_index": 63,
+      "text_content": "- (대외) 국가정책 변화에서부터 지역 여건 및 산업 수요 변화에 대한 주요 이슈 도출"
+    },
+    "Contents/section0.xml#hp:p[43]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 6,
+      "reading_order_index": 64,
+      "text_content": "- (대내) 재학생, 교직원 특성 및 대학 자체 재정 현황과 인프라 등 분석"
+    },
+    "Contents/section0.xml#hp:p[44]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 6,
+      "reading_order_index": 65,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[44]/hp:pic|0": {
+      "block_type": "image",
+      "semantic_role": "figure",
+      "depth": 6,
+      "reading_order_index": 66,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[45]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 6,
+      "reading_order_index": 67,
+      "text_content": "- (진단 결과) SWOT 분석을 기반으로 S-O) 역량중심 교육 강화, W-O) 디지털 기반 교육지원 강화, S-T) 지역-글로벌 협력 강화, W-T) 생애주기 평생교육 강화를 도출하고 이를 바탕으로 수요자 중심 역량교육, 상생협력 네트워크 구축, 스마트 생애주기 교육시스템 구축, 디지털 협력 플랫폼 역량 강화 등 추진전략 도출"
+    },
+    "Contents/section0.xml#hp:p[46]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 6,
+      "reading_order_index": 68,
+      "text_content": "대학혁신 방향과 특성화 전략"
+    },
+    "Contents/section0.xml#hp:p[47]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 6,
+      "reading_order_index": 69,
+      "text_content": "- (혁신 방향) 중장기 발전목표를 달성하기 위하여 3대 혁신 실천목표, 5대 핵심분야를 설정(교육, 연구/산학협력, 글로벌, 학생지원, 행․재정)하고 15개의 추진전략과제 도출"
+    },
+    "Contents/section0.xml#hp:p[48]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 6,
+      "reading_order_index": 70,
+      "text_content": "- (특성화 전략) 5대 특성화 분야(철도물류, 보건복지, SW융합, 호텔외식조리, 국제경영) 중심의 7개 단과대학 체계로 학사구조를 개편하고,‘지역발전 연계, 글로벌, 디지털 융합’의 3대 특성화 교육 방향을 설정하여‘실무중심교육, 융합교육, 다전공교육, 전문화 교육’의 특성화 전략 추진"
+    },
+    "Contents/section0.xml#hp:p[49]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 6,
+      "reading_order_index": 71,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[49]/hp:pic|0": {
+      "block_type": "image",
+      "semantic_role": "figure",
+      "depth": 6,
+      "reading_order_index": 72,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[50]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 6,
+      "reading_order_index": 73,
+      "text_content": "영역별 혁신전략 및 추진 계획"
+    },
+    "Contents/section0.xml#hp:p[51]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 6,
+      "reading_order_index": 74,
+      "text_content": "대학혁신지원사업 혁신전략 수립"
+    },
+    "Contents/section0.xml#hp:p[52]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 6,
+      "reading_order_index": 75,
+      "text_content": "- (전략 수립) 대학의 비전 및 중장기 발전계획과 학교의 대·내외 여건 분석 결과를 반영하여 대학혁신지원사업의 혁신전략 수립"
+    },
+    "Contents/section0.xml#hp:p[53]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 6,
+      "reading_order_index": 76,
+      "text_content": "- (사업 목표) 중장기 발전목표를 달성하고 특성화 역량을 강화하기 위해 유연한 교육시스템 구축, 상생협력 생태계 활성화, 디지털 융합 및 네트워크 강화를 대학혁신지원사업의 3대 혁신목표로 설정"
+    },
+    "Contents/section0.xml#hp:p[54]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 6,
+      "reading_order_index": 77,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[54]/hp:container|0": {
+      "block_type": "shape_group",
+      "semantic_role": "decorative_shape_candidate",
+      "depth": 6,
+      "reading_order_index": 78,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[55]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 6,
+      "reading_order_index": 79,
+      "text_content": "- (혁신전략 및 혁신과제 수립) 대학혁신지원사업의 3대 혁신목표를 토대로 교육 혁신전략, 기타 혁신전략으로 나누어 7개 혁신전략, 21개 혁신과제를 다음과 같이 수립"
+    },
+    "Contents/section0.xml#hp:p[56]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 6,
+      "reading_order_index": 80,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[56]/hp:pic|0": {
+      "block_type": "image",
+      "semantic_role": "figure",
+      "depth": 6,
+      "reading_order_index": 81,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[57]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 6,
+      "reading_order_index": 82,
+      "text_content": "대학의 중장기 발전계획과 대학혁신지원사업 혁신전략과의 연계성"
+    },
+    "Contents/section0.xml#hp:p[58]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 6,
+      "reading_order_index": 83,
+      "text_content": "- (연계성) 대학혁신지원사업의 혁신전략 및 혁신과제, 세부 프로그램은 대학 중장기 발전계획 VISION2030++의 3개 실천목표, 5대 핵심부문, 15대 전략과제와 연계"
+    },
+    "Contents/section0.xml#hp:p[59]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 6,
+      "reading_order_index": 84,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[59]/hp:pic|0": {
+      "block_type": "image",
+      "semantic_role": "figure",
+      "depth": 6,
+      "reading_order_index": 85,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[60]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 6,
+      "reading_order_index": 86,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[60]/hp:container|0": {
+      "block_type": "shape_group",
+      "semantic_role": "figure",
+      "depth": 0,
+      "reading_order_index": 87,
+      "text_content": "2. 영역별 혁신전략"
+    },
+    "Contents/section0.xml#hp:p[61]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 1,
+      "reading_order_index": 88,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[61]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 1,
+      "reading_order_index": 89,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[62]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 90,
+      "text_content": "교육혁신 추진 로드맵(’25~’27)"
+    },
+    "Contents/section0.xml#hp:p[63]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 91,
+      "text_content": "대학 교육혁신 전략 추진 현황 분석"
+    },
+    "Contents/section0.xml#hp:p[64]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 2,
+      "reading_order_index": 92,
+      "text_content": "- 특성화(철도물류, 보건복지, SW융합, 호텔외식조리, 국제경영)분야 인재 양성"
+    },
+    "Contents/section0.xml#hp:p[65]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 2,
+      "reading_order_index": 93,
+      "text_content": "- 수요자 중심의 역량교육 실현 등 교육혁신 전략을 바탕으로 사업 운영(’22~’24)"
+    },
+    "Contents/section0.xml#hp:p[66]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 94,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[66]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 95,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[67]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 96,
+      "text_content": "’25 ~ ’27 대학 교육혁신 전략 수립"
+    },
+    "Contents/section0.xml#hp:p[68]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 2,
+      "reading_order_index": 97,
+      "text_content": "- 대·내외 환경 변화 SWOT 분석 및 대학 교육혁신 전략 추진 현황 분석(’22~’24)을 통한 교육혁신 영역별 문제·보완점 및 대응전략 수립"
+    },
+    "Contents/section0.xml#hp:p[69]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 98,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[69]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 99,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[70]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 100,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[71]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 2,
+      "reading_order_index": 101,
+      "text_content": "- 문제점 및 대응전략 분석을 토대로 새로운 4대 혁신전략(초유연 학사체계 기반 진로지원 내실화, 학생성장 통합지원 체계 고도화, 디지털 기반 역량교육 혁신체계 구축, 특성화 연계 기초·교양교육 강화) 도출"
+    },
+    "Contents/section0.xml#hp:p[72]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 102,
+      "text_content": "교육혁신 전략과 추진계획과의 연계성"
+    },
+    "Contents/section0.xml#hp:p[73]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 2,
+      "reading_order_index": 103,
+      "text_content": "- 전략적 우선순위 및 혁신 기대효과를 바탕으로 주요 혁신과제 도출"
+    },
+    "Contents/section0.xml#hp:p[74]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 104,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[74]/hp:pic|0": {
+      "block_type": "image",
+      "semantic_role": "figure",
+      "depth": 2,
+      "reading_order_index": 105,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[75]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 106,
+      "text_content": "교육혁신 추진 로드맵(’25 ~ ’27)"
+    },
+    "Contents/section0.xml#hp:p[76]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 2,
+      "reading_order_index": 107,
+      "text_content": "- 대학의 비전 및 중장기 발전계획과 학교의 대·내외 여건 분석결과를 반영하여 교육혁신 사업의 3개년 추진 로드맵(’25 ~’27) 마련"
+    },
+    "Contents/section0.xml#hp:p[77]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 108,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[77]/hp:pic|0": {
+      "block_type": "image",
+      "semantic_role": "figure",
+      "depth": 2,
+      "reading_order_index": 109,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[78]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 110,
+      "text_content": "교육혁신 전략 추진 및 환류 체계"
+    },
+    "Contents/section0.xml#hp:p[79]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 2,
+      "reading_order_index": 111,
+      "text_content": "- (추진전략) 학생 중심 맞춤형 학습을 위해 유연한 학사제도와 전공 선택 다양화를 핵심으로, 규정 개정, 교원 확보 유연화, 행·재정 지원 등을 체계적으로 연계하여 운영. 교육혁신 순환을 유도하며, 지속 가능한 교육혁신 생태계 조성을 목표로 함"
+    },
+    "Contents/section0.xml#hp:p[80]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 2,
+      "reading_order_index": 112,
+      "text_content": "- (추진체계) 교육혁신 전략을 추진함에 있어 행정, 재정, 제도, 규제개선 등 다층적 환류 체계 구축"
+    },
+    "Contents/section0.xml#hp:p[81]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 113,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[81]/hp:pic|0": {
+      "block_type": "image",
+      "semantic_role": "figure",
+      "depth": 2,
+      "reading_order_index": 114,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[82]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 115,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[82]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 116,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[83]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 117,
+      "text_content": "추진배경 및 목표"
+    },
+    "Contents/section0.xml#hp:p[84]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 118,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[84]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 119,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[85]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 120,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[86]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 121,
+      "text_content": "중기(’25 ~ ’27년) 추진계획 및 ’25년 세부 추진계획"
+    },
+    "Contents/section0.xml#hp:p[87]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 122,
+      "text_content": "중기(’25 ~ ’27년) 추진계획"
+    },
+    "Contents/section0.xml#hp:p[88]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 123,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[88]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 124,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[89]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 125,
+      "text_content": " "
+    },
+    "Contents/section0.xml#hp:p[90]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 126,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[90]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 127,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[91]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 128,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[91]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 129,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[92]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 130,
+      "text_content": "’25년 세부 추진계획"
+    },
+    "Contents/section0.xml#hp:p[93]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 131,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[93]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 132,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[94]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 133,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[94]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 134,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[95]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 135,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[96]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 136,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[96]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 137,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[97]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 138,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[97]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 139,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[98]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 140,
+      "text_content": "추진배경 및 목표"
+    },
+    "Contents/section0.xml#hp:p[99]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 141,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[99]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 142,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[100]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 143,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[101]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 144,
+      "text_content": "중기(’25 ~ ’27년) 추진계획 및 ’25년 세부 추진계획 "
+    },
+    "Contents/section0.xml#hp:p[102]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 145,
+      "text_content": "중기(’25 ~ ’27년) 추진계획"
+    },
+    "Contents/section0.xml#hp:p[103]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 146,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[103]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 147,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[104]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 148,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[104]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 149,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[105]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 150,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[105]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 151,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[106]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 152,
+      "text_content": "’25년 세부 추진계획"
+    },
+    "Contents/section0.xml#hp:p[107]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 153,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[107]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 154,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[108]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 155,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[108]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 156,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[109]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 157,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[109]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 158,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[110]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 159,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[110]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 160,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[111]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 161,
+      "text_content": " 추진배경 및 목표"
+    },
+    "Contents/section0.xml#hp:p[112]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 162,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[112]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 163,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[113]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 164,
+      "text_content": "중기(’25 ~ ’27년) 추진계획 및 ’25년 세부 추진계획"
+    },
+    "Contents/section0.xml#hp:p[114]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 165,
+      "text_content": "중기(’25 ~ ’27년) 추진계획"
+    },
+    "Contents/section0.xml#hp:p[115]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 166,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[115]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 167,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[116]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 168,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[116]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 169,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[117]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 170,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[117]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 171,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[118]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 172,
+      "text_content": "’25년 세부 추진계획"
+    },
+    "Contents/section0.xml#hp:p[119]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 173,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[119]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 174,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[120]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 175,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[121]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 176,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[121]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 177,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[122]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 178,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[123]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 179,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[123]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 180,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[124]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 181,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[125]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 182,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[125]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 183,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[126]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 184,
+      "text_content": "추진배경 및 목표"
+    },
+    "Contents/section0.xml#hp:p[127]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 185,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[127]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 186,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[128]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 187,
+      "text_content": "중기(’25 ~ ’27년) 추진계획 및 ’25년 세부 추진계획"
+    },
+    "Contents/section0.xml#hp:p[129]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 188,
+      "text_content": "중기(’25 ~ ’27년) 추진계획"
+    },
+    "Contents/section0.xml#hp:p[130]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 189,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[130]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 190,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[131]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 191,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[131]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 192,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[132]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 193,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[133]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 194,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[133]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 195,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[134]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 196,
+      "text_content": "’25년 세부 추진계획"
+    },
+    "Contents/section0.xml#hp:p[135]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 197,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[135]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 198,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[135]/hp:tbl|1": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 199,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[136]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 200,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[136]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 201,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[137]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 202,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[137]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 203,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[138]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 204,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[139]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 205,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[139]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 1,
+      "reading_order_index": 206,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[140]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 207,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[140]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 208,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[141]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 209,
+      "text_content": "추진배경 및 목표"
+    },
+    "Contents/section0.xml#hp:p[142]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 210,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[142]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 211,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[143]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 212,
+      "text_content": "중기(’25 ~ ’27년) 추진계획 및 ’25년 세부 추진계획"
+    },
+    "Contents/section0.xml#hp:p[144]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 213,
+      "text_content": "중기(’25 ~ ’27년) 추진계획"
+    },
+    "Contents/section0.xml#hp:p[145]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 214,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[145]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 215,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[146]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 216,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[146]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 217,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[147]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 218,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[147]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 219,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[148]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 220,
+      "text_content": "’25년 세부 추진계획"
+    },
+    "Contents/section0.xml#hp:p[149]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 221,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[149]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 222,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[150]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 223,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[150]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 224,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[151]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 225,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[151]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 226,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[152]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 227,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[153]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 228,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[153]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 229,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[154]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 230,
+      "text_content": "추진배경 및 목표"
+    },
+    "Contents/section0.xml#hp:p[155]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 231,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[155]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 232,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[156]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 233,
+      "text_content": "중기(’25 ~ ’27년) 추진계획 및 ’25년 세부 추진계획"
+    },
+    "Contents/section0.xml#hp:p[157]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 234,
+      "text_content": "중기(’25 ~ ’27년) 추진계획"
+    },
+    "Contents/section0.xml#hp:p[158]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 235,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[158]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 236,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[159]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 237,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[159]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 238,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[160]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 239,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[160]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 240,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[161]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 241,
+      "text_content": "’25년 세부 추진계획"
+    },
+    "Contents/section0.xml#hp:p[162]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 242,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[162]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 243,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[163]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 244,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[163]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 245,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[164]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 246,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[164]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 247,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[165]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 248,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[165]/hp:pageNum|0": {
+      "block_type": "control",
+      "semantic_role": "document_control",
+      "depth": 0,
+      "reading_order_index": 249,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[166]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 250,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[166]/hp:pageHiding|0": {
+      "block_type": "control",
+      "semantic_role": "document_control",
+      "depth": 0,
+      "reading_order_index": 251,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[167]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 252,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[167]/hp:container|0": {
+      "block_type": "shape_group",
+      "semantic_role": "figure",
+      "depth": 2,
+      "reading_order_index": 253,
+      "text_content": "Ⅰ Ⅱ. 재정 투자계획 대학혁신지원사업"
+    },
+    "Contents/section0.xml#hp:p[168]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 254,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[168]/hp:pageHiding|0": {
+      "block_type": "control",
+      "semantic_role": "document_control",
+      "depth": 0,
+      "reading_order_index": 255,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[169]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 256,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[169]/hp:container|0": {
+      "block_type": "shape_group",
+      "semantic_role": "figure",
+      "depth": 0,
+      "reading_order_index": 257,
+      "text_content": "1. 대학 재정 투자전략"
+    },
+    "Contents/section0.xml#hp:p[170]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "section_heading",
+      "depth": 7,
+      "reading_order_index": 258,
+      "text_content": "< 재정투자계획 도표 >"
+    },
+    "Contents/section0.xml#hp:p[170]/hp:newNum|0": {
+      "block_type": "control",
+      "semantic_role": "document_control",
+      "depth": 0,
+      "reading_order_index": 259,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[171]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 8,
+      "reading_order_index": 260,
+      "text_content": "(단위 : 백만원)"
+    },
+    "Contents/section0.xml#hp:p[172]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 8,
+      "reading_order_index": 261,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[172]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 8,
+      "reading_order_index": 262,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[172]/hp:caption|0": {
+      "block_type": "caption",
+      "semantic_role": "caption",
+      "depth": 9,
+      "reading_order_index": 263,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[173]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 8,
+      "reading_order_index": 264,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[174]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "section_heading",
+      "depth": 7,
+      "reading_order_index": 265,
+      "text_content": "< 중장기 발전을 위한 2025년도 예산 투입계획(안) >"
+    },
+    "Contents/section0.xml#hp:p[175]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 8,
+      "reading_order_index": 266,
+      "text_content": "(단위: 백만원)"
+    },
+    "Contents/section0.xml#hp:p[176]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 8,
+      "reading_order_index": 267,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[176]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 8,
+      "reading_order_index": 268,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[177]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 8,
+      "reading_order_index": 269,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[178]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 8,
+      "reading_order_index": 270,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[178]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 8,
+      "reading_order_index": 271,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[178]/hp:container|0": {
+      "block_type": "shape_group",
+      "semantic_role": "figure",
+      "depth": 0,
+      "reading_order_index": 272,
+      "text_content": "2. 대학혁신지원사업 재정투자계획"
+    },
+    "Contents/section0.xml#hp:p[179]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 1,
+      "reading_order_index": 273,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[180]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 1,
+      "reading_order_index": 274,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[180]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 1,
+      "reading_order_index": 275,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[181]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 276,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[181]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 277,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[182]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 278,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[182]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 1,
+      "reading_order_index": 279,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[183]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 280,
+      "text_content": "1차년도 사업비 투자계획"
+    },
+    "Contents/section0.xml#hp:p[184]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 281,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[184]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 282,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[185]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 283,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[186]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 284,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[187]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "section_heading",
+      "depth": 2,
+      "reading_order_index": 285,
+      "text_content": "   2.2.2. 1차년도 사업비 비목별 구성"
+    },
+    "Contents/section0.xml#hp:p[188]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 3,
+      "reading_order_index": 286,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[188]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 3,
+      "reading_order_index": 287,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[189]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 3,
+      "reading_order_index": 288,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[189]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 3,
+      "reading_order_index": 289,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[190]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 3,
+      "reading_order_index": 290,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[191]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 3,
+      "reading_order_index": 291,
+      "text_content": " "
+    },
+    "Contents/section0.xml#hp:p[191]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 1,
+      "reading_order_index": 292,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[192]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 293,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[192]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 294,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[193]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 295,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[193]/hp:pageHiding|0": {
+      "block_type": "control",
+      "semantic_role": "document_control",
+      "depth": 0,
+      "reading_order_index": 296,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[194]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 297,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[194]/hp:container|0": {
+      "block_type": "shape_group",
+      "semantic_role": "figure",
+      "depth": 2,
+      "reading_order_index": 298,
+      "text_content": "Ⅰ Ⅲ. 총괄 관리체계 구축 대학혁신지원사업"
+    },
+    "Contents/section0.xml#hp:p[195]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 299,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[195]/hp:pageHiding|0": {
+      "block_type": "control",
+      "semantic_role": "document_control",
+      "depth": 0,
+      "reading_order_index": 300,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[196]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 301,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[196]/hp:container|0": {
+      "block_type": "shape_group",
+      "semantic_role": "figure",
+      "depth": 0,
+      "reading_order_index": 302,
+      "text_content": "1. 거버넌스 구축"
+    },
+    "Contents/section0.xml#hp:p[197]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 1,
+      "reading_order_index": 303,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[197]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 1,
+      "reading_order_index": 304,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[198]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 305,
+      "text_content": "거버넌스 체제 구성계획"
+    },
+    "Contents/section0.xml#hp:p[198]/hp:newNum|0": {
+      "block_type": "control",
+      "semantic_role": "document_control",
+      "depth": 0,
+      "reading_order_index": 306,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[199]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 307,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[199]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 308,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[200]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 2,
+      "reading_order_index": 309,
+      "text_content": "- (대학혁신위원회) 대학혁신위원회(위원장: 총장)는 대학의 중장기 발전계획과 연계성을 유지하며, 재정지원사업운영위원회(기획, 조정, 운영)와 재정지원사업평가위원회(평가, 환류)의 소위원회를 통해 대학 내 모든 재정지원사업을 총괄적으로 점검함. 대학의 특성화 방향을 고려하여 투자계획을 수립하며, 각 사업이 체계적으로 운영되도록 환류 시스템을 통한 지속적인 개선과 성과관리"
+    },
+    "Contents/section0.xml#hp:p[201]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 2,
+      "reading_order_index": 310,
+      "text_content": "- (대학혁신지원사업단) 대학혁신지원사업단 내 운영위원회와 평가위원회를 구성하여 대학 내 타 재정지원사업단 및 실무부처들과 협업을 통한 성과 운영 및 관리"
+    },
+    "Contents/section0.xml#hp:p[202]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 311,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[203]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 312,
+      "text_content": "거버넌스 조직 구성"
+    },
+    "Contents/section0.xml#hp:p[203]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 313,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[204]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 314,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[205]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 315,
+      "text_content": "  "
+    },
+    "Contents/section0.xml#hp:p[205]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 1,
+      "reading_order_index": 316,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[206]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 317,
+      "text_content": "거버넌스 구축 ․ 운영 방안"
+    },
+    "Contents/section0.xml#hp:p[207]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 2,
+      "reading_order_index": 318,
+      "text_content": "- (조직 총괄 운영 계획) 학내 전체 재정지원사업에 대해 대학의 중장기발전계획과의 연계성·정합성 및 자율혁신계획의 특성화 방향에 기반한 계획을 수립함. 대학혁신지원사업의 기획·평가·개선 수행을 통해 사업 전반에 대해 효율적·지속적 성과관리를 위해 대학혁신사업운영위원회와 평가위원회 운영"
+    },
+    "Contents/section0.xml#hp:p[208]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 2,
+      "reading_order_index": 319,
+      "text_content": "- (운영ㆍ관리를 위한 관련 규정 마련) 대학혁신위원회 운영 규정 및 대학혁신지원사업 운영 규정에 근거한 체계적이고 효율적인 재정지원사업 운영 및 관리"
+    },
+    "Contents/section0.xml#hp:p[209]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 320,
+      "text_content": "거버넌스 조직별 기능 및 역할"
+    },
+    "Contents/section0.xml#hp:p[210]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 2,
+      "reading_order_index": 321,
+      "text_content": "- 대학혁신지원사업은 대학혁신지원사업단이 주관하고, 대학 내 타 재정지원사업은 각각의 사업단을 조직화하여 운영"
+    },
+    "Contents/section0.xml#hp:p[211]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 322,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[211]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 323,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[212]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 324,
+      "text_content": "투명한 대학 운영 방안"
+    },
+    "Contents/section0.xml#hp:p[213]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 2,
+      "reading_order_index": 325,
+      "text_content": "- (거버넌스 구축·운영) 재정지원사업운영위원회에서 대내·외 여건 변화를 분석하고 설문조사 등을 통해 의견수렴을 진행하여, 핵심과제 및 전략을 도출하고 대학혁신위원회의 심의를 거쳐 사업 계획을 최종 수립하여 대학 내 재정지원사업에 적용함"
+    },
+    "Contents/section0.xml#hp:p[214]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 2,
+      "reading_order_index": 326,
+      "text_content": "- (규정) 대학혁신위원회 운영 규정에서 대학혁신위원회, 재정지원사업운영위원회 및 평가위원회에 학생/직원대표 및 외부전문가 위원 위촉을 명기하고 의견수렴 제도 마련"
+    },
+    "Contents/section0.xml#hp:p[215]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 2,
+      "reading_order_index": 327,
+      "text_content": "- (운영 방안) 간담회, 성과공유회, 워크숍 운영 등을 통해 대학 구성원 전체 및 대외적 의견조사를 시행하고, 대학 홈페이지, 전체교수회의, 직원회, 학생회 등을 통해 주기적인 의견수렴"
+    },
+    "Contents/section0.xml#hp:p[216]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 328,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[216]/hp:pic|0": {
+      "block_type": "image",
+      "semantic_role": "figure",
+      "depth": 2,
+      "reading_order_index": 329,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[217]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 2,
+      "reading_order_index": 330,
+      "text_content": "- (소통 및 관리 체계) 주요 학사 및 행정 개선 요구사항에 대한 의사결정 시 교수, 직원, 학생, 지역사회 등 구성원 조직을 통한 의견을 수렴하고 정기 및 상시, 위원회를 통한 의견수렴 및 조정이 이루어지도록 하는 등 다양한 참여와 소통 경로를 확보하기 위해 노력함"
+    },
+    "Contents/section0.xml#hp:p[218]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 331,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[218]/hp:pic|0": {
+      "block_type": "image",
+      "semantic_role": "figure",
+      "depth": 2,
+      "reading_order_index": 332,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[219]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 2,
+      "reading_order_index": 333,
+      "text_content": "- (제도 기반) 법령과 규정에 따라 자체, 내부(법인), 외부(회계)감사를 주기적으로 실시하고 지적 및 권고사항을 구성원에게 통보하며 조치 결과를 대학 경영 및 대학 운영에 반영함. 대학 홈페이지, 대학정보공시 등을 통해 투명하게 공개하고 공익제보 절차와 공익제보자 보호를 위한 규정과 제도를 마련함"
+    },
+    "Contents/section0.xml#hp:p[220]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 334,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[220]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 335,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[221]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 336,
+      "text_content": "  "
+    },
+    "Contents/section0.xml#hp:p[221]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 1,
+      "reading_order_index": 337,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[222]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 338,
+      "text_content": "조직 및 기구 운영"
+    },
+    "Contents/section0.xml#hp:p[223]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 2,
+      "reading_order_index": 339,
+      "text_content": "- (조직 및 기구) 대학혁신지원사업은 대학혁신지원사업단에서 주관하고, 성과지표 관리 및 운영 방향 점검과 사업 자체평가는 대학혁신지원사업운영위원회와 평가위원회에서 수행하며, 종합평가 및 환류 등 성과관리는 고등교육평가센터에서 수행함"
+    },
+    "Contents/section0.xml#hp:p[224]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 2,
+      "reading_order_index": 340,
+      "text_content": "- (운영 계획) 각 위원회에 따라 제시된 아래 운영 내용 및 운영 횟수에 따라 운영 예정"
+    },
+    "Contents/section0.xml#hp:p[225]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 341,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[225]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 342,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[226]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 343,
+      "text_content": "규정 마련 및 제도 운영"
+    },
+    "Contents/section0.xml#hp:p[227]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 2,
+      "reading_order_index": 344,
+      "text_content": "- (성과관리) 성과관리 및 확산을 위해 참여 교원 및 참여 학과를 대상으로 성과평가를 진행하고 성과보고서 발간 및 성과포럼을 통해 대학혁신지원사업의 성과를 공유하고, 대학 내 성과 확산 및 지속성 담보를 통해 대학 장기발전계획 목표와 혁신사업 목표를 공유하여 규정 및 제도 마련을 위한 체계 운영"
+    },
+    "Contents/section0.xml#hp:p[228]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 345,
+      "text_content": " "
+    },
+    "Contents/section0.xml#hp:p[228]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 346,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[229]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 347,
+      "text_content": "시스템 기반 환류체계 운영"
+    },
+    "Contents/section0.xml#hp:p[230]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 2,
+      "reading_order_index": 348,
+      "text_content": "- (대학통합성과관리(IR)시스템) 대학혁신지원사업의 효율적 운영을 위해 성과지표, 재정 현황을 상시 모니터링하고 분기 단위로 프로그램별 시행 현황을 점검하여 자체평가·관리 체계 구축을 통한 데이터 기반 사업 운영의 체계성을 제고하고 정밀한 평가 및 환류 수행"
+    },
+    "Contents/section0.xml#hp:p[231]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 349,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[231]/hp:pic|0": {
+      "block_type": "image",
+      "semantic_role": "figure",
+      "depth": 2,
+      "reading_order_index": 350,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[232]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 2,
+      "reading_order_index": 351,
+      "text_content": "- (성과관리 방안) 성과관리의 통일성과 효율성, 연계성을 높이기 위하여 대학통합성과관리시스템(IR)을 통해 성과지표를 상시 공유하고 자체평가를 통해 모니터링-환류를 시행하여 취약요소 발굴 및 개선 노력으로 자연스러운 환류 체계 조성"
+    },
+    "Contents/section0.xml#hp:p[233]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 352,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[233]/hp:pic|0": {
+      "block_type": "image",
+      "semantic_role": "figure",
+      "depth": 2,
+      "reading_order_index": 353,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[234]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 2,
+      "reading_order_index": 354,
+      "text_content": "- (성과관리 고도화) 성과관리시스템 구축 및 운영을 바탕으로 대학혁신지원사업 기반 타 사업(지자체 연계사업, 전문분야 사업 등)과 연계로 파급력을 확대하고 정부재정지원사업 간 성과 연계 체계를 구축하여 성과관리 프로세스의 고도화를 단계적으로 추진"
+    },
+    "Contents/section0.xml#hp:p[235]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 355,
+      "text_content": "  "
+    },
+    "Contents/section0.xml#hp:p[235]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 356,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[236]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 357,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[236]/hp:container|0": {
+      "block_type": "shape_group",
+      "semantic_role": "figure",
+      "depth": 0,
+      "reading_order_index": 358,
+      "text_content": "2. 자율성과지표"
+    },
+    "Contents/section0.xml#hp:p[237]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 1,
+      "reading_order_index": 359,
+      "text_content": "  "
+    },
+    "Contents/section0.xml#hp:p[237]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 1,
+      "reading_order_index": 360,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[238]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "list_item",
+      "depth": 2,
+      "reading_order_index": 361,
+      "text_content": "비전·목표·혁신전략과 연계한 자율성과지표"
+    },
+    "Contents/section0.xml#hp:p[239]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 2,
+      "reading_order_index": 362,
+      "text_content": "- 우리 대학의 비전과 교육목표, 혁신전략에 따라 미래 환경 변화에 대응한 교육의 질 제고, 사업 전체 및 세부 사업의 내용을 총괄하는 지표 구성 방안 등을 고려하여 자율지표를 구성함"
+    },
+    "Contents/section0.xml#hp:p[240]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 2,
+      "reading_order_index": 363,
+      "text_content": "- SMART 점검 기준(Specific: 구체성, Measurable: 측정가능성, Attributable: 달성가능성, Reliable: 신뢰성, Timely: 적시성)을 반영하여 최종 자율성과지표를 도출함"
+    },
+    "Contents/section0.xml#hp:p[241]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "body_text",
+      "depth": 2,
+      "reading_order_index": 364,
+      "text_content": "- 사업과의 관련성 확보를 위하여 사업추진 성과 및 결과물이 지표로 도출될 수 있도록 투입, 과정, 산출지표로 구분하고 적절한 정량ㆍ정성지표를 활용하여 자율성과지표를 설정함"
+    },
+    "Contents/section0.xml#hp:p[242]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 365,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[242]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 2,
+      "reading_order_index": 366,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[243]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 367,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[244]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 2,
+      "reading_order_index": 368,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[244]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 1,
+      "reading_order_index": 369,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[245]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "section_heading",
+      "depth": 2,
+      "reading_order_index": 370,
+      "text_content": "  2.2.1. 자율지표명 : 교육 혁신지수"
+    },
+    "Contents/section0.xml#hp:p[246]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 3,
+      "reading_order_index": 371,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[246]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 3,
+      "reading_order_index": 372,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[247]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "section_heading",
+      "depth": 2,
+      "reading_order_index": 373,
+      "text_content": "  2.2.2. 자율지표명 : 학생역량 혁신지수"
+    },
+    "Contents/section0.xml#hp:p[248]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 3,
+      "reading_order_index": 374,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[248]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 3,
+      "reading_order_index": 375,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[249]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 3,
+      "reading_order_index": 376,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[250]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "section_heading",
+      "depth": 2,
+      "reading_order_index": 377,
+      "text_content": "  2.2.3. 자율지표명 : 스마트ㆍAI 교육환경 혁신지수"
+    },
+    "Contents/section0.xml#hp:p[251]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 3,
+      "reading_order_index": 378,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[251]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 3,
+      "reading_order_index": 379,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[252]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 3,
+      "reading_order_index": 380,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[253]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "section_heading",
+      "depth": 2,
+      "reading_order_index": 381,
+      "text_content": "  2.2.4. 자율지표명 : 글로벌 혁신지수"
+    },
+    "Contents/section0.xml#hp:p[254]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 3,
+      "reading_order_index": 382,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[254]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 3,
+      "reading_order_index": 383,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[255]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 3,
+      "reading_order_index": 384,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[256]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "section_heading",
+      "depth": 2,
+      "reading_order_index": 385,
+      "text_content": "  2.2.5. 자율지표명 : 3S 지수"
+    },
+    "Contents/section0.xml#hp:p[257]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 3,
+      "reading_order_index": 386,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[257]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 3,
+      "reading_order_index": 387,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[258]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 3,
+      "reading_order_index": 388,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[259]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 3,
+      "reading_order_index": 389,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[260]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 3,
+      "reading_order_index": 390,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[261]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 3,
+      "reading_order_index": 391,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[261]/hp:pageHiding|0": {
+      "block_type": "control",
+      "semantic_role": "document_control",
+      "depth": 0,
+      "reading_order_index": 392,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[261]/hp:container|0": {
+      "block_type": "shape_group",
+      "semantic_role": "figure",
+      "depth": 3,
+      "reading_order_index": 393,
+      "text_content": "Ⅰ Ⅳ. 적정규모화 계획(’26~’27) 대학혁신지원사업"
+    },
+    "Contents/section0.xml#hp:p[262]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 3,
+      "reading_order_index": 394,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[262]/hp:pageHiding|0": {
+      "block_type": "control",
+      "semantic_role": "document_control",
+      "depth": 0,
+      "reading_order_index": 395,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[263]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "section_heading",
+      "depth": 0,
+      "reading_order_index": 396,
+      "text_content": "1. 적정규모화 계획"
+    },
+    "Contents/section0.xml#hp:p[264]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 1,
+      "reading_order_index": 397,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[264]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 1,
+      "reading_order_index": 398,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[265]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 1,
+      "reading_order_index": 399,
+      "text_content": " "
+    },
+    "Contents/section0.xml#hp:p[265]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 1,
+      "reading_order_index": 400,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[266]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 1,
+      "reading_order_index": 401,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[267]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "section_heading",
+      "depth": 0,
+      "reading_order_index": 402,
+      "text_content": "2. 세부 적정규모화 계획 : 해당사항 없음"
+    },
+    "Contents/section0.xml#hp:p[267]/hp:footer|0": {
+      "block_type": "footer",
+      "semantic_role": "page_footer",
+      "depth": 0,
+      "reading_order_index": 403,
+      "text_content": "적정-"
+    },
+    "Contents/section0.xml#hp:p[267]/hp:pageHiding|0": {
+      "block_type": "control",
+      "semantic_role": "document_control",
+      "depth": 0,
+      "reading_order_index": 404,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[267]/hp:newNum|0": {
+      "block_type": "control",
+      "semantic_role": "document_control",
+      "depth": 0,
+      "reading_order_index": 405,
+      "text_content": null
+    },
+    "Contents/section0.xml#hp:p[268]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 1,
+      "reading_order_index": 406,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[269]|0": {
+      "block_type": "paragraph",
+      "semantic_role": "empty_paragraph",
+      "depth": 1,
+      "reading_order_index": 407,
+      "text_content": ""
+    },
+    "Contents/section0.xml#hp:p[269]/hp:tbl|0": {
+      "block_type": "table",
+      "semantic_role": "table",
+      "depth": 0,
+      "reading_order_index": 408,
+      "text_content": null
+    }
+  },
+  "internal_block_count": 8025,
+  "internal_blocks_hash": "80a8c01f0492d9f65634bcddc55d6880ade8517e36be2d8fab2def7659fdb2e4",
+  "internal_text_hash": "8f109b38a487837b691fcf84f47cdf7f6463babf0be3304b8031246e093079ec",
+  "table_hierarchy_link": {
+    "top_level_block_stats": {
+      "table_block_count": 90,
+      "matched": 90,
+      "missing": 0,
+      "table_type": {
+        "key_value_table": 4,
+        "data_table": 68,
+        "title_box": 18
+      },
+      "record_status": {
+        "not_applicable": 80,
+        "raw_only": 7,
+        "structured": 3
+      },
+      "quality_warning_counts": {
+        "nested_table_present": 48,
+        "raw_only_table": 7,
+        "low_record_confidence": 65,
+        "missing_header_rows": 58
+      }
+    },
+    "all_table_hierarchy_stats": {
+      "all_table_count": 151,
+      "table_type": {
+        "key_value_table": 9,
+        "data_table": 124,
+        "title_box": 18
+      },
+      "record_status": {
+        "not_applicable": 135,
+        "raw_only": 8,
+        "structured": 8
+      }
+    }
+  }
+}

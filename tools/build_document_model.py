@@ -11,7 +11,7 @@
 #   --save-pipeline 을 주면 그때만 기존 산출물도 함께 쓴다.
 #
 # 사용:
-#   python tools/build_document_model.py                     # sample.zip
+#   python tools/build_document_model.py                     # 기본 문서
 #   python tools/build_document_model.py <문서> --out <경로>
 #   python tools/build_document_model.py --dry-run           # 쓰지 않고 보고만
 #================================================
@@ -35,6 +35,7 @@ from hwpx_analysis.pipeline import run_analysis_pipeline, save_pipeline_outputs 
 from hwpx_analysis.table_json_serializer import table_to_dict  # noqa: E402
 from hwpx_parser.parser import HwpxParser  # noqa: E402
 from hwpx_analysis.build_summary import build_summary  # noqa: E402
+from tools.defaults import DEFAULT_SOURCE  # noqa: E402
 
 
 def run_pipeline(source: Path, out_root: Path):
@@ -93,8 +94,8 @@ def report(model):
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description='문서 조립본 생성')
-    ap.add_argument('source', nargs='?', default=str(REPO_ROOT / 'sample.zip'),
-                    help='HWPX 또는 ZIP 문서 (생략 시 저장소 sample.zip)')
+    ap.add_argument('source', nargs='?', default=str(DEFAULT_SOURCE),
+                    help=f'HWPX 또는 ZIP 문서 (생략 시 {DEFAULT_SOURCE.name})')
     ap.add_argument('--out', default=None, help='저장 경로 (기본: <결과폴더>/document_model.json)')
     ap.add_argument('--work', default=str(REPO_ROOT / 'output'),
                     help='압축 해제 위치 (기본: output)')
