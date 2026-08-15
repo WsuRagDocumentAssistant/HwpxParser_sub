@@ -10,6 +10,25 @@
 # 사용:
 #   python tools/refactor_guard.py snapshot <결과폴더> [<결과폴더> ...]
 #   python tools/refactor_guard.py verify
+#
+# 파일 없이 쓰기 (권장):
+#   python tools/refactor_guard.py snapshot-pipeline
+#   python tools/refactor_guard.py verify-pipeline
+#
+#   문서를 직접 파싱해 파이프라인을 돌리고, 결과 객체를 부분별로 해시한다.
+#   final_debug.json 을 --debug 뒤로 숨기면 파일 모드는 잴 것이 없어져
+#   조용히 통과해 버린다. 가드가 아무것도 안 지키면서 PASS 하는 것이
+#   가장 나쁜 실패라 객체를 직접 재는 쪽으로 옮긴다.
+#
+#   document_model.json 을 재지 않는 이유: 모델은 필터를 통과한 것만 담는다.
+#   버려진 표, tables.body_linking, table_internal_blocks 는 모델에 없으므로
+#   그쪽이 망가져도 모델 해시는 안 변한다. 실제로 body_linking 에 버려진 표
+#   텍스트 20,078자가 남아 있던 버그를 그런 식으로 놓친 적이 있다.
+#   파이프라인 상태(state_view)는 필터 이전이라 전부 덮는다.
+#
+#   summary 의 경로 필드는 해시에서 뺀다. 실행 위치에 따라 달라지는 값이라
+#   동작이 안 바뀌었는데도 FAIL 이 나기 때문이다. 나머지는 절대경로를
+#   담지 않는 것을 확인했다.
 #================================================
 
 from __future__ import annotations
@@ -21,7 +40,11 @@ import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
 DEFAULT_STORE = REPO_ROOT / "tools" / "baseline" / "refactor_hashes.json"
+DEFAULT_PIPELINE_STORE = REPO_ROOT / "tools" / "baseline" / "pipeline_hashes.json"
 
 # 해시 대상 산출물 (없으면 건너뛴다)
 ARTIFACTS = (
@@ -30,6 +53,11 @@ ARTIFACTS = (
     "depth_text_preview_raw.txt",
     "depth_text_preview_clean.txt",
 )
+
+# summary 에서 해시 대상으로 삼지 않는 필드.
+# 어디서 실행했는지에 따라 달라지는 값이라 동작 변화가 아니다.
+SUMMARY_VOLATILE = ("source", "unpacked_dir_path", "contents_dir_path",
+                    "header_file_path", "image_dir_path")
 
 
 def file_hash(path: Path) -> str:
@@ -63,6 +91,143 @@ def collect(dirs: list[str]) -> dict[str, dict[str, str]]:
             print(f"[WARN] 산출물이 없습니다: {base}")
         out[str(base)] = entry
     return out
+
+
+def value_hash(value: object) -> str:
+    """
+    역할: JSON 직렬화 가능한 값의 안정적인 sha256 을 만든다.
+    입력 데이터: value(dict/list/str).
+    출력 데이터: hex 문자열.
+
+    키를 정렬해 직렬화한다. dict 순서가 흔들려도 같은 내용이면 같은 해시가
+    나와야 "동작이 안 바뀌었다"를 판정할 수 있다.
+    """
+    if isinstance(value, str):
+        payload = value
+    else:
+        payload = json.dumps(value, ensure_ascii=False, sort_keys=True,
+                             separators=(",", ":"))
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
+def pipeline_hashes(result) -> dict[str, str]:
+    """
+    역할: 파이프라인 결과 객체를 부분별로 해시한다.
+    입력 데이터: result(PipelineResult).
+    출력 데이터: {부분 이름: sha256}.
+
+    한 덩어리로 묶지 않고 나눈다. 해시 하나만 있으면 "달라졌다"까지만 알고
+    어디가 달라졌는지 모른다.
+    """
+    from hwpx_analysis.table_filter import state_view
+
+    view = state_view(result)
+    summary = {k: v for k, v in (view["summary"] or {}).items()
+               if k not in SUMMARY_VOLATILE}
+
+    parts: dict[str, object] = {
+        "summary": summary,
+        "tables.raw": view["tables"]["raw"],
+        "tables.analyzed": view["tables"]["analyzed"],
+        "tables.body_linking": view["tables"]["body_linking"],
+        "blocks_document": view["blocks_document"],
+        "table_internal_blocks": view["table_internal_blocks"],
+        "warnings": view["warnings"],
+        "quality_report": view["quality_report"],
+    }
+    if result.preview is not None:
+        parts["preview.raw"] = result.preview.raw_text
+        parts["preview.clean"] = result.preview.clean_text
+    if result.llm_context is not None:
+        parts["llm_context"] = result.llm_context.text
+
+    return {name: value_hash(value) for name, value in parts.items()}
+
+
+def collect_pipeline(source: Path, work: Path) -> dict[str, str]:
+    """
+    역할: 문서를 파싱해 파이프라인을 돌리고 부분 해시를 모은다.
+    입력 데이터: source(문서), work(압축 해제 위치).
+    출력 데이터: {부분 이름: sha256}.
+    """
+    from tools.build_document_model import run_pipeline
+
+    _, result = run_pipeline(source, work)
+    return pipeline_hashes(result)
+
+
+def command_snapshot_pipeline(args: argparse.Namespace) -> int:
+    from tools.audit.documents import enable_utf8_stdout
+    enable_utf8_stdout()
+
+    source = Path(args.source)
+    if not source.exists():
+        print(f"[ERROR] 문서를 찾을 수 없습니다: {source}")
+        return 1
+
+    data = collect_pipeline(source, Path(args.work))
+    store = Path(args.store)
+    store.parent.mkdir(parents=True, exist_ok=True)
+    with store.open("w", encoding="utf-8") as f:
+        json.dump({"source_name": source.name, "parts": data}, f,
+                  ensure_ascii=False, indent=2)
+
+    print("===========================================")
+    print("[파이프라인 기준 해시 저장]")
+    print(f"  문서: {source}")
+    for name, h in data.items():
+        print(f"      {name:24s} {h[:16]}...")
+    print(f"  대상 {len(data)}개 -> {store}")
+    print("===========================================")
+    return 0
+
+
+def command_verify_pipeline(args: argparse.Namespace) -> int:
+    from tools.audit.documents import enable_utf8_stdout
+    enable_utf8_stdout()
+
+    store = Path(args.store)
+    if not store.exists():
+        print(f"[ERROR] 기준 해시가 없습니다: {store}")
+        print("        먼저 snapshot-pipeline 을 실행하세요.")
+        return 1
+
+    with store.open(encoding="utf-8") as f:
+        base = json.load(f).get("parts") or {}
+    if not base:
+        print(f"[ERROR] 기준 해시가 비어 있습니다: {store}")
+        return 1
+
+    source = Path(args.source)
+    if not source.exists():
+        print(f"[ERROR] 문서를 찾을 수 없습니다: {source}")
+        return 1
+
+    current = collect_pipeline(source, Path(args.work))
+
+    changed = [n for n, h in base.items() if current.get(n) not in (None, h)]
+    missing = [n for n in base if n not in current]
+    added = [n for n in current if n not in base]
+
+    print("===========================================")
+    print("[파이프라인 결과 동일성 검증]")
+    print(f"  문서: {source}")
+    print(f"  대상 {len(base)}개 / 변경 {len(changed)}개 / "
+          f"누락 {len(missing)}개 / 신규 {len(added)}개")
+    for n in changed:
+        print(f"      [변경] {n:24s} {base[n][:16]} -> {current[n][:16]}")
+    for n in missing:
+        print(f"      [누락] {n}")
+    for n in added:
+        print(f"      [신규] {n}")
+    print("===========================================")
+
+    if changed or missing:
+        print("결과: FAIL - 파이프라인 결과가 달라졌습니다. 이번 수정을 되돌리세요.")
+        return 1
+
+    print("결과: PASS - 파이프라인 결과가 부분별로 동일합니다.")
+    return 0
 
 
 def command_snapshot(args: argparse.Namespace) -> int:
@@ -127,10 +292,26 @@ def command_verify(args: argparse.Namespace) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="리팩토링 산출물 동일성 가드")
-    parser.add_argument("command", choices=("snapshot", "verify"))
+    parser.add_argument("command", choices=("snapshot", "verify",
+                                            "snapshot-pipeline",
+                                            "verify-pipeline"))
     parser.add_argument("dirs", nargs="*", help="결과 폴더 (snapshot에서만 사용)")
-    parser.add_argument("--store", default=str(DEFAULT_STORE))
+    parser.add_argument("--store", default=None)
+    parser.add_argument("--source", default=str(REPO_ROOT / "sample.zip"),
+                        help="*-pipeline 대상 문서")
+    parser.add_argument("--work", default=str(REPO_ROOT / "output"),
+                        help="*-pipeline 압축 해제 위치")
     args = parser.parse_args(argv)
+
+    if args.store is None:
+        args.store = str(DEFAULT_PIPELINE_STORE
+                         if args.command.endswith("-pipeline")
+                         else DEFAULT_STORE)
+
+    if args.command == "snapshot-pipeline":
+        return command_snapshot_pipeline(args)
+    if args.command == "verify-pipeline":
+        return command_verify_pipeline(args)
 
     if args.command == "snapshot":
         if not args.dirs:

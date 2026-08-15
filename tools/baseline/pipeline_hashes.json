@@ -1,0 +1,16 @@
+{
+  "source_name": "sample.zip",
+  "parts": {
+    "summary": "98122fcf322357ac5d2de7681871fa9e6f8a8f0be90a4795c6a36e55f2c08b71",
+    "tables.raw": "d65b632d7c8534f7a0b7f2eafefe9281a012c799665b28bff395808d0d242864",
+    "tables.analyzed": "3c698704494ad23f56617784f04bb576bd581a81b0b7a4603efb8b1c174b7e88",
+    "tables.body_linking": "84a9651bb0baa6f91c82be80ab69d1c31665dba055358bdce48cd5f5e0e0ba72",
+    "blocks_document": "afe9c82115e4d48708d6320e56909a17af58e9931cd850d87fead6c4c2a312d1",
+    "table_internal_blocks": "5c631d5d9da2666c71f31ae4467379afb6cd42fc841b1c6f603577da9a8e7c3a",
+    "warnings": "b9b5973fd449c26a1399ab081fdc3ce228c620dcac6fbb41815dcf4ec54a9ccc",
+    "quality_report": "ba7cf77faed45e4ddc33c3ad04a66ec56739663ddf814662c696888bdd06cc41",
+    "preview.raw": "f07e7ceea33e200caf4b69b491f375b226736f98a1253e609b03d7738d10ae6a",
+    "preview.clean": "258ff5ab997deece76a53dc824d296b0ab9b4f4e2896bf688712896d68b45a4c",
+    "llm_context": "5abfed16c1d33198a0124fd986fbce2d49817bb1d647e08b58ce23af35902085"
+  }
+}
