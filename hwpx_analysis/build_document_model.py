@@ -146,7 +146,7 @@ def table_markdown(table: dict[str, Any], cell_text) -> str | None:
 
 def build_document_model(result, unpacked_dir=None) -> DocumentModel:
     """PipelineResult 에서 DocumentModel 을 만든다."""
-    from tools.build_embedding_input import (
+    from hwpx_analysis.table_filter import (
         apply_filter_to_state, cell_text, cells_of,
     )
 
