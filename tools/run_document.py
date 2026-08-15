@@ -20,40 +20,15 @@ from __future__ import annotations
 import argparse
 import sys
 from pathlib import Path
-from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
+from hwpx_analysis.build_summary import build_summary
 from hwpx_analysis.pipeline import run_analysis_pipeline, save_pipeline_outputs
 from hwpx_analysis.table_json_serializer import table_to_dict
 from hwpx_parser.parser import HwpxParser
-
-
-def build_summary(parser: HwpxParser, tables: list[Any]) -> dict[str, Any]:
-    """
-    역할: 파이프라인에 넘길 최소 요약 정보를 만든다.
-    입력 데이터: parser(실행이 끝난 HwpxParser), tables(파싱된 Table 리스트).
-    출력 데이터: 요약 dict.
-    """
-    header = parser.header
-
-    return {
-        "source": str(parser.source_path),
-        "filename": parser.filename,
-        "unpacked_dir_path": str(parser.unpacked_dir_path),
-        "contents_dir_path": str(parser.contents_dir_path),
-        "section_count": len(parser.section_file_paths),
-        "table_count": len(tables),
-        "header": {
-            "para_property_count": len(header.para_properties) if header else 0,
-            "char_property_count": len(header.char_properties) if header else 0,
-            "style_count": len(header.styles) if header else 0,
-            "bullet_count": len(header.bullet_chars) if header else 0,
-            "numbering_count": len(header.numbering_para_heads) if header else 0,
-        },
-    }
 
 
 def main(argv: list[str] | None = None) -> int:

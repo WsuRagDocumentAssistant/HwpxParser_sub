@@ -1,18 +1,18 @@
 {
   "output\\results\\sample": {
-    "final_debug.json": "a84a11cede2ee8b8858cbfb75db86ed175bb64af823a48d7383a5c6b32a34289",
+    "final_debug.json": "6902936d4b4fb5ef9f3d0dc67667a29f50a9f428a4859b01cd4c1db484a979e4",
     "llm_context.txt": "5abfed16c1d33198a0124fd986fbce2d49817bb1d647e08b58ce23af35902085",
     "depth_text_preview_raw.txt": "f07e7ceea33e200caf4b69b491f375b226736f98a1253e609b03d7738d10ae6a",
     "depth_text_preview_clean.txt": "258ff5ab997deece76a53dc824d296b0ab9b4f4e2896bf688712896d68b45a4c"
   },
   "C:\\Users\\aaa\\AppData\\Local\\Temp\\claude\\C--Users-aaa-Desktop-test3\\c5124988-bfb7-460c-b66d-e45f24ca06f7\\scratchpad\\doc_a\\results\\2주기(2022년) 대학혁신지원수정사업계획서(본문)_221107_0930(증빙 포함)": {
-    "final_debug.json": "7c4d7f49ea237e13b0873af8dca468b01bb32041781c29e559167df1e11640f1",
+    "final_debug.json": "b9664d1646144eee98f291a5a6250e3ca6b1a6b7f8e5087b28fbfad47c4aad7d",
     "llm_context.txt": "d342d6e4598769800794478490b6e4a4161f9df71594950107e11947fb6f8754",
     "depth_text_preview_raw.txt": "eeac4c69bdc9fb5c8ef5202c156456615d17bd01fa766d7daecae1ce985ef3c5",
     "depth_text_preview_clean.txt": "8c93b8487759d731b654357295781861f433292b38069f93b3cdabd40005fcc1"
   },
   "C:\\Users\\aaa\\AppData\\Local\\Temp\\claude\\C--Users-aaa-Desktop-test3\\c5124988-bfb7-460c-b66d-e45f24ca06f7\\scratchpad\\doc_b\\results\\2주기(2022년) 대학혁신지원사업 1차년도 연차평가보고서(최종)_2307031705": {
-    "final_debug.json": "eccd604db0190489ea15c0c050e0cd83e42d6ebdc66254154038f0a0fa7f1a6e",
+    "final_debug.json": "00ed584af14038becc70de0c4f6e5d322777ba152e2afcbdd5903003418b93ad",
     "llm_context.txt": "1ae38f409d223f37a4fe43750e4269707372e4427ad4b41bfb3d70f4196a4fb0",
     "depth_text_preview_raw.txt": "31b4e8a9ba174b2abc256fcd0c6307f769727d417c94eaf27469b7ef7fbf5497",
     "depth_text_preview_clean.txt": "50ecdf1fece125233f77166729a1c2859d1b6977380cdbd33c711613ffa4ed2f"
