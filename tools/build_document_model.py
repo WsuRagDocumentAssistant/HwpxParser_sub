@@ -1,7 +1,7 @@
 #================================================
-# tools/build_embedding_object.py
+# tools/build_document_model.py
 #
-# 임베딩용 최종 객체(DocumentModel)를 만든다.
+# 문서 조립본(DocumentModel)을 만든다.
 #
 # JSON 을 읽지 않는다. 문서를 파싱해 파이프라인을 돌리고, 그 결과 객체에서
 # 모델을 조립한다. final_debug.json 은 이 경로에 관여하지 않는다.
@@ -11,9 +11,9 @@
 #   --save-pipeline 을 주면 그때만 기존 산출물도 함께 쓴다.
 #
 # 사용:
-#   python tools/build_embedding_object.py                     # sample.zip
-#   python tools/build_embedding_object.py <문서> --out <경로>
-#   python tools/build_embedding_object.py --dry-run           # 쓰지 않고 보고만
+#   python tools/build_document_model.py                     # sample.zip
+#   python tools/build_document_model.py <문서> --out <경로>
+#   python tools/build_document_model.py --dry-run           # 쓰지 않고 보고만
 #================================================
 
 from __future__ import annotations
@@ -28,7 +28,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from hwpx_analysis.build_embedding_model import (  # noqa: E402
+from hwpx_analysis.build_document_model import (  # noqa: E402
     build_document_model, verify_model,
 )
 from hwpx_analysis.pipeline import run_analysis_pipeline, save_pipeline_outputs  # noqa: E402
@@ -92,10 +92,10 @@ def report(model):
 
 
 def main(argv=None):
-    ap = argparse.ArgumentParser(description='임베딩용 최종 객체 생성')
+    ap = argparse.ArgumentParser(description='문서 조립본 생성')
     ap.add_argument('source', nargs='?', default=str(REPO_ROOT / 'sample.zip'),
                     help='HWPX 또는 ZIP 문서 (생략 시 저장소 sample.zip)')
-    ap.add_argument('--out', default=None, help='저장 경로 (기본: <결과폴더>/embedding_object.json)')
+    ap.add_argument('--out', default=None, help='저장 경로 (기본: <결과폴더>/document_model.json)')
     ap.add_argument('--work', default=str(REPO_ROOT / 'output'),
                     help='압축 해제 위치 (기본: output)')
     ap.add_argument('--dry-run', action='store_true', help='쓰지 않고 보고만')
@@ -141,7 +141,7 @@ def main(argv=None):
         return 0
 
     out_path = (Path(args.out) if args.out
-                else out_root / 'results' / parser.filename / 'embedding_object.json')
+                else out_root / 'results' / parser.filename / 'document_model.json')
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(model.to_dict(), ensure_ascii=False, indent=2),
                         encoding='utf-8')

@@ -1,7 +1,7 @@
 #================================================
-# hwpx_analysis/embedding_model.py
+# hwpx_analysis/document_model.py
 #
-# 임베딩용 최종 산출물 모델.
+# 문서 조립본 모델.
 #
 # 왜 JSON 을 읽지 않는가
 #   final_debug.json 은 디버깅용이고 나중에 없앤다. 단계들은 이미 인메모리

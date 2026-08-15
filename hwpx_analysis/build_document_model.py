@@ -1,5 +1,5 @@
 #================================================
-# hwpx_analysis/build_embedding_model.py
+# hwpx_analysis/build_document_model.py
 #
 # PipelineResult -> DocumentModel 빌더.
 #
@@ -20,7 +20,7 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Any
 
-from hwpx_analysis.embedding_model import (
+from hwpx_analysis.document_model import (
     Block, Cell, DocumentModel, ExcludedTable, Figure, FileInfo, ImageFile,
     ImageRef, Table, TableColumn, TableHeader, TableParent, TableRecord,
     TocEntry, TocRef,
