@@ -16,10 +16,16 @@
 #   전부 셀 좌표·병합 정보·파이프라인 분류에서 파생되는 술어다.
 #
 # 사용:
-#   python tools/build_embedding_input.py                      # 기본 문서
+# 기본으로 파일을 쓰지 않는다
+#   이 산출물은 모델이 같은 필터를 내부에서 돌리므로 중복이다. 두 경로가 같은
+#   값을 내는지는 tools/compare_model_vs_json.py 가 메모리에서 대조한다.
+#   여기는 필터 결과를 눈으로 보는 용도이고, 파일이 필요하면 --out 을 준다.
+#
+# 사용:
+#   python tools/build_embedding_input.py                      # 보고만
 #   python tools/build_embedding_input.py --doc <결과폴더>
-#   python tools/build_embedding_input.py --out <경로>
-#   python tools/build_embedding_input.py --dry-run            # 쓰지 않고 보고만
+#   python tools/build_embedding_input.py --out <경로>         # 이때만 저장
+#   python tools/build_embedding_input.py --out <경로> --preview
 #================================================
 
 from __future__ import annotations
@@ -215,8 +221,8 @@ def verify(before, after, report):
 def main(argv=None):
     ap = argparse.ArgumentParser(description='임베딩 입력 산출물 생성')
     ap.add_argument('--doc', default=None, help='결과 폴더 (기본: output/results/sample)')
-    ap.add_argument('--out', default=None, help='저장 경로 (기본: <결과폴더>/embedding_input.json)')
-    ap.add_argument('--dry-run', action='store_true', help='쓰지 않고 보고만')
+    ap.add_argument('--out', default=None,
+                    help='저장 경로. 주지 않으면 파일을 쓰지 않는다')
     ap.add_argument('--preview', action='store_true',
                     help='필터 결과로 프리뷰 텍스트도 만든다 (사람이 눈으로 볼 용도)')
     args = ap.parse_args(argv)
@@ -291,17 +297,19 @@ def main(argv=None):
     if failed:
         print('\n검증이 깨졌습니다. 산출물을 쓰지 않습니다.')
         return 1
-    if args.dry_run:
-        print('\n--dry-run 이라 쓰지 않았습니다.')
+    if not args.out:
+        print('\n--out 을 주지 않아 파일을 쓰지 않았습니다.')
+        print('   이 산출물은 모델과 중복이라 기본으로 저장하지 않습니다.')
+        print('   두 경로 대조는 tools/compare_model_vs_json.py 를 쓰십시오.')
         return 0
 
-    out_path = Path(args.out) if args.out else doc_dir / 'embedding_input.json'
+    out_path = Path(args.out)
     out_path.write_text(json.dumps(after, ensure_ascii=False, indent=2), encoding='utf-8')
     print(f'\n-> {out_path} 저장')
     print('   원본 final_debug.json 은 그대로다. 이 파일을 지우면 되돌아간다.')
 
     if args.preview:
-        for name, path in write_preview(after, doc_dir, before).items():
+        for name, path in write_preview(after, out_path.parent, before).items():
             print(f'-> {path} 저장 ({name})')
     return 0
 
