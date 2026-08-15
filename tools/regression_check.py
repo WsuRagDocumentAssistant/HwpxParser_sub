@@ -12,6 +12,17 @@
 #   3) python test.py                              # 산출물 재생성
 #   4) python tools/regression_check.py check      # 불변식 + baseline diff 검증
 #
+# 산출물 파일 없이 검사하기:
+#   python tools/regression_check.py check-pipeline
+#
+#   문서를 직접 파싱해 파이프라인을 돌리고, 결과 객체(PipelineResult)를 그대로
+#   검사한다. final_debug.json / llm_context.txt 를 읽지 않는다. JSON 산출물을
+#   나중에 없애도 회귀 검증이 계속 돌아가게 하려는 것이다.
+#
+#   두 경로는 같은 검사 함수(run_invariants)를 공유한다. 검사들이 보는 것은
+#   구조뿐이라 '파일에서 읽은 dict' 든 'PipelineResult 를 가리키는 view' 든
+#   결과가 같다. 실제로 11개 불변식과 baseline diff가 양쪽에서 동일했다.
+#
 # 불변식 (I1~I6):
 #   I1 텍스트 커버리지 : section*.xml의 모든 hp:t / composeText가 최종 JSON에 존재
 #   I2 표 구조 총량    : XML에서 유도한 표/셀/텍스트셀 개수와 산출물이 일치
@@ -60,6 +71,10 @@ import xml.etree.ElementTree as ET
 #------------------------------------------------
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
+
+# check-pipeline 은 파이프라인을 직접 돌리므로 저장소 루트를 import 경로에 둔다.
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
 DEFAULT_CONTENTS_DIR = REPO_ROOT / "output" / "unpacked" / "sample" / "Contents"
 DEFAULT_CURRENT = REPO_ROOT / "output" / "results" / "sample" / "final_debug.json"
@@ -755,7 +770,7 @@ def _owned_table_ids(final_debug: dict[str, Any]) -> set[str]:
 
 def check_i10_llm_context_coverage(
     paths: list[Path],
-    llm_context_path: Path,
+    llm_context: Path | str,
     report: Report,
     sample_limit: int = 6,
 ) -> None:
@@ -763,14 +778,19 @@ def check_i10_llm_context_coverage(
     역할: I10 — LLM 입력용 산출물(llm_context.txt)에 문서의 모든 텍스트가 있는지 검사한다.
           depth_text_preview는 표 내부 텍스트를 빼고 120자에서 자르는 사람용
           디버그 산출물이라 이 검사의 대상이 아니다.
-    입력 데이터: paths(section XML), llm_context_path, report.
+    입력 데이터: paths(section XML), llm_context(파일 경로 또는 텍스트), report.
     출력 데이터: 반환값 없음.
-    """
-    if not llm_context_path.exists():
-        report.add("I10 llm_context_coverage", False, f"산출물 없음: {llm_context_path}")
-        return
 
-    blob = normalize(llm_context_path.read_text(encoding="utf-8"))
+    파일이 아니라 텍스트도 받는다. 파이프라인 결과를 메모리로 검사할 때
+    llm_context.txt를 굳이 저장할 이유가 없기 때문이다.
+    """
+    if isinstance(llm_context, Path):
+        if not llm_context.exists():
+            report.add("I10 llm_context_coverage", False, f"산출물 없음: {llm_context}")
+            return
+        blob = normalize(llm_context.read_text(encoding="utf-8"))
+    else:
+        blob = normalize(llm_context)
 
     total = 0
     missing: list[tuple[str, str, str]] = []
@@ -1034,18 +1054,10 @@ def command_check(args: argparse.Namespace) -> int:
         baseline_snapshot = load_json(baseline_path)
 
     report = Report()
-    check_i1_text_coverage(paths, final_debug, report)
-    check_i2_table_totals(paths, final_debug, report)
     diff = check_i3_and_diff(current_snapshot, baseline_snapshot, report)
-    check_i4_table_link(final_debug, report)
-    check_i5_internal_integrity(final_debug, report)
-    check_i6_depth_resolved(final_debug, report)
     check_i7_text_regression(diff, report)
-    check_i8_source_block_refs(final_debug, report)
-    check_i9_caption_coverage(paths, final_debug, report)
-    check_i11_ctrl_promotion_coverage(paths, final_debug, report)
-    check_i10_llm_context_coverage(
-        paths, current_path.parent / "llm_context.txt", report,
+    run_invariants(
+        paths, final_debug, current_path.parent / "llm_context.txt", report,
     )
 
     print("===========================================")
@@ -1075,6 +1087,102 @@ def command_check(args: argparse.Namespace) -> int:
     return 0
 
 
+def run_invariants(
+    paths: list[Path],
+    final_debug: dict[str, Any],
+    llm_context: Path | str,
+    report: Report,
+) -> None:
+    """
+    역할: baseline 없이 단독으로 판정 가능한 불변식을 한 번에 돌린다.
+    입력 데이터: paths(section XML), final_debug(파이프라인 출력 구조),
+                llm_context(경로 또는 텍스트), report.
+    출력 데이터: 반환값 없음.
+
+    final_debug는 '파일에서 읽은 dict'일 수도 있고 'PipelineResult를 가리키는
+    view'일 수도 있다. 검사들은 구조만 보므로 어느 쪽이든 같은 결과를 낸다.
+    """
+    check_i1_text_coverage(paths, final_debug, report)
+    check_i2_table_totals(paths, final_debug, report)
+    check_i4_table_link(final_debug, report)
+    check_i5_internal_integrity(final_debug, report)
+    check_i6_depth_resolved(final_debug, report)
+    check_i8_source_block_refs(final_debug, report)
+    check_i9_caption_coverage(paths, final_debug, report)
+    check_i11_ctrl_promotion_coverage(paths, final_debug, report)
+    check_i10_llm_context_coverage(paths, llm_context, report)
+
+
+def check_pipeline_result(result, contents_dir: Path, baseline_path: Path | None = None):
+    """
+    역할: 파이프라인 결과 객체를 파일 없이 검증한다.
+    입력 데이터: result(PipelineResult), contents_dir(section XML 폴더),
+                baseline_path(있으면 snapshot diff까지).
+    출력 데이터: (Report, diff dict).
+
+    final_debug.json을 읽지 않는다. 단계들이 이미 인메모리로 주고받는 구조를
+    그대로 본다.
+    """
+    from hwpx_analysis.table_filter import state_view
+
+    final_debug = state_view(result)
+    paths = section_paths(contents_dir)
+    report = Report()
+    run_invariants(
+        paths, final_debug,
+        result.llm_context.text if result.llm_context is not None else "",
+        report,
+    )
+    diff: dict[str, Any] = {}
+    if baseline_path is not None and Path(baseline_path).exists():
+        snapshot = build_snapshot(final_debug)
+        baseline = load_json(Path(baseline_path))
+        diff = check_i3_and_diff(snapshot, baseline, report)
+        check_i7_text_regression(diff, report)
+    return report, diff
+
+
+def command_check_pipeline(args: argparse.Namespace) -> int:
+    """
+    역할: 문서를 파싱해 파이프라인을 돌리고, 산출물 파일 없이 불변식을 검증한다.
+    입력 데이터: args(source/work/baseline).
+    출력 데이터: 종료 코드.
+    """
+    from tools.audit.documents import enable_utf8_stdout
+    from tools.build_document_model import run_pipeline
+
+    enable_utf8_stdout()
+
+    source = Path(args.source)
+    if not source.exists():
+        print(f"[ERROR] 문서를 찾을 수 없습니다: {source}")
+        return 1
+
+    parser, result = run_pipeline(source, Path(args.work))
+    baseline = Path(args.baseline) if args.baseline else None
+    report, diff = check_pipeline_result(
+        result, Path(parser.contents_dir_path), baseline,
+    )
+
+    print("===========================================")
+    print("[불변식 검사 — 파일 없이 파이프라인 결과로]")
+    print(f"  source   : {source}")
+    print(f"  contents : {parser.contents_dir_path}")
+    print(f"  baseline : {baseline if baseline and baseline.exists() else '(없음)'}")
+    print("-------------------------------------------")
+    print(report.render())
+    if diff:
+        print("-------------------------------------------")
+        print("[baseline 대비 변화]")
+        print(render_diff(diff))
+    print("===========================================")
+    if report.failed:
+        print("결과: FAIL")
+        return 1
+    print("결과: PASS - 모든 불변식 통과.")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     """
     역할: CLI 진입점.
@@ -1086,9 +1194,15 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument(
         "command",
-        choices=("freeze", "check"),
-        help="freeze=현재 산출물을 baseline으로 동결, check=불변식 및 diff 검증",
+        choices=("freeze", "check", "check-pipeline"),
+        help="freeze=현재 산출물을 baseline으로 동결, "
+             "check=산출물 파일로 검증, "
+             "check-pipeline=파일 없이 파이프라인 결과로 검증",
     )
+    parser.add_argument("--source", default=str(REPO_ROOT / "sample.zip"),
+                        help="check-pipeline 대상 문서")
+    parser.add_argument("--work", default=str(REPO_ROOT / "output"),
+                        help="check-pipeline 압축 해제 위치")
     parser.add_argument("--contents", default=str(DEFAULT_CONTENTS_DIR))
     parser.add_argument("--current", default=str(DEFAULT_CURRENT))
     parser.add_argument("--baseline", default=str(DEFAULT_BASELINE))
@@ -1107,6 +1221,8 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.command == "freeze":
         return command_freeze(args)
+    if args.command == "check-pipeline":
+        return command_check_pipeline(args)
 
     return command_check(args)
 
