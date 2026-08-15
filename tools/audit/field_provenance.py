@@ -335,17 +335,22 @@ def _load_test_module():
 def _run_document(source: Path, out_root: Path, entry: str = 'test'):
     """정본 진입점으로 파이프라인을 돌리고 final_debug.json 경로를 준다.
 
-    test.py 와 tools/run_document.py 는 build_summary 가 각각 따로 구현돼 있어
-    summary 구성이 다르다(15키 / 7키). 산출물 컬럼이 134개 어긋나므로 어느
-    쪽으로 도는지가 감사 결과를 바꾼다. 기본은 test.py 다. output/results 에
-    실제로 쌓이는 산출물이고 회귀 기준선도 그쪽을 본다.
+    기본은 test.py 다. output/results 에 실제로 쌓이는 산출물이고 회귀
+    기준선도 그쪽을 본다. (build_summary 는 이제 한 벌이라 두 진입점의
+    summary 가 같다. 예전에는 15키 / 7키로 갈려 산출물 컬럼이 134개
+    어긋났고, 그래서 어느 쪽으로 도는지가 감사 결과를 바꿨다.)
+
+    두 진입점 모두 argv 를 명시해 부른다. 비워 두면 argparse 가 sys.argv 를
+    읽어 이 감사 도구에 준 인자를 진입점이 자기 것으로 착각한다.
+    --debug 도 반드시 준다. 그게 없으면 final_debug.json 을 안 쓰는데,
+    예전에 만들어 둔 파일이 남아 있으면 그 낡은 파일을 조용히 읽게 된다.
     """
     if entry == 'test':
         module = _load_test_module()
         cwd = Path.cwd()
         os.chdir(REPO_ROOT)          # test.py 는 상대경로 output/ 에 쓴다
         try:
-            module.main()
+            module.main(['--debug'])
         finally:
             os.chdir(cwd)
         produced = REPO_ROOT / 'output' / 'results' / 'sample' / 'final_debug.json'
@@ -354,7 +359,7 @@ def _run_document(source: Path, out_root: Path, entry: str = 'test'):
         return produced
 
     import tools.run_document as run_document
-    code = run_document.main([str(source), '--out', str(out_root)])
+    code = run_document.main([str(source), '--out', str(out_root), '--debug'])
     if code != 0:
         sys.exit(f"문서 실행 실패: {source}")
     produced = list((out_root / 'results').glob('*/final_debug.json'))
