@@ -28,7 +28,8 @@
 #   I1 텍스트 커버리지 : section*.xml의 모든 hp:t / composeText가 최종 JSON에 존재
 #   I2 표 구조 총량    : XML에서 유도한 표/셀/텍스트셀 개수와 산출물이 일치
 #   I3 표 내부 불변    : table_internal_blocks 해시가 baseline과 동일
-#   I4 표-블록 연결    : table_hierarchy_link matched == 표 블록 수, missing == 0
+#   I4 표-블록 연결    : 표 블록과 최상위 표가 일대일. 참조를 직접 다시 세며
+#                       ref 없음/없는 표 가리킴/중복 참조/블록 없는 표가 모두 0
 #   I5 내부 블록 무결성: internal_block_id 중복 0, 부모 참조 미아 0
 #   I6 depth 해소     : depth 미해소 블록 0
 #   I7 텍스트 소실 0   : baseline에서 텍스트가 있던 블록이 비어버린 경우 0
@@ -443,20 +444,68 @@ def check_i2_table_totals(
 def check_i4_table_link(final_debug: dict[str, Any], report: Report) -> None:
     """
     역할: I4 — 표 블록과 표 계층 분석 결과의 연결이 모두 성립하는지 검사한다.
+          기록된 통계를 믿지 않고 참조를 데이터에서 다시 센다 (I5와 같은 방식).
     입력 데이터: final_debug, report.
     출력 데이터: 반환값 없음.
+
+    기록된 matched/missing 만 보던 때는 참조가 실제로 끊겨도 통과했다.
+    그 숫자는 7.5단계가 실행 중에 세어 적어둔 값이라, 적은 뒤에 누가
+    table_hierarchy_ref 를 지워도 움직이지 않기 때문이다. 실제로 프리뷰에서
+    목차가 사라진 사고가 이 필드를 지워서 났는데 I4는 조용히 통과했다.
+
+    tables.analyzed 는 최상위 표만 담고 중첩표는 children 안에 있다.
+    표 블록은 최상위 표에만 생기므로(중첩표는 셀 안에 산다) 최상위 표와
+    표 블록은 일대일이어야 한다.
     """
     blocks_document = final_debug.get("blocks_document") or {}
     blocks = blocks_document.get("blocks") or []
     link = ((blocks_document.get("quality") or {}).get("table_hierarchy_link") or {})
     stats = link.get("top_level_block_stats") or {}
 
-    table_block_count = sum(1 for b in blocks if b.get("block_type") == "table")
+    table_blocks = [b for b in blocks if b.get("block_type") == "table"]
+    table_block_count = len(table_blocks)
     matched = stats.get("matched")
     missing = stats.get("missing")
 
-    passed = (missing == 0) and (matched == table_block_count)
-    detail = f"table 블록 {table_block_count}, matched {matched}, missing {missing}"
+    top_ids = {
+        t.get("table_id")
+        for t in ((final_debug.get("tables") or {}).get("analyzed") or [])
+        if t.get("table_id")
+    }
+
+    no_ref = 0
+    dangling = 0
+    ref_ids: list[str] = []
+    for block in table_blocks:
+        ref = block.get("table_hierarchy_ref") or {}
+        table_id = ref.get("table_id")
+        if not table_id:
+            no_ref += 1
+            continue
+        ref_ids.append(table_id)
+        if table_id not in top_ids:
+            dangling += 1
+
+    seen: dict[str, int] = {}
+    for table_id in ref_ids:
+        seen[table_id] = seen.get(table_id, 0) + 1
+    duplicate = sum(n - 1 for n in seen.values() if n > 1)
+
+    unreferenced = len(top_ids - set(ref_ids))
+
+    passed = (
+        missing == 0
+        and matched == table_block_count
+        and no_ref == 0
+        and dangling == 0
+        and duplicate == 0
+        and unreferenced == 0
+    )
+    detail = (
+        f"table 블록 {table_block_count}, matched {matched}, missing {missing}, "
+        f"최상위 표 {len(top_ids)}개 / ref 없음 {no_ref}, 없는 표 가리킴 {dangling}, "
+        f"중복 참조 {duplicate}, 블록 없는 표 {unreferenced}"
+    )
 
     report.add("I4 table_hierarchy_link", passed, detail)
 
