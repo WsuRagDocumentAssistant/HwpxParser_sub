@@ -14,7 +14,7 @@ import json
 import xml.etree.ElementTree as ET
 from collections import Counter
 
-from tools.audit.documents import enable_utf8_stdout, require_contents, resolve
+from .documents import enable_utf8_stdout, require_contents, resolve
 
 enable_utf8_stdout()
 

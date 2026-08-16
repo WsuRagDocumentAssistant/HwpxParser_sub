@@ -25,7 +25,7 @@ from __future__ import annotations
 from collections import Counter, defaultdict
 from typing import Any
 
-from hwpx_analysis.pipeline_models import BlocksDocument
+from .pipeline_models import BlocksDocument
 
 
 # preferred_depth로 인정할 클러스터 내 점유율

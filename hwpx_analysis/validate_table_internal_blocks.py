@@ -24,7 +24,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from hwpx_analysis.pipeline_models import (
+from .pipeline_models import (
     BlocksDocument,
     TableInternalBlocks,
     ValidationReport,

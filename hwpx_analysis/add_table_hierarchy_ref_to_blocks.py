@@ -18,8 +18,8 @@ from __future__ import annotations
 from collections import Counter
 from typing import Any
 
-from hwpx_analysis.pipeline_models import BlocksDocument
-from hwpx_analysis.correct_title_box_depths import (
+from .pipeline_models import BlocksDocument
+from .correct_title_box_depths import (
     get_table_display_text_from_hierarchy,
 )
 

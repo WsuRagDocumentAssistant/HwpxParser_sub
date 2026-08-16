@@ -18,7 +18,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from hwpx_analysis.pipeline_models import BlocksDocument
+from .pipeline_models import BlocksDocument
 
 
 # heading depth jump 완화 후보를 만들 점프 임계 (이전 heading 대비 +2 이상)

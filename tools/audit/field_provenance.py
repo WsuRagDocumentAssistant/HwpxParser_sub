@@ -47,8 +47,8 @@ import tempfile
 from collections import defaultdict
 from pathlib import Path
 
-from tools.audit.documents import REPO_ROOT, enable_utf8_stdout
-from tools.defaults import DEFAULT_SOURCE
+from .documents import REPO_ROOT, enable_utf8_stdout
+from ..defaults import DEFAULT_SOURCE
 
 sys.path.insert(0, str(REPO_ROOT))
 enable_utf8_stdout()

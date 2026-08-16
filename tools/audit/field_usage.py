@@ -34,7 +34,7 @@ import sys
 from collections import Counter, defaultdict
 from pathlib import Path
 
-from tools.audit.documents import enable_utf8_stdout, resolve
+from .documents import enable_utf8_stdout, resolve
 
 enable_utf8_stdout()
 

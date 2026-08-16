@@ -67,8 +67,8 @@ import sys
 from collections import Counter, defaultdict
 from pathlib import Path
 
-from tools.audit.documents import REPO_ROOT, enable_utf8_stdout, resolve
-from tools.audit.source_index import SourceIndex, norm_text
+from .documents import REPO_ROOT, enable_utf8_stdout, resolve
+from .source_index import SourceIndex, norm_text
 
 enable_utf8_stdout()
 
@@ -450,7 +450,7 @@ def main(argv=None):
     payload = json.loads(doc.final_debug.read_text(encoding='utf-8'))
     # 출처 표와 같은 규칙으로 동적 키를 접는다. 접지 않으면 경로가 어긋나
     # 그 컬럼들이 instances 0 으로 떨어진다.
-    from tools.audit.field_provenance import Recorder
+    from .field_provenance import Recorder
     probe = Recorder()
     stats = collect(payload, dynamic=probe.find_dynamic(payload))
 
@@ -490,7 +490,7 @@ def main(argv=None):
         unique_counts[path] = sum(1 for v in values if len(value_owners[v]) == 1)
 
     # 인스턴스 1:1 대조 결과. 조인 키가 있는 표/셀 컬럼만 대상이다.
-    from tools.audit.instance_join import main as _join_main
+    from .instance_join import main as _join_main
     import io as _io
     import contextlib as _ctx
     _tmp = Path(REPO_ROOT) / 'output' / '.join_tmp.json'

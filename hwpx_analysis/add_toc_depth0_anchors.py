@@ -30,7 +30,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from hwpx_analysis.pipeline_models import BlocksDocument
+from .pipeline_models import BlocksDocument
 
 # toc 기반 anchor임을 나타내는 depth_source 값 (다른 단계에서 참조)
 # depth는 목차 numbering 성분 수에서 동적으로 결정된다: "toc_depth{N}_anchor"

@@ -22,7 +22,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from hwpx_analysis.pipeline_models import BlocksDocument, TableInternalBlocks
+from .pipeline_models import BlocksDocument, TableInternalBlocks
 
 
 _DEPTH_ORIGIN = "table_local_offset"

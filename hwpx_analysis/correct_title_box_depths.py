@@ -25,7 +25,7 @@ from __future__ import annotations
 import re
 from typing import Any
 
-from hwpx_analysis.pipeline_models import BlocksDocument
+from .pipeline_models import BlocksDocument
 
 # roman-dash root: "Ⅱ-1", "III-2" 등 (유니코드 로마숫자 + ASCII 로마자)
 _ROMAN_DASH_RE = re.compile(r"^[ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩIVX]+\s*-\s*\d+")

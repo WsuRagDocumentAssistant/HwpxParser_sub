@@ -16,7 +16,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from hwpx_analysis.pipeline_models import BlocksDocument
+from .pipeline_models import BlocksDocument
 
 _HIDDEN_BLOCK_TYPES = {"control", "section_control"}
 

@@ -17,7 +17,7 @@ import sys
 from collections import Counter
 from pathlib import Path
 
-from tools.audit.documents import REPO_ROOT, enable_utf8_stdout, resolve
+from .documents import REPO_ROOT, enable_utf8_stdout, resolve
 
 sys.path.insert(0, str(REPO_ROOT))
 enable_utf8_stdout()

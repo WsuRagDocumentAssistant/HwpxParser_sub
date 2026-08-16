@@ -20,7 +20,7 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Any
 
-from hwpx_analysis.document_model import (
+from .document_model import (
     Block, Cell, DocumentModel, ExcludedTable, Figure, FileInfo, ImageFile,
     ImageRef, Table, TableColumn, TableHeader, TableParent, TableRecord,
     TocEntry, TocRef,
@@ -146,7 +146,7 @@ def table_markdown(table: dict[str, Any], cell_text) -> str | None:
 
 def build_document_model(result, unpacked_dir=None) -> DocumentModel:
     """PipelineResult 에서 DocumentModel 을 만든다."""
-    from hwpx_analysis.table_filter import (
+    from .table_filter import (
         apply_filter_to_state, cell_text, cells_of,
     )
 
@@ -483,7 +483,7 @@ def verify_model(model: DocumentModel, result) -> list[tuple[str, str, bool, str
     # 있는 표 26개가 헤더를 잃었다. 키값표의 쌍도 통째로 빠져 있었다.
     # 어느 쪽도 M2~M13 에 걸리지 않았다. 값이 틀린 게 아니라 없어진 것이라
     # 개수만 맞춰 보는 검사에는 안 잡힌다.
-    from hwpx_analysis.table_filter import index_tables, state_view
+    from .table_filter import index_tables, state_view
 
     source_tables = index_tables(state_view(result))
     model_tables = {t.id: t for t in model.tables()}
@@ -496,7 +496,7 @@ def verify_model(model: DocumentModel, result) -> list[tuple[str, str, bool, str
         if (hier.get('structured_records') or hier.get('key_value_records')) \
                 and not table.records:
             record_lost.append(table_id)
-    from hwpx_analysis.table_filter import apply_filter_to_state
+    from .table_filter import apply_filter_to_state
     kept_labels = {str(k).split('_')[-1]: v
                    for k, v in apply_filter_to_state(result)['labels'].items()}
     bad_kept = [t.id for t in model.tables()

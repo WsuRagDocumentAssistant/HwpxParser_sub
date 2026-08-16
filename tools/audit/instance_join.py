@@ -28,8 +28,8 @@ import xml.etree.ElementTree as ET
 from collections import Counter, defaultdict
 from pathlib import Path
 
-from tools.audit.documents import enable_utf8_stdout, resolve
-from tools.audit.source_index import local
+from .documents import enable_utf8_stdout, resolve
+from .source_index import local
 
 enable_utf8_stdout()
 

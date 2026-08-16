@@ -7,8 +7,8 @@ from __future__ import annotations
 from collections import Counter
 from typing import Any
 
-from hwpx_analysis.table_hierarchy.grid_normalizer import normalize_grid_location_recursive
-from hwpx_analysis.table_hierarchy.orchestrator import add_hierarchy_recursive
+from .table_hierarchy.grid_normalizer import normalize_grid_location_recursive
+from .table_hierarchy.orchestrator import add_hierarchy_recursive
 
 
 def add_table_hierarchy(

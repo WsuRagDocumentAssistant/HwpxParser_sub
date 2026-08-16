@@ -15,37 +15,37 @@ import json
 from pathlib import Path
 from typing import Any
 
-from hwpx_analysis.pipeline_models import (
+from .pipeline_models import (
     BlocksDocument,
     PipelineResult,
     TableAnalysis,
 )
-from hwpx_analysis.add_table_preprocess_to_json import preprocess_tables
-from hwpx_analysis.add_table_grid_to_json import add_table_grid
-from hwpx_analysis.add_table_hierarchy_to_json import add_table_hierarchy
-from hwpx_analysis.make_body_linking_table_json import build_body_linking_tables
-from hwpx_analysis.add_document_blocks_to_json import build_document_blocks
-from hwpx_analysis.resolve_floating_anchors import resolve_floating_anchors
-from hwpx_analysis.add_table_hierarchy_ref_to_blocks import (
+from .add_table_preprocess_to_json import preprocess_tables
+from .add_table_grid_to_json import add_table_grid
+from .add_table_hierarchy_to_json import add_table_hierarchy
+from .make_body_linking_table_json import build_body_linking_tables
+from .add_document_blocks_to_json import build_document_blocks
+from .resolve_floating_anchors import resolve_floating_anchors
+from .add_table_hierarchy_ref_to_blocks import (
     add_table_hierarchy_ref_to_blocks,
 )
-from hwpx_analysis.resolve_block_depth_candidates import (
+from .resolve_block_depth_candidates import (
     resolve_block_depth_candidates,
 )
-from hwpx_analysis.add_toc_depth0_anchors import add_toc_depth0_anchors
-from hwpx_analysis.apply_depth_constraints import apply_depth_constraints
-from hwpx_analysis.assign_block_visibility import assign_block_visibility
-from hwpx_analysis.correct_title_box_depths import correct_title_box_depths
-from hwpx_analysis.propagate_toc_anchor_depth import propagate_toc_anchor_depth
-from hwpx_analysis.flatten_table_internal_blocks import (
+from .add_toc_depth0_anchors import add_toc_depth0_anchors
+from .apply_depth_constraints import apply_depth_constraints
+from .assign_block_visibility import assign_block_visibility
+from .correct_title_box_depths import correct_title_box_depths
+from .propagate_toc_anchor_depth import propagate_toc_anchor_depth
+from .flatten_table_internal_blocks import (
     flatten_table_internal_blocks,
 )
-from hwpx_analysis.validate_blocks import validate_blocks
-from hwpx_analysis.validate_table_internal_blocks import (
+from .validate_blocks import validate_blocks
+from .validate_table_internal_blocks import (
     validate_table_internal_blocks,
 )
-from hwpx_analysis.generate_depth_text_preview import generate_depth_text_preview
-from hwpx_analysis.generate_llm_context import generate_llm_context
+from .generate_depth_text_preview import generate_depth_text_preview
+from .generate_llm_context import generate_llm_context
 from hwpx_document.header_data import HeaderData
 
 

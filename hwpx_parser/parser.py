@@ -7,9 +7,9 @@ from __future__ import annotations
 from pathlib import Path
 import zipfile
 
-from hwpx_parser.header_parser import HeaderParser
-from hwpx_parser.parser_context import ParserContext
-from hwpx_parser.section_parser import SectionParser
+from .header_parser import HeaderParser
+from .parser_context import ParserContext
+from .section_parser import SectionParser
 
 
 class HwpxParser:

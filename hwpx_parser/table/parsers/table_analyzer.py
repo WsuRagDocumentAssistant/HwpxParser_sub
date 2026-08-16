@@ -9,7 +9,7 @@ from typing import Any
 from hwpx_document.table import Table
 from hwpx_document.table.elements.table_analysis import TableValidation
 from hwpx_document.table.utils import get_table_cells
-from hwpx_parser.parser_context import ParserContext
+from ...parser_context import ParserContext
 
 
 class TableAnalyzer:

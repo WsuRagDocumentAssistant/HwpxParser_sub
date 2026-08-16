@@ -17,8 +17,8 @@ from __future__ import annotations
 
 from typing import Any
 
-from hwpx_analysis.add_toc_depth0_anchors import iter_toc_entry_levels
-from hwpx_analysis.pipeline_models import (
+from .add_toc_depth0_anchors import iter_toc_entry_levels
+from .pipeline_models import (
     BlocksDocument,
     DepthTextPreview,
     TableInternalBlocks,

@@ -13,7 +13,7 @@ final_debug.json은 네 가지 식별자로 서로를 가리킨다.
 import json
 from collections import Counter
 
-from tools.audit.documents import enable_utf8_stdout, resolve
+from .documents import enable_utf8_stdout, resolve
 
 enable_utf8_stdout()
 

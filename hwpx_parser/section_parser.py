@@ -8,9 +8,9 @@ import re
 from pathlib import Path
 import xml.etree.ElementTree as ET
 
-from hwpx_parser.parser_context import ParserContext
-from hwpx_parser.table.table_parser import TableParser
-from hwpx_parser.table.parsers.table_analyzer import TableAnalyzer
+from .parser_context import ParserContext
+from .table.table_parser import TableParser
+from .table.parsers.table_analyzer import TableAnalyzer
 
 
 class SectionParser:

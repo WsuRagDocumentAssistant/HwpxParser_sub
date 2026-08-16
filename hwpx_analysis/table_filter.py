@@ -24,7 +24,7 @@ import copy
 import json
 import re
 
-from hwpx_analysis.add_toc_depth0_anchors import iter_toc_entry_levels
+from .add_toc_depth0_anchors import iter_toc_entry_levels
 
 ALLOWED_ID_PATHS = ('.excluded_table.', '.structure_features.', '.toc_source_table_ids')
 

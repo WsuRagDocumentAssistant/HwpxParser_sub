@@ -18,7 +18,7 @@ from __future__ import annotations
 from collections import Counter, defaultdict
 from typing import Any
 
-from hwpx_analysis.pipeline_models import (
+from .pipeline_models import (
     BlocksDocument,
     TableInternalBlocks,
     ValidationReport,

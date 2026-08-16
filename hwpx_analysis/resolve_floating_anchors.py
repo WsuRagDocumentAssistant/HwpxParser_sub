@@ -15,7 +15,7 @@ from __future__ import annotations
 from collections import defaultdict
 from typing import Any
 
-from hwpx_analysis.pipeline_models import BlocksDocument
+from .pipeline_models import BlocksDocument
 
 
 def _find_anchor_candidates(
