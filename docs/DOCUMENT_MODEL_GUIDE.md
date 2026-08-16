@@ -24,6 +24,9 @@ model = hwpx.build_document_model(result)
 model.blocks[341].table.records[0].values
 ```
 
+`parser` 는 문서를 푼 폴더 위치를 들고 있다. **이미지 파일을 실제로 열 때만** 쓰고,
+그 외에는 `_` 로 받아도 된다(→ [3.6](#36-이미지를-꺼내고-싶다)).
+
 `run_pipeline` 은 파싱과 분석 19단계를 돌려 결과 객체를 준다. 파일은 쓰지 않는다.
 라이브러리는 아무것도 찍지 않으므로, 단계 보고를 보고 싶으면 이 두 줄을 앞에 둔다.
 
@@ -102,7 +105,7 @@ DocumentModel
 ```python
 model.blocks                # 읽는 순서대로 전부
 model.tables()              # 표만. 중첩표까지 훑는다
-model.searchable_blocks()   # 임베딩 대상 블록만
+model.searchable_blocks()   # 빈 블록을 뺀 것. 임베딩 필터가 아니다(아래 주의)
 model.images                # 이미지 파일 목록
 ```
 
@@ -113,7 +116,7 @@ for b in model.blocks:
     b.text                  # 정규화된 한 줄. 없으면 None
     b.depth                 # 구조 깊이
     b.heading_path_text     # ['1장', '1.1 절'] 상위 제목들
-    b.searchable            # 임베딩에 넣을 블록인가
+    b.searchable            # 빈 문단·컨트롤이 아닌가. 임베딩 판단이 아니다
 
     if b.table:             # 표가 실린 블록
         b.table.markdown
@@ -142,7 +145,7 @@ for t in model.tables():
 | | 본 문서 | sample |
 |---|---|---|
 | 블록 | 409 | 411 |
-| 검색 대상 블록 | 217 | 240 |
+| `searchable` 블록 | 217 | 240 |
 | 표 (중첩 포함) | 26 | 140 |
 | 이미지 파일 / 실제 쓰인 것 | 38 / 12 | 81 / 13 |
 | 목차 노드 / 목차 항목 | 21 / 38 | 23 / 29 |
@@ -179,7 +182,12 @@ for b in model.blocks:
 
 ### 3.1 임베딩할 텍스트를 뽑고 싶다
 
-`searchable`이 임베딩 대상 여부다. 계층은 `heading_path_text`로 붙인다.
+계층은 `heading_path_text`로 붙인다.
+
+> **`searchable` 을 임베딩 필터로 쓰면 안 된다.** 그 값이 거르는 것은 빈 문단·문서컨트롤·주변부
+> 셋뿐이고, 파이프라인이 프리뷰에서 빈 줄을 안 찍으려고 만든 것이다.
+> `searchable == True` 217개 안에 **표 블록 26개와 빠진 표 자리 63개**가 그대로 들어 있다.
+> 그래서 아래 예제도 `b.text` 로 한 번 더 거른다. 표는 `kept_as` 로 따로 판단한다.
 
 ```python
 for b in model.searchable_blocks():
@@ -269,6 +277,16 @@ for b in model.blocks:
     if b.figure and b.figure.image:
         b.figure.image.path                          # 'BinData/image7.bmp'
         model.images[b.figure.image.ref].size_bytes  # 5479718
+```
+
+`path` 는 **압축 해제본 기준 상대경로**다. 그대로 열면 없는 파일이다. 실제 파일을 읽으려면
+`run_pipeline` 이 돌려준 `parser` 와 합친다.
+
+```python
+from pathlib import Path
+
+파일 = Path(parser.unpacked_dir_path) / b.figure.image.path
+파일.read_bytes()
 ```
 
 `images`는 문서에 든 **파일 카탈로그**, `figure.image`는 **본문이 그 파일을 가리키는 지점**이다. 한 파일을 여러 곳에서 가리킬 수 있고, 목록에만 있고 쓰이지 않는 파일도 있다(본 38개 중 12개만 쓰임).
@@ -441,7 +459,7 @@ def 처리(model: hwpx.DocumentModel) -> list[hwpx.Block]: ...
 |---|---|
 | `tables()` | 중첩까지 전부 훑는다 |
 | `numeric_tables()` | `numeric == True` 인 표 |
-| `searchable_blocks()` | `searchable == True` 인 블록 |
+| `searchable_blocks()` | `searchable == True` 인 블록. 표 블록과 빠진 표 자리가 섞여 있다 |
 | `to_dict()` | 직렬화. `document_model.json` 이 이것이다 |
 
 ### FileInfo
@@ -471,7 +489,7 @@ def 처리(model: hwpx.DocumentModel) -> list[hwpx.Block]: ...
 | `area` | `str` | 본문인가 주변부인가 | `본문` 758 · `주변부` 62 |
 | `kind` | `str` | 생김새 | `문단` `표` `컨트롤` `도형묶음` `이미지` `섹션컨트롤` `도형` `바닥글` `caption` |
 | `role` | `str` | 하는 일 | `빈문단` `표` `본문` `제목` `그림` `문서컨트롤` `list_item` `바닥글` `caption` |
-| `searchable` | `bool` | 임베딩 대상인가 | |
+| `searchable` | `bool` | 빈 문단·문서컨트롤·주변부가 **아닌가**. 프리뷰에서 빈 줄을 빼려고 파이프라인이 만든 값이라 임베딩 판단이 아니다 | `True` 217 · `False` 192 |
 | `text` | `str \| None` | 정규화된 한 줄. 표·도형 블록은 `None` | |
 | `heading_path` | `list[str]` | 상위 제목 블록 id. **제목 블록은 마지막이 자기 자신** | `['s0_b00013']` |
 | `heading_path_text` | `list[str]` | 그 제목들의 텍스트 | `['2.1 교육혁신전략']` |
@@ -592,87 +610,6 @@ def 처리(model: hwpx.DocumentModel) -> list[hwpx.Block]: ...
 |---|---|
 | `table_id` | 상위표 id |
 | `cell_id` | 상위표의 어느 칸에 들어 있었나 |
-
----|---|
-| 문서 | `DocumentModel` · `FileInfo` · `Block` |
-| 표 | `Table` · `TableHeader` · `TableColumn` · `TableRecord` · `Cell` · `TableParent` |
-| 그림 | `Figure` · `ImageFile` · `ImageRef` |
-| 목차·제외 | `TocRef` · `TocEntry` · `ExcludedTable` |
-
-`hwpx.document.table.Table` 은 이것이 아니다. 그쪽은 파서가 XML 을 읽을 때 쓰는 내부
-클래스이고, 최종 객체의 표는 `hwpx.Table` 이다.
-
-메서드는 `DocumentModel` 에만 있다.
-
-| | |
-|---|---|
-| `tables()` | 중첩까지 전부 순회 |
-| `numeric_tables()` | `numeric == True` |
-| `searchable_blocks()` | `searchable == True` |
-| `to_dict()` | 직렬화 |
-
----|---|
-| `file` | `FileInfo` |
-| `images` | `{ref: ImageFile}` |
-| `blocks` | `[Block]` 읽는 순서 |
-| `tables()` | 중첩까지 전부 순회 |
-| `numeric_tables()` | `numeric == True` |
-| `searchable_blocks()` | `searchable == True` |
-| `to_dict()` | 직렬화 |
-
-### FileInfo
-`title` · `filename` · `creator` · `last_saved_by` · `created_at` · `modified_at` · `language` · `application` · `app_version` · `section_count` · `table_count`
-
-### Block
-| 필드 | 뜻 |
-|---|---|
-| `id` `order` `section` `depth` | 식별·위치 |
-| `area` | 본문 / 주변부 |
-| `kind` | 문단·표·이미지·도형·도형묶음·컨트롤·바닥글·섹션컨트롤 |
-| `role` | 제목·본문·표·그림·바닥글·빈문단·문서컨트롤 등 |
-| `searchable` | 임베딩 대상 |
-| `text` | 정규화된 한 줄 |
-| `heading_path` `heading_path_text` `child_headings` | 계층 |
-| `toc` `toc_entries` | 목차 |
-| `table` `figure` `excluded_table` | 실린 것 (셋 중 하나) |
-
-### Table
-| 필드 | 뜻 |
-|---|---|
-| `id` `kind` | 식별·종류 |
-| `kept_as` | 레코드 / 키값 / 산문 / 제목 |
-| `rows` `cols` | 격자 크기 |
-| `numeric` `numeric_verdict` | 수치표 판정 |
-| `row_records_available` | 행 레코드 성립 여부 |
-| `title` | 제목 텍스트 |
-| `header` | `TableHeader` |
-| `records` | `[TableRecord]` |
-| `cells` | `[Cell]` |
-| `markdown` | 항상 있음 |
-| `raw_row_count` | 레코드가 없을 때의 행 수 |
-| `parent` `children` | 중첩 관계 |
-
-### TableHeader / TableColumn
-`header_rows` · `header_cols` · `columns[]` (`index`, `name`, `is_row_header`)
-
-### TableRecord
-`index` · `values` · `inherited`
-
-### Cell
-`row` · `col` · `row_span` · `col_span` · `text` · `paragraphs` · `images` · `child_tables`
-
-### Figure
-`shape` · `z_order` · `placement` · `paragraph_index` · `image` · `shape_type` · `width` · `height` · `contains`
-
-### ImageFile / ImageRef
-`ImageFile` = `ref` · `path` · `media_type` · `size_bytes` (카탈로그)
-`ImageRef` = `ref` · `path` · `media_type` (참조 지점)
-
-### TocRef / TocEntry / ExcludedTable / TableParent
-`TocRef` = `title` · `numbering`
-`TocEntry` = `text` · `depth`
-`ExcludedTable` = `table_id` · `reason`
-`TableParent` = `table_id` · `cell_id`
 
 ---
 
