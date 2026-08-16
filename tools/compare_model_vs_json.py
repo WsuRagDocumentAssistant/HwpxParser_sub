@@ -36,7 +36,7 @@ from tools.build_document_model import run_pipeline  # noqa: E402
 from tools.defaults import DEFAULT_SOURCE  # noqa: E402
 
 
-def compare(model, filtered):
+def compare(model, filtered, filtered_labels):
     """모델과 필터 산출물을 값으로 대조한다."""
     checks = []
 
@@ -99,6 +99,11 @@ def compare(model, filtered):
     model_chars = sum(len(c.text) for t in model.tables() for c in t.cells)
     json_chars = sum(len(one(cell_text(c))) for t in json_tables.values()
                      for c in cells_of(t))
+    kept_diff = [tid for tid in model_tables
+                 if model_tables[tid].kept_as
+                 != (filtered_labels.get(tid) or '').split(':')[-1]]
+    check('남은 근거', not kept_diff, f'다른 표 {len(kept_diff)}개')
+
     check('셀 텍스트 총량', model_chars == json_chars,
           f'{model_chars:,} / {json_chars:,}')
 
@@ -131,12 +136,13 @@ def main(argv=None):
 
     _, result = run_pipeline(source, Path(args.work))
     model = build_document_model(result)
-    filtered, _ = apply_filter(state_view(result))
+    filtered, report = apply_filter(state_view(result))
 
     print('=' * 92)
     print('객체 경로 vs JSON 경로 — 같은 값을 내는가')
     print('=' * 92)
-    checks = compare(model, filtered)
+    checks = compare(model, filtered,
+                     {str(k).split('_')[-1]: v for k, v in report['label'].items()})
     for name, ok, detail in checks:
         print(f"  [{'OK ' if ok else 'FAIL'}] {name:16s} {detail}")
     failed = [c for c in checks if not c[1]]

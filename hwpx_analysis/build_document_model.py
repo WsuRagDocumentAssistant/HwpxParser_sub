@@ -273,9 +273,12 @@ def build_document_model(result, unpacked_dir=None) -> DocumentModel:
         children = [t for t in (build_table(str(cid).split('_')[-1], seen)
                                for cid in (nesting.get('child_table_ids') or [])) if t]
 
+        # 필터가 이미 매긴 라벨을 그대로 옮긴다. 여기서 다시 판정하지 않는다.
+        # 두 곳에서 따로 판정하면 언젠가 서로 다른 답을 낸다.
         return Table(
             id=table_id,
             kind=TABLE_KIND.get(hier.get('table_type'), hier.get('table_type') or ''),
+            kept_as=(labels.get(table_id) or '').split(':')[-1],
             rows=(pre.get('layout') or {}).get('row_count') or 0,
             cols=(pre.get('layout') or {}).get('col_count') or 0,
             numeric=bool(hier.get('numeric_table')),
@@ -493,6 +496,14 @@ def verify_model(model: DocumentModel, result) -> list[tuple[str, str, bool, str
         if (hier.get('structured_records') or hier.get('key_value_records')) \
                 and not table.records:
             record_lost.append(table_id)
+    from hwpx_analysis.table_filter import apply_filter_to_state
+    kept_labels = {str(k).split('_')[-1]: v
+                   for k, v in apply_filter_to_state(result)['labels'].items()}
+    bad_kept = [t.id for t in model.tables()
+                if t.kept_as != (kept_labels.get(t.id) or '').split(':')[-1]]
+    check('M15', '표가 남은 근거(kept_as)가 필터 판정과 같다',
+          not bad_kept, f'어긋난 표 {len(bad_kept)}개 {bad_kept[:3]}')
+
     check('M14', '파이프라인이 만든 헤더·레코드가 모델에 남아 있다',
           not header_lost and not record_lost,
           f'헤더 잃은 표 {len(header_lost)}개 {header_lost[:3]} / '
