@@ -196,14 +196,14 @@ def save_pipeline_outputs(
     log.info("===========================================")
     log.info("[RESULT SAVED]")
     if debug:
-        log.info("final_debug        :", debug_json_path)
+        log.info(f"final_debug        : {debug_json_path}")
     else:
         # 여기서 em dash 를 쓰면 cp949 콘솔에서 죽는다. 라이브러리 출력은
         # 콘솔 인코딩에 기대지 않는다.
         log.info("final_debug        : (안 씀. 필요하면 --debug)")
-    log.info("depth_preview_raw  :", raw_preview_path)
-    log.info("depth_preview_clean:", clean_preview_path)
-    log.info("llm_context        :", llm_context_path)
+    log.info(f"depth_preview_raw  : {raw_preview_path}")
+    log.info(f"depth_preview_clean: {clean_preview_path}")
+    log.info(f"llm_context        : {llm_context_path}")
     log.info("===========================================")
 
     saved = {
