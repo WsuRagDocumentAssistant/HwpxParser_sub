@@ -261,8 +261,14 @@ def build_document_model(result, unpacked_dir=None) -> DocumentModel:
                 table_id=str(nesting.get('parent_table_id') or '').split('_')[-1],
                 cell_id=str(nesting.get('parent_cell_id') or ''))
 
-        titles = [_one(x.get('text') if isinstance(x, dict) else x)
-                  for x in (hier.get('title_cells') or [])]
+        # title_cells 는 셀 ID 목록이다. 그대로 넣으면 제목 자리에
+        # section0_tbl5_..._r0_c0 같은 내부 식별자가 들어간다. 칸을 찾아
+        # 텍스트를 꺼낸다.
+        text_by_cell = {c.get('cell_id'): _one(cell_text(c)) for c in cells_of(raw)}
+        titles = []
+        for entry in (hier.get('title_cells') or []):
+            cell_id = entry.get('cell_id') if isinstance(entry, dict) else entry
+            titles.append(text_by_cell.get(cell_id, ''))
 
         children = [t for t in (build_table(str(cid).split('_')[-1], seen)
                                for cid in (nesting.get('child_table_ids') or [])) if t]

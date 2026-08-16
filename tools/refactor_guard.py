@@ -233,6 +233,11 @@ def command_verify_pipeline(args: argparse.Namespace) -> int:
 
 
 def command_snapshot(args: argparse.Namespace) -> int:
+    # 기본 문서 이름에 한글이 있으면 경로를 찍다가 cp949 로 죽는다.
+    # 파이프라인 모드는 이미 켜고 있었는데 파일 모드만 빠져 있었다.
+    from tools.audit.documents import enable_utf8_stdout
+    enable_utf8_stdout()
+
     store = Path(args.store)
     data = collect(args.dirs)
 
@@ -253,6 +258,9 @@ def command_snapshot(args: argparse.Namespace) -> int:
 
 
 def command_verify(args: argparse.Namespace) -> int:
+    from tools.audit.documents import enable_utf8_stdout
+    enable_utf8_stdout()
+
     store = Path(args.store)
     if not store.exists():
         print(f"[ERROR] 기준 해시가 없습니다: {store}")
