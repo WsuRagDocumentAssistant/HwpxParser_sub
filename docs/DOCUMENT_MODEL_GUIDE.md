@@ -42,20 +42,102 @@ JSON을 읽지 않는다. `document_model.json`은 눈으로 보라고 떨어뜨
 
 ---
 
-## 1. 30초 — 전체 모양
+## 1. 어떻게 생겼고 어떻게 꺼내나
 
-> 한 줄 — 값을 찾기 전에 **어디에 무엇이 담기는지** 지도를 먼저 본다.
+> 한 줄 — **모양과 꺼내는 법을 같이 본다.** 이 절만 읽어도 대부분 된다.
 
 ```
 DocumentModel
-├─ file        문서 메타 11개          (제목·생성자·작성프로그램·섹션수·표수)
-├─ images      파일 카탈로그           본 38개 / sample 81개
-└─ blocks      읽는 순서대로           본 409개 / sample 411개
-   ├─ 공통    id · order · section · depth · area · kind · role · searchable · text
-   ├─ 계층    heading_path · heading_path_text · child_headings
-   ├─ 목차    toc · toc_entries
-   └─ 실림    table │ figure │ excluded_table      ← 셋 중 최대 하나
+├─ file      FileInfo   title · filename · creator · last_saved_by
+│                       created_at · modified_at · language
+│                       application · app_version · section_count · table_count
+│
+├─ images    {ref: ImageFile}   문서에 든 이미지 파일 목록
+│              ImageFile        ref · path · media_type · size_bytes
+│
+└─ blocks    [Block]    읽는 순서대로 늘어선 블록
+     │
+     ├─ 식별·위치   id · order · section · depth · area
+     ├─ 분류       kind · role · searchable
+     ├─ 본문       text                         정규화된 한 줄. 없으면 None
+     ├─ 계층       heading_path                 상위 제목 블록 id 사슬
+     │            heading_path_text            그 제목들의 텍스트
+     │            child_headings               바로 아래 제목 id
+     ├─ 목차       toc          TocRef          title · numbering
+     │            toc_entries  [TocEntry]      text · depth
+     │
+     └─ 실린 것 (셋 중 최대 하나)
+        │
+        ├─ table   Table
+        │            id · kind · kept_as              무엇이고 왜 남았나
+        │            rows · cols
+        │            numeric · numeric_verdict        수치표 판정
+        │            row_records_available
+        │            title · markdown                 markdown 은 항상 있다
+        │            raw_row_count
+        │            header   TableHeader
+        │                       header_rows · header_cols
+        │                       columns  [TableColumn]  index · name · is_row_header
+        │            records  [TableRecord]  index · values · inherited
+        │            cells    [Cell]         row · col · row_span · col_span
+        │                                    text · paragraphs
+        │                                    images       [ImageRef]  ref · path · media_type
+        │                                    child_tables [표 id]
+        │            parent   TableParent    table_id · cell_id      중첩표면 상위표
+        │            children [Table]                                안에 든 표
+        │
+        ├─ figure  Figure
+        │            shape                            이미지 / 도형 / 도형묶음
+        │            image     ImageRef               도형이면 None
+        │            placement · z_order · paragraph_index
+        │            shape_type · width · height
+        │            contains                         도형묶음의 구성 {rect: 3, ...}
+        │
+        └─ excluded_table  ExcludedTable
+                     table_id · reason                버려진 표가 있던 자리
 ```
+
+꺼내는 법은 넷이다.
+
+```python
+model.blocks                # 읽는 순서대로 전부
+model.tables()              # 표만. 중첩표까지 훑는다
+model.searchable_blocks()   # 임베딩 대상 블록만
+model.images                # 이미지 파일 목록
+```
+
+블록 하나에서 값을 꺼낼 때.
+
+```python
+for b in model.blocks:
+    b.text                  # 정규화된 한 줄. 없으면 None
+    b.depth                 # 구조 깊이
+    b.heading_path_text     # ['1장', '1.1 절'] 상위 제목들
+    b.searchable            # 임베딩에 넣을 블록인가
+
+    if b.table:             # 표가 실린 블록
+        b.table.markdown
+    if b.figure:            # 도형·이미지
+        b.figure.image      # 파일이 없는 도형이면 None
+    if b.excluded_table:    # 버려진 표가 있던 자리
+        b.excluded_table.reason
+```
+
+표에서 값을 꺼낼 때.
+
+```python
+for t in model.tables():
+    t.markdown              # 항상 있다. 통짜로 쓸 때
+    t.kept_as               # 레코드 / 키값 / 산문 / 제목  ← 어떻게 쓸지 결정
+    if t.kept_as == '레코드':
+        for rec in t.records:
+            rec.values      # {'구분': '대학혁신위원회', '구성 인원': '총 15명'}
+    t.cells                 # 좌표·병합·문단이 필요할 때
+```
+
+> **가장 많이 걸리는 곳** — `blocks` 안에는 `Block`만 있다. 표는 `block.table`에 달려 있어서
+> `isinstance(block, Table)`은 **하나도 안 잡힌다**. 그리고 `hwpx.document.table.Table`은
+> 파서 내부 클래스라 다른 물건이다. 최종 객체의 표는 `hwpx.Table`이다.
 
 | | 본 문서 | sample |
 |---|---|---|
@@ -72,6 +154,8 @@ DocumentModel
 > 한 줄 — 여기서 안 갈라 놓으면 **뒤의 모든 코드가 어딘가에서 죽는다.** 가장 먼저 읽어야 할 절이다.
 
 `table` / `figure` / `excluded_table`은 **셋 중 최대 하나만** 채워진다(둘 다인 경우 0건 확인). `block.table.markdown`을 무심코 쓰면 본 문서 409개 중 383개에서 터진다.
+
+표만 필요하면 `model.tables()` 가 중첩까지 전부 준다. 아래는 문서 순서와 위치까지 볼 때다.
 
 ```python
 for b in model.blocks:
@@ -303,6 +387,8 @@ for b in model.blocks:
 
 | 증상 | 원인 | 자세히 |
 |---|---|---|
+| `isinstance(block, Table)`이 하나도 안 잡힌다 | `blocks`에는 `Block`만 있다. 표는 `block.table` | [2](#2-가장-먼저--블록은-6갈래다) |
+| `hwpx.document.table.Table`로 비교해도 안 된다 | 그건 파서 내부 클래스다. 최종 객체의 표는 `hwpx.Table` | [2](#2-가장-먼저--블록은-6갈래다) |
 | `kind == '표'`인데 `table`이 없다 | 버려졌거나 목차 표 | [4.1](#41-블록-6갈래) |
 | `header`가 `None`이다 | 산문표·제목상자는 원래 없다 | [4.2](#42-표-4갈래--kept_as) |
 | 판정이 전부 `판정불가`다 | 산문표는 고정값 | [4.3](#43-수치-판정--kept_as) |
@@ -327,13 +413,205 @@ for b in model.blocks:
 
 ---
 
-## 7. 부록 — 전체 필드
+## 7. 부록 — 필드 사전
 
-> 한 줄 — 찾아보는 용도. 위에서 설명한 것을 클래스별로 다시 늘어놓은 것뿐이다.
+> 한 줄 — 필드마다 **무슨 뜻이고 어떤 값이 들어오는지** 적는다. 값은 기준 문서 둘에서 실제로 나온 것이다.
+
+15개 전부 `hwpx` 에서 바로 꺼낼 수 있다.
+
+```python
+import hwpx
+
+isinstance(block.table, hwpx.Table)
+def 처리(model: hwpx.DocumentModel) -> list[hwpx.Block]: ...
+```
+
+`hwpx.document.table.Table` 은 이것이 아니다. 그쪽은 파서가 XML 을 읽을 때 쓰는 내부
+클래스이고, 최종 객체의 표는 `hwpx.Table` 이다.
 
 ### DocumentModel
-| 필드 | 뜻 |
+
+| 필드 | 타입 | 뜻 |
+|---|---|---|
+| `file` | `FileInfo` | 문서 메타 |
+| `images` | `dict[str, ImageFile]` | 이미지 파일 목록. 키는 `ref` |
+| `blocks` | `list[Block]` | 읽는 순서대로 |
+
+| 메서드 | 주는 것 |
 |---|---|
+| `tables()` | 중첩까지 전부 훑는다 |
+| `numeric_tables()` | `numeric == True` 인 표 |
+| `searchable_blocks()` | `searchable == True` 인 블록 |
+| `to_dict()` | 직렬화. `document_model.json` 이 이것이다 |
+
+### FileInfo
+
+| 필드 | 타입 | 뜻 | 실제 값 |
+|---|---|---|---|
+| `title` | `str` | 문서 제목. **파일명을 쓴다** | `3주기(2025년)…` |
+| `filename` | `str` | 확장자 뺀 파일명 | 위와 같다 |
+| `creator` | `str \| None` | 만든 사람 | `moe` |
+| `last_saved_by` | `str \| None` | 마지막 저장자 | `user` |
+| `created_at` | `str \| None` | 만든 시각 | `2018-12-11T01:25:34Z` |
+| `modified_at` | `str \| None` | 고친 시각 | `2026-07-07T07:37:18Z` |
+| `language` | `str \| None` | 언어 | `ko` |
+| `application` | `str \| None` | 작성 프로그램 | `Hancom Office Hangul` |
+| `app_version` | `str \| None` | 그 버전 | `12, 0, 0, 535 WIN32LE…` |
+| `section_count` | `int` | 섹션 수 | `1` / `5` |
+| `table_count` | `int` | **남긴** 표 수 | `26` / `140` |
+
+### Block
+
+| 필드 | 타입 | 뜻 | 실제 값 |
+|---|---|---|---|
+| `id` | `str` | 블록 식별자 | `s0_b00342` |
+| `order` | `int` | 읽는 순서 | 0부터 |
+| `section` | `int` | 몇 번째 섹션인가 | 0부터 |
+| `depth` | `int` | 구조 깊이 | `0`~`9` |
+| `area` | `str` | 본문인가 주변부인가 | `본문` 758 · `주변부` 62 |
+| `kind` | `str` | 생김새 | `문단` `표` `컨트롤` `도형묶음` `이미지` `섹션컨트롤` `도형` `바닥글` `caption` |
+| `role` | `str` | 하는 일 | `빈문단` `표` `본문` `제목` `그림` `문서컨트롤` `list_item` `바닥글` `caption` |
+| `searchable` | `bool` | 임베딩 대상인가 | |
+| `text` | `str \| None` | 정규화된 한 줄. 표·도형 블록은 `None` | |
+| `heading_path` | `list[str]` | 상위 제목 블록 id. **제목 블록은 마지막이 자기 자신** | `['s0_b00013']` |
+| `heading_path_text` | `list[str]` | 그 제목들의 텍스트 | `['2.1 교육혁신전략']` |
+| `child_headings` | `list[str]` | 바로 아래 제목 id | |
+| `toc` | `TocRef \| None` | 이 블록이 목차 노드면 | |
+| `toc_entries` | `list[TocEntry]` | 목차 표가 있던 자리에만 | |
+| `table` | `Table \| None` | 표가 실린 블록이면 | |
+| `figure` | `Figure \| None` | 도형·이미지 블록이면 | |
+| `excluded_table` | `ExcludedTable \| None` | 버려진 표 자리면 | |
+
+`table` `figure` `excluded_table` 은 **셋 중 최대 하나**만 찬다.
+
+### Table
+
+| 필드 | 타입 | 뜻 | 실제 값 |
+|---|---|---|---|
+| `id` | `str` | 표 식별자 | `2057960288` |
+| `kind` | `str` | 표 종류 | `데이터표` 118 · `제목상자` 43 · `키값표` 5 |
+| `kept_as` | `str` | **왜 남았나.** 어떻게 쓸지가 여기서 갈린다 | `산문` 90 · `제목` 43 · `레코드` 31 · `키값` 2 |
+| `rows` `cols` | `int` | 격자 크기 | |
+| `numeric` | `bool` | 수치표인가 | |
+| `numeric_verdict` | `str` | 수치표 판정 4갈래 | `판정불가` 90 · `대상아님` 43 · `수치표` 19 · `아님` 14 |
+| `row_records_available` | `bool` | 행 레코드가 서는가 | `True` 31 |
+| `title` | `list[str]` | 제목 칸의 텍스트 | `['추진전략Ⅰ: …']` |
+| `header` | `TableHeader \| None` | 헤더 지정. 산문표·제목상자는 `None` | |
+| `records` | `list[TableRecord]` | 행 단위 레코드 | |
+| `cells` | `list[Cell]` | 모든 칸 | |
+| `markdown` | `str \| None` | **모든 표에 항상 있다** | |
+| `raw_row_count` | `int \| None` | 레코드가 없을 때의 행 수 | |
+| `parent` | `TableParent \| None` | 중첩표면 상위표 | |
+| `children` | `list[Table]` | 안에 든 표 | |
+
+`numeric_verdict` 는 `kept_as == '레코드'` 일 때만 정보가 있다. 나머지는 값이 고정이다(→ [4.3](#43-수치-판정--kept_as)).
+
+### TableHeader · TableColumn
+
+| 필드 | 타입 | 뜻 |
+|---|---|---|
+| `header_rows` | `list[int]` | 헤더인 행 번호. 예: `[0]` |
+| `header_cols` | `list[int]` | 헤더인 열 번호 |
+| `columns` | `list[TableColumn]` | 열 정의 |
+
+| `TableColumn` | 타입 | 뜻 | 예 |
+|---|---|---|---|
+| `index` | `int` | 열 번호 | `0` |
+| `name` | `str` | 열 이름 | `구분` |
+| `is_row_header` | `bool` | 이 열이 행 머리글인가 | |
+
+### TableRecord
+
+| 필드 | 타입 | 뜻 |
+|---|---|---|
+| `index` | `int` | 몇 번째 행인가 |
+| `values` | `dict[str, str]` | `{열 이름: 값}`. 예: `{'구분': '대학혁신위원회', '구성 인원': '총 15명'}` |
+| `inherited` | `list[str]` | 그 행이 아니라 **세로 병합으로 물려받은** 열 이름 |
+
+같은 값이 여러 행에 나올 때 진짜 반복인지 병합인지는 `inherited` 로만 구분된다.
+
+### Cell
+
+| 필드 | 타입 | 뜻 |
+|---|---|---|
+| `row` `col` | `int` | 좌표 |
+| `row_span` `col_span` | `int` | 병합 크기. 기본 `1` |
+| `text` | `str` | 문단을 공백으로 이은 한 줄 |
+| `paragraphs` | `list[str]` | 문단이 둘 이상일 때만 채워진다. 하나면 빈 리스트 |
+| `images` | `list[ImageRef]` | 칸 안의 이미지 |
+| `child_tables` | `list[str]` | 칸 안의 표 id |
+
+병합으로 덮이는 칸은 **항목이 아예 없다**. `row_span`/`col_span` 으로 계산해야 한다.
+
+### Figure
+
+| 필드 | 타입 | 뜻 | 실제 값 |
+|---|---|---|---|
+| `shape` | `str` | 종류 | `도형묶음` 30 · `이미지` 26 · `도형` 6 |
+| `image` | `ImageRef \| None` | 가리키는 파일. **도형이면 `None`** | |
+| `placement` | `str` | 배치 | `글자처럼` 58 · `떠있음` 4 |
+| `z_order` | `str \| None` | 겹침 순서 | `69` |
+| `paragraph_index` | `int \| None` | 몇 번째 문단에 붙었나 | `40` |
+| `shape_type` | `str \| None` | 도형 종류 | `polygon` (나머지는 `None`) |
+| `width` `height` | `str \| None` | 크기 | `48190` |
+| `contains` | `dict[str, int]` | 도형묶음의 구성 | `{'rect': 3, 'ellipse': 2}` |
+
+### ImageFile · ImageRef
+
+| `ImageFile` (카탈로그) | 타입 | 뜻 | 실제 값 |
+|---|---|---|---|
+| `ref` | `str` | 식별자 | `image7` |
+| `path` | `str` | 압축 해제본 안의 경로 | `BinData/image7.bmp` |
+| `media_type` | `str \| None` | 종류 | `image/bmp` 56 · `image/png` 37 · `image/jpg` 26 |
+| `size_bytes` | `int \| None` | 파일 크기 | `5479718` |
+
+| `ImageRef` (참조 지점) | 타입 | 뜻 |
+|---|---|---|
+| `ref` `path` `media_type` | | 위와 같다. **`size_bytes` 는 없다** — 파일의 속성이지 참조의 속성이 아니다 |
+
+목록에만 있고 아무도 안 쓰는 파일이 있다(본 38개 중 12개만 쓰임).
+
+### TocRef · TocEntry · ExcludedTable · TableParent
+
+| `TocRef` | 뜻 | 예 |
+|---|---|---|
+| `title` | 목차 제목 | `영역별 혁신전략` |
+| `numbering` | 번호. 없을 수 있다 | `2` · `2.1` |
+
+| `TocEntry` | 뜻 |
+|---|---|
+| `text` | 목차 항목 한 줄 |
+| `depth` | 그 항목의 깊이 |
+
+| `ExcludedTable` | 뜻 | 실제 값 |
+|---|---|---|
+| `table_id` | 원본에서 찾을 표 id | |
+| `reason` | 왜 빠졌나 | `제외:OCR` 77 |
+
+| `TableParent` | 뜻 |
+|---|---|
+| `table_id` | 상위표 id |
+| `cell_id` | 상위표의 어느 칸에 들어 있었나 |
+
+---|---|
+| 문서 | `DocumentModel` · `FileInfo` · `Block` |
+| 표 | `Table` · `TableHeader` · `TableColumn` · `TableRecord` · `Cell` · `TableParent` |
+| 그림 | `Figure` · `ImageFile` · `ImageRef` |
+| 목차·제외 | `TocRef` · `TocEntry` · `ExcludedTable` |
+
+`hwpx.document.table.Table` 은 이것이 아니다. 그쪽은 파서가 XML 을 읽을 때 쓰는 내부
+클래스이고, 최종 객체의 표는 `hwpx.Table` 이다.
+
+메서드는 `DocumentModel` 에만 있다.
+
+| | |
+|---|---|
+| `tables()` | 중첩까지 전부 순회 |
+| `numeric_tables()` | `numeric == True` |
+| `searchable_blocks()` | `searchable == True` |
+| `to_dict()` | 직렬화 |
+
+---|---|
 | `file` | `FileInfo` |
 | `images` | `{ref: ImageFile}` |
 | `blocks` | `[Block]` 읽는 순서 |
