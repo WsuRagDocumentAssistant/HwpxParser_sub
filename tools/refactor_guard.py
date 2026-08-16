@@ -8,12 +8,12 @@
 # 하나라도 달라지면 실패다.
 #
 # 사용:
-#   python tools/refactor_guard.py snapshot <결과폴더> [<결과폴더> ...]
-#   python tools/refactor_guard.py verify
+#   python -m tools.refactor_guard snapshot <결과폴더> [<결과폴더> ...]
+#   python -m tools.refactor_guard verify
 #
 # 파일 없이 쓰기 (권장):
-#   python tools/refactor_guard.py snapshot-pipeline
-#   python tools/refactor_guard.py verify-pipeline
+#   python -m tools.refactor_guard snapshot-pipeline
+#   python -m tools.refactor_guard verify-pipeline
 #
 #   문서를 직접 파싱해 파이프라인을 돌리고, 결과 객체를 부분별로 해시한다.
 #   final_debug.json 을 --debug 뒤로 숨기면 파일 모드는 잴 것이 없어져
@@ -43,7 +43,15 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from tools.defaults import DEFAULT_SOURCE  # noqa: E402
+try:
+    from .defaults import DEFAULT_SOURCE  # noqa: E402
+except ImportError as exc:            # noqa: E402
+    # tools 가 패키지가 된 뒤로 이 파일은 모듈로 실행해야 한다.
+    # 직접 실행하면 부모 패키지를 몰라 상대 import 가 풀리지 않는다.
+    raise SystemExit(
+        "이 파일은 모듈로 실행하세요.\n"
+        "  python -m tools.refactor_guard ..."
+    ) from exc
 
 DEFAULT_STORE = REPO_ROOT / "tools" / "baseline" / "refactor_hashes.json"
 DEFAULT_PIPELINE_STORE = REPO_ROOT / "tools" / "baseline" / "pipeline_hashes.json"
@@ -152,14 +160,14 @@ def collect_pipeline(source: Path, work: Path) -> dict[str, str]:
     입력 데이터: source(문서), work(압축 해제 위치).
     출력 데이터: {부분 이름: sha256}.
     """
-    from tools.build_document_model import run_pipeline
+    from .build_document_model import run_pipeline
 
     _, result = run_pipeline(source, work)
     return pipeline_hashes(result)
 
 
 def command_snapshot_pipeline(args: argparse.Namespace) -> int:
-    from tools.audit.documents import enable_utf8_stdout
+    from .audit.documents import enable_utf8_stdout
     enable_utf8_stdout()
 
     source = Path(args.source)
@@ -185,7 +193,7 @@ def command_snapshot_pipeline(args: argparse.Namespace) -> int:
 
 
 def command_verify_pipeline(args: argparse.Namespace) -> int:
-    from tools.audit.documents import enable_utf8_stdout
+    from .audit.documents import enable_utf8_stdout
     enable_utf8_stdout()
 
     store = Path(args.store)
@@ -235,7 +243,7 @@ def command_verify_pipeline(args: argparse.Namespace) -> int:
 def command_snapshot(args: argparse.Namespace) -> int:
     # 기본 문서 이름에 한글이 있으면 경로를 찍다가 cp949 로 죽는다.
     # 파이프라인 모드는 이미 켜고 있었는데 파일 모드만 빠져 있었다.
-    from tools.audit.documents import enable_utf8_stdout
+    from .audit.documents import enable_utf8_stdout
     enable_utf8_stdout()
 
     store = Path(args.store)
@@ -258,7 +266,7 @@ def command_snapshot(args: argparse.Namespace) -> int:
 
 
 def command_verify(args: argparse.Namespace) -> int:
-    from tools.audit.documents import enable_utf8_stdout
+    from .audit.documents import enable_utf8_stdout
     enable_utf8_stdout()
 
     store = Path(args.store)

@@ -11,9 +11,9 @@
 #   --save-pipeline 을 주면 그때만 기존 산출물도 함께 쓴다.
 #
 # 사용:
-#   python tools/build_document_model.py                     # 기본 문서
-#   python tools/build_document_model.py <문서> --out <경로>
-#   python tools/build_document_model.py --dry-run           # 쓰지 않고 보고만
+#   python -m tools.build_document_model                     # 기본 문서
+#   python -m tools.build_document_model <문서> --out <경로>
+#   python -m tools.build_document_model --dry-run           # 쓰지 않고 보고만
 #================================================
 
 from __future__ import annotations
@@ -35,7 +35,15 @@ from hwpx_analysis.pipeline import run_analysis_pipeline, save_pipeline_outputs 
 from hwpx_analysis.table_json_serializer import table_to_dict  # noqa: E402
 from hwpx_parser.parser import HwpxParser  # noqa: E402
 from hwpx_analysis.build_summary import build_summary  # noqa: E402
-from tools.defaults import DEFAULT_SOURCE  # noqa: E402
+try:
+    from .defaults import DEFAULT_SOURCE  # noqa: E402
+except ImportError as exc:            # noqa: E402
+    # tools 가 패키지가 된 뒤로 이 파일은 모듈로 실행해야 한다.
+    # 직접 실행하면 부모 패키지를 몰라 상대 import 가 풀리지 않는다.
+    raise SystemExit(
+        "이 파일은 모듈로 실행하세요.\n"
+        "  python -m tools.build_document_model ..."
+    ) from exc
 
 
 def run_pipeline(source: Path, out_root: Path):
@@ -106,7 +114,7 @@ def main(argv=None):
                     help='--save-pipeline 에 더해 final_debug.json 까지 쓴다')
     args = ap.parse_args(argv)
 
-    from tools.audit.documents import enable_utf8_stdout
+    from .audit.documents import enable_utf8_stdout
     enable_utf8_stdout()
 
     source = Path(args.source)

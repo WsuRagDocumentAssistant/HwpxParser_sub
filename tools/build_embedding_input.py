@@ -22,10 +22,10 @@
 #   여기는 필터 결과를 눈으로 보는 용도이고, 파일이 필요하면 --out 을 준다.
 #
 # 사용:
-#   python tools/build_embedding_input.py                      # 보고만
-#   python tools/build_embedding_input.py --doc <결과폴더>
-#   python tools/build_embedding_input.py --out <경로>         # 이때만 저장
-#   python tools/build_embedding_input.py --out <경로> --preview
+#   python -m tools.build_embedding_input                      # 보고만
+#   python -m tools.build_embedding_input --doc <결과폴더>
+#   python -m tools.build_embedding_input --out <경로>         # 이때만 저장
+#   python -m tools.build_embedding_input --out <경로> --preview
 #================================================
 
 from __future__ import annotations
@@ -39,6 +39,15 @@ import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
+
+if __package__ in (None, ''):
+    # 상대 import 가 함수 안에 있어 직접 실행하면 한참 뒤에야 터진다.
+    # 들어오는 자리에서 막고 어떻게 실행할지 알려준다.
+    raise SystemExit(
+        "이 파일은 모듈로 실행하세요.\n"
+        "  python -m tools.build_embedding_input ..."
+    )
+
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
@@ -227,10 +236,10 @@ def main(argv=None):
                     help='필터 결과로 프리뷰 텍스트도 만든다 (사람이 눈으로 볼 용도)')
     args = ap.parse_args(argv)
 
-    from tools.audit.documents import enable_utf8_stdout
+    from .audit.documents import enable_utf8_stdout
     enable_utf8_stdout()
 
-    from tools.defaults import DEFAULT_SOURCE
+    from .defaults import DEFAULT_SOURCE
     doc_dir = (Path(args.doc) if args.doc
                else REPO_ROOT / 'output' / 'results' / DEFAULT_SOURCE.stem)
     src = doc_dir / 'final_debug.json'

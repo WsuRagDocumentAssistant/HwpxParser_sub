@@ -230,7 +230,7 @@ model.searchable_blocks()                 # 240개
 ```
 
 ```bash
-python tools/build_document_model.py      # 문서 -> 파이프라인 -> 모델 -> 저장
+python -m tools.build_document_model      # 문서 -> 파이프라인 -> 모델 -> 저장
 ```
 
 매 실행 M2~M10 을 검증하고 하나라도 깨지면 저장하지 않는다.

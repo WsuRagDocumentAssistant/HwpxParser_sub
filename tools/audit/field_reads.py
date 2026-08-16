@@ -171,7 +171,7 @@ def restore(originals):
 
 
 def _run(source: Path, out_root: Path) -> Path:
-    import tools.run_document as run_document
+    from .. import run_document
     code = run_document.main([str(source), '--out', str(out_root)])
     if code != 0:
         sys.exit(f"문서 실행 실패: {source}")

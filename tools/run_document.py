@@ -8,8 +8,8 @@
 # 저장소를 건드리지 않고 검증할 수 있다.
 #
 # 사용 예:
-#   python tools/run_document.py "D:/docs/report.hwpx" --out /tmp/hwpx_check
-#   python tools/regression_check.py check \
+#   python -m tools.run_document "D:/docs/report.hwpx" --out /tmp/hwpx_check
+#   python -m tools.regression_check check \
 #       --contents /tmp/hwpx_check/unpacked/report/Contents \
 #       --current  /tmp/hwpx_check/results/report/final_debug.json \
 #       --baseline /tmp/hwpx_check/report.baseline.json
@@ -87,14 +87,14 @@ def main(argv: list[str] | None = None) -> int:
     print("===========================================")
     print("[검증 명령]")
     if args.debug:
-        print("python tools/regression_check.py check \\")
+        print("python -m tools.regression_check check \\")
         print(f'  --contents "{parser.contents_dir_path}" \\')
         print(f'  --current  "{output_root / "results" / parser.filename / "final_debug.json"}" \\')
         print(f'  --baseline "{output_root / (parser.filename + ".baseline.json")}"')
     else:
         # --debug 없이 돌면 final_debug.json 이 없다. 없는 파일을 가리키는
         # 명령을 안내하면 안 되므로 파일을 안 읽는 쪽을 알려준다.
-        print("python tools/regression_check.py check-pipeline \\")
+        print("python -m tools.regression_check check-pipeline \\")
         print(f'  --source "{source_path}" --work "{output_root}"')
     print("===========================================")
 

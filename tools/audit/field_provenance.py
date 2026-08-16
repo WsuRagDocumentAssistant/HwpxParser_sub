@@ -365,7 +365,7 @@ def _run_document(source: Path, out_root: Path, entry: str = 'test'):
             sys.exit(f"산출물이 없습니다: {produced}")
         return produced
 
-    import tools.run_document as run_document
+    from .. import run_document
     code = run_document.main([str(source), '--out', str(out_root), '--debug'])
     if code != 0:
         sys.exit(f"문서 실행 실패: {source}")

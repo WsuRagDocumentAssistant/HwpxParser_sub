@@ -14,8 +14,8 @@
 #   모델이 같은 필터를 내부에서 돌리므로 중복이었다.
 #
 # 사용:
-#   python tools/compare_model_vs_json.py
-#   python tools/compare_model_vs_json.py <문서>
+#   python -m tools.compare_model_vs_json
+#   python -m tools.compare_model_vs_json <문서>
 #================================================
 
 from __future__ import annotations
@@ -32,8 +32,16 @@ from hwpx_analysis.build_document_model import build_document_model  # noqa: E40
 from hwpx_analysis.table_filter import (  # noqa: E402
     apply_filter, cell_text, cells_of, index_tables, one, state_view,
 )
-from tools.build_document_model import run_pipeline  # noqa: E402
-from tools.defaults import DEFAULT_SOURCE  # noqa: E402
+try:
+    from .build_document_model import run_pipeline  # noqa: E402
+except ImportError as exc:            # noqa: E402
+    # tools 가 패키지가 된 뒤로 이 파일은 모듈로 실행해야 한다.
+    # 직접 실행하면 부모 패키지를 몰라 상대 import 가 풀리지 않는다.
+    raise SystemExit(
+        "이 파일은 모듈로 실행하세요.\n"
+        "  python -m tools.compare_model_vs_json ..."
+    ) from exc
+from .defaults import DEFAULT_SOURCE  # noqa: E402
 
 
 def compare(model, filtered, filtered_labels):
@@ -127,7 +135,7 @@ def main(argv=None):
     ap.add_argument('--work', default=str(REPO_ROOT / 'output'))
     args = ap.parse_args(argv)
 
-    from tools.audit.documents import enable_utf8_stdout
+    from .audit.documents import enable_utf8_stdout
     enable_utf8_stdout()
 
     source = Path(args.source)

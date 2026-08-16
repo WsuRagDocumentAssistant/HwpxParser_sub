@@ -7,14 +7,14 @@
 # 이 스크립트는 산출물을 읽기만 하며 파이프라인을 실행하지 않는다.
 #
 # 사용 순서:
-#   1) python tools/regression_check.py freeze     # 수정 전 상태를 baseline으로 동결
+#   1) python -m tools.regression_check freeze     # 수정 전 상태를 baseline으로 동결
 #   2) (파서/분석 코드 수정)
 #   3) python test.py --debug                      # 산출물 재생성 (--debug 가 있어야
 #                                                  #   final_debug.json 이 나온다)
-#   4) python tools/regression_check.py check      # 불변식 + baseline diff 검증
+#   4) python -m tools.regression_check check      # 불변식 + baseline diff 검증
 #
 # 산출물 파일 없이 검사하기:
-#   python tools/regression_check.py check-pipeline
+#   python -m tools.regression_check check-pipeline
 #
 #   문서를 직접 파싱해 파이프라인을 돌리고, 결과 객체(PipelineResult)를 그대로
 #   검사한다. final_debug.json / llm_context.txt 를 읽지 않는다. JSON 산출물을
@@ -78,7 +78,15 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from tools.defaults import DEFAULT_SOURCE  # noqa: E402
+try:
+    from .defaults import DEFAULT_SOURCE  # noqa: E402
+except ImportError as exc:            # noqa: E402
+    # tools 가 패키지가 된 뒤로 이 파일은 모듈로 실행해야 한다.
+    # 직접 실행하면 부모 패키지를 몰라 상대 import 가 풀리지 않는다.
+    raise SystemExit(
+        "이 파일은 모듈로 실행하세요.\n"
+        "  python -m tools.regression_check ..."
+    ) from exc
 
 DEFAULT_CONTENTS_DIR = (REPO_ROOT / "output" / "unpacked"
                         / DEFAULT_SOURCE.stem / "Contents")
@@ -1056,7 +1064,7 @@ def command_freeze(args: argparse.Namespace) -> int:
         print(f"[ERROR] 산출물이 없습니다: {current_path}")
         print("        final_debug.json 은 --debug 를 줄 때만 저장됩니다.")
         print("        python test.py --debug              파일을 만든 뒤 다시 실행")
-        print("        python tools/regression_check.py check-pipeline")
+        print("        python -m tools.regression_check check-pipeline")
         print("                                            파일 없이 바로 검증")
         return 1
 
@@ -1208,8 +1216,8 @@ def command_check_pipeline(args: argparse.Namespace) -> int:
     입력 데이터: args(source/work/baseline).
     출력 데이터: 종료 코드.
     """
-    from tools.audit.documents import enable_utf8_stdout
-    from tools.build_document_model import run_pipeline
+    from .audit.documents import enable_utf8_stdout
+    from .build_document_model import run_pipeline
 
     enable_utf8_stdout()
 
