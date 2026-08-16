@@ -45,7 +45,7 @@ TableParser.parse()에서 Table 기본 속성 생성
 | 26 | `hwpx_parser/table/table_style_resolver.py` | `TableStyleResolver.resolve()` | `Table` | `border_fill` | `context.get_border_fill_raw(table.border_fill_id_ref)` | 표의 `border_fill_id_ref`를 실제 `BorderFill` 객체로 연결, 중첩 표도 재귀 처리 |
 | 27 | `hwpx_parser/table/table_style_resolver.py` | `TableStyleResolver.resolve()` | `TableCell` | `border_fill` | `context.get_border_fill_raw(cell.border_fill_id_ref)` | 셀의 `border_fill_id_ref`를 실제 `BorderFill` 객체로 연결 |
 | 28 | `hwpx_parser/table/table_analyzer.py` | `TableAnalyzer.analyze()` | `Table` | `validation` | `TableValidation(...)` 및 검증 함수 결과 | 표 검증 결과 객체 연결, 중첩 표도 재귀 처리 |
-| 29 | `test.py` | `table_to_dict()` | `Table`, `TableRow`, `TableCell`, `TableParagraph`, `TableRun` | dict 키 구조 | 객체 속성 및 `to_jsonable()` | `tables.json` 저장용 dict로 변환 |
+| 29 | `tools/run_model.py` | `table_to_dict()` | `Table`, `TableRow`, `TableCell`, `TableParagraph`, `TableRun` | dict 키 구조 | 객체 속성 및 `to_jsonable()` | `tables.json` 저장용 dict로 변환 |
 
 ---
 
@@ -332,7 +332,7 @@ cell.border_fill
 
 ## 4. 최종 table_to_dict 결과
 
-`test.py`의 현재 `table_to_dict(table)`는 `parser`를 인자로 받지 않고, 객체에 이미 들어 있는 `border_fill`을 `to_jsonable()`로 변환한다. 최종 구조는 아래처럼 축약할 수 있다.
+`tools/run_model.py`의 현재 `table_to_dict(table)`는 `parser`를 인자로 받지 않고, 객체에 이미 들어 있는 `border_fill`을 `to_jsonable()`로 변환한다. 최종 구조는 아래처럼 축약할 수 있다.
 
 ```json
 {

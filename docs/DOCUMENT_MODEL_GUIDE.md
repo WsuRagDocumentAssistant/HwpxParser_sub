@@ -406,5 +406,5 @@ for b in model.blocks:
 | M15 | `kept_as`가 필터 판정과 같다 |
 
 ```bash
-python test.py
+python -m tools.run_model
 ```

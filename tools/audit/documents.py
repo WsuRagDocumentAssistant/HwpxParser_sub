@@ -103,7 +103,7 @@ def resolve(argv: list[str] | None = None) -> list[Document]:
         sys.exit(
             "감사할 문서가 없습니다."
             + hint
-            + "\n  python test.py --debug                     기본 문서 분석\n"
+            + "\n  python -m tools.run_model --debug                     기본 문서 분석\n"
               "  python -m tools.run_document <문서> --out <폴더> --debug\n"
               "그 뒤 결과 디렉토리를 인자로 주거나 인자 없이 다시 실행하세요."
         )
@@ -117,7 +117,7 @@ def resolve(argv: list[str] | None = None) -> list[Document]:
             + "\n".join(f"  {d.final_debug}" for d in missing)
             + "\n\n이 파일은 --debug 를 줄 때만 저장됩니다. 감사 도구는 이 파일을\n"
               "읽으므로 아래처럼 다시 만드세요.\n"
-              "  python test.py --debug                       기본 문서\n"
+              "  python -m tools.run_model --debug                       기본 문서\n"
               "  python -m tools.run_document <문서> --out <폴더> --debug"
         )
 

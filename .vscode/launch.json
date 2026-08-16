@@ -6,10 +6,10 @@
     "configurations": [
 
         {
-            "name": "Python 디버거: 현재 파일",
+            "name": "Python 디버거: 모델 생성",
             "type": "debugpy",
             "request": "launch",
-            "program": "test.py",
+            "module": "tools.run_model",
             "console": "integratedTerminal"
         }
     ]

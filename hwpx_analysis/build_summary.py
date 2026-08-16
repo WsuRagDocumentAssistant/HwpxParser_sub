@@ -5,16 +5,16 @@
 # PipelineResult.summary 로 남는다.
 #
 # 왜 여기 있나
-#   전에는 test.py 와 tools/run_document.py 가 같은 이름의 함수를 각각
+#   전에는 tools/run_model.py 와 tools/run_document.py 가 같은 이름의 함수를 각각
 #   따로 갖고 있었고, 두 벌이 서로 다른 값을 냈다. 최상위 키가 15개 대
 #   7개였고 header 하위 키도 갈렸다. 어느 진입점으로 도느냐에 따라
 #   산출물이 달라져서, tools/audit/field_provenance.py 는 "산출물 컬럼이
-#   134개 어긋난다"는 주석을 달고 test.py 쪽을 기본으로 고정해 두어야 했다.
+#   134개 어긋난다"는 주석을 달고 run_model 쪽을 기본으로 고정해 두어야 했다.
 #   같은 이름이 다른 값을 내는 상태 자체가 사고 자리라 한 벌로 합쳤다.
 #
 # 합칠 때 어느 쪽을 버렸나
 #   버리지 않았다. 두 벌은 포함 관계가 아니었다. 표 검증 집계와 경로
-#   2개는 test.py 에만, header 의 bullet_count / numbering_count 는
+#   2개는 run_model 에만, header 의 bullet_count / numbering_count 는
 #   run_document.py 에만 있었다. 그래서 합집합을 취했다. 어느 진입점도
 #   전에 보던 키를 잃지 않는다.
 #================================================

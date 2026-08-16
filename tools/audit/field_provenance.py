@@ -325,24 +325,23 @@ def module_of(name):
     return getattr(func, '__module__', '?').replace('hwpx_analysis.', '')
 
 
-def _load_test_module():
-    """저장소 루트의 test.py 를 파일 경로로 직접 읽는다.
+def _load_entry_module():
+    """정본 진입점 모듈을 가져온다.
 
-    import test 로 가져오면 표준 라이브러리의 test 패키지와 부딪힐 수 있다.
+    전에는 저장소 루트의 test.py 를 파일 경로로 직접 읽었다. 루트에 있는
+    동안에는 이름이 test 라서 bare import 가 표준 라이브러리의 test
+    패키지와 부딪혔기 때문이다. tools 안으로 옮긴 뒤로는 이름이
+    tools.run_model 이라 충돌이 없고, 우회할 이유도 없다.
     """
-    import importlib.util
-    spec = importlib.util.spec_from_file_location(
-        'hwpx_test_entry', REPO_ROOT / 'test.py')
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
+    from .. import run_model
+    return run_model
 
 
-def _run_document(source: Path, out_root: Path, entry: str = 'test'):
+def _run_document(source: Path, out_root: Path, entry: str = 'run_model'):
     """정본 진입점으로 파이프라인을 돌리고 final_debug.json 경로를 준다.
 
-    기본은 test.py 다. output/results 에 실제로 쌓이는 산출물이고 회귀
-    기준선도 그쪽을 본다. (build_summary 는 이제 한 벌이라 두 진입점의
+    기본은 tools/run_model.py 다. output/results 에 실제로 쌓이는 산출물이고
+    회귀 기준선도 그쪽을 본다. (build_summary 는 이제 한 벌이라 두 진입점의
     summary 가 같다. 예전에는 15키 / 7키로 갈려 산출물 컬럼이 134개
     어긋났고, 그래서 어느 쪽으로 도는지가 감사 결과를 바꿨다.)
 
@@ -351,10 +350,10 @@ def _run_document(source: Path, out_root: Path, entry: str = 'test'):
     --debug 도 반드시 준다. 그게 없으면 final_debug.json 을 안 쓰는데,
     예전에 만들어 둔 파일이 남아 있으면 그 낡은 파일을 조용히 읽게 된다.
     """
-    if entry == 'test':
-        module = _load_test_module()
+    if entry == 'run_model':
+        module = _load_entry_module()
         cwd = Path.cwd()
-        os.chdir(REPO_ROOT)          # test.py 는 상대경로 output/ 에 쓴다
+        os.chdir(REPO_ROOT)          # 진입점은 상대경로 output/ 에 쓴다
         try:
             module.main(['--debug'])
         finally:
@@ -397,8 +396,9 @@ def main(argv=None):
     ap.add_argument('source', nargs='?', default=str(DEFAULT_SOURCE),
                     help=f'HWPX 또는 ZIP 문서 (생략 시 {DEFAULT_SOURCE.name})')
     ap.add_argument('--out', default=None, help="산출물 임시 저장 루트")
-    ap.add_argument('--entry', choices=('test', 'run_document'), default='test',
-                    help="정본 진입점. test.py 가 기본 (summary 구성이 다르다)")
+    ap.add_argument('--entry', choices=('run_model', 'run_document'),
+                    default='run_model',
+                    help="정본 진입점. tools/run_model.py 가 기본")
     ap.add_argument('--json', default=None,
                     help="경로별 생성/수정 단계를 JSON으로 저장 (field_usage 입력)")
     args = ap.parse_args(argv)
@@ -409,12 +409,11 @@ def main(argv=None):
 
     tmp = Path(args.out or tempfile.mkdtemp(prefix='provenance_'))
 
-    # 무해성 대조에는 두 가지 함정이 있다.
-    #   1. test.py 산출물과 비교하면 summary 구성이 달라(test.py 15키 /
-    #      run_document 7키) 계측과 무관한 차이가 잡힌다.
-    #   2. summary 에는 unpacked_dir_path 같은 절대 경로가 들어간다.
-    #      출력 디렉토리가 다르면 그것만으로 산출물이 달라진다.
+    # 무해성 대조의 함정: summary 에는 unpacked_dir_path 같은 절대 경로가
+    # 들어간다. 출력 디렉토리가 다르면 그것만으로 산출물이 달라진다.
     # 그래서 같은 진입점으로, 같은 출력 디렉토리에 두 번 돌려 비교한다.
+    # (전에는 진입점마다 build_summary 가 따로 있어 15키 / 7키로 갈렸는데,
+    #  한 벌로 합친 뒤로는 그 차이가 없다.)
     work = tmp / 'run'
     print(f"[1/3] 기준 실행 (계측 없음) - {source.name}")
     plain = run_plain(source, work, args.entry)

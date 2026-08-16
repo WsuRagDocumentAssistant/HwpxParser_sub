@@ -12,7 +12,7 @@ HWPX 문서에서 표 계층과 문서 depth를 결정하는 알고리즘의 실
 ## 0. 진입점
 
 ```
-test.py
+tools/run_model.py
   └ HwpxParser.parse()                    hwpx_parser/parser.py
       ├ HeaderParser.parse(header.xml)    스타일·불릿·번호 정의
       └ SectionParser.parse(section*.xml) 표 파싱 (조상에 tbl 없는 hp:tbl)
