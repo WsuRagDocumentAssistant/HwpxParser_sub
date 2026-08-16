@@ -17,34 +17,34 @@ TableParser.parse()에서 Table 기본 속성 생성
 
 | 순서 | 파일 | 함수/메서드 | 대상 객체 | 추가/갱신되는 필드 | 값의 출처 | 설명 |
 | -: | -- | ------ | ----- | ---------- | ----- | -- |
-| 1 | `hwpx_parser/table/table_parser.py` | `TableParser.parse()` | `Table` | `table_id` | `_make_table_id(section_index, table_index, attrs.get("id"))` | 내부 표 식별자 생성 |
-| 2 | `hwpx_parser/table/table_parser.py` | `TableParser.parse()` | `Table` | `section_index`, `table_index` | `SectionParser.parse()`의 enumerate 값 | section 내 표 위치 저장 |
-| 3 | `hwpx_parser/table/table_parser.py` | `TableParser.parse()` | `Table` | `xml_table_id`, `row_count`, `col_count`, `cell_spacing`, `border_fill_id_ref`, `repeat_header`, `page_break`, `text_wrap`, `text_flow`, `raw_attrs` | `hp:tbl` XML attrs | 표 XML 속성 저장 |
-| 4 | `hwpx_parser/table/table_parser.py` | `TableParser.parse()` | `Table` | `rows` | `_parse_rows()` 반환값 | 표 하위 행 목록 연결 |
-| 5 | `hwpx_parser/table/table_parser.py` | `TableParser._parse_rows()` | `TableRow` | `row_id`, `table_id`, `row_index`, `xml_order_index`, `raw_attrs` | `table_id`, `enumerate(tr_elements)`, `hp:tr` attrs | 행 객체 생성 |
-| 6 | `hwpx_parser/table/table_parser.py` | `TableParser._parse_rows()` | `TableRow` | `cells` | `_parse_cells()` 반환값 | 행 하위 셀 목록 연결 |
-| 7 | `hwpx_parser/table/table_parser.py` | `TableParser._parse_rows()` | `TableRow` | `declared_row_addr` | 첫 번째 `row.cells[0].row_addr` | 첫 셀의 `rowAddr`가 있으면 행 선언 좌표로 저장 |
-| 8 | `hwpx_parser/table/table_parser.py` | `TableParser._parse_cells()` | `TableCell` | `cell_id`, `table_id`, `row_id`, `cell_index` | `_make_cell_id()`, 부모 ID, `enumerate(tc_elements)` | 셀 식별자와 위치 정보 저장 |
-| 9 | `hwpx_parser/table/table_parser.py` | `TableParser._parse_cells()` | `TableCell` | `name`, `header`, `has_margin`, `protect`, `editable`, `dirty`, `border_fill_id_ref`, `raw_attrs` | `hp:tc` attrs | 셀 XML 속성 저장 |
-| 10 | `hwpx_parser/table/table_parser.py` | `TableParser._parse_cells()` | `TableCell` | `row_addr`, `col_addr` | `hp:cellAddr@rowAddr`, `hp:cellAddr@colAddr` | 셀 시작 좌표 저장 |
-| 11 | `hwpx_parser/table/table_parser.py` | `TableParser._parse_cells()` | `TableCell` | `row_span`, `col_span` | `hp:cellSpan@rowSpan`, `hp:cellSpan@colSpan` | 병합 크기 저장, 없으면 기본값 1 |
-| 12 | `hwpx_parser/table/table_parser.py` | `TableParser._parse_cells()` | `TableCell` | `width`, `height` | `hp:cellSz@width`, `hp:cellSz@height` | 셀 크기 저장 |
-| 13 | `hwpx_parser/table/table_parser.py` | `TableParser._parse_cells()` | `TableCell` | `margin_left`, `margin_right`, `margin_top`, `margin_bottom` | `hp:cellMargin` attrs | 셀 여백 저장 |
-| 14 | `hwpx_parser/table/table_parser.py` | `TableParser._parse_cells()` | `TableCell` | `sublist_raw_attrs`, `sublist_id`, `sublist_text_direction`, `sublist_line_wrap`, `sublist_vert_align`, `sublist_link_list_id_ref`, `sublist_link_list_next_id_ref`, `sublist_text_width`, `sublist_text_height`, `sublist_has_text_ref`, `sublist_has_num_ref` | `hp:subList` attrs | 셀 내부 subList 속성 저장 |
-| 15 | `hwpx_parser/table/table_parser.py` | `TableParser._parse_cells()` | `TableCell` | `paragraphs` | `_parse_paragraphs()` 반환값 | 셀 하위 문단 목록 연결 |
-| 16 | `hwpx_parser/table/table_parser.py` | `TableParser._parse_cells()` | `TableCell` | `text` | `paragraph.text` join | 셀 전체 텍스트 구성 |
-| 17 | `hwpx_parser/table/table_parser.py` | `TableParser._parse_cells()` | `TableCell` | `is_empty`, `has_image`, `has_field`, `has_shape` | `cell.text`, 하위 `run` 플래그 | 셀 내용 상태 플래그 계산 |
-| 18 | `hwpx_parser/table/table_parser.py` | `TableParser._parse_paragraphs()` | `TableParagraph` | `paragraph_id`, `cell_id`, `xml_para_id`, `paragraph_index`, `style_id_ref`, `para_pr_id_ref`, `raw_attrs` | 부모 셀 ID, `hp:p` attrs | 문단 객체 생성 |
-| 19 | `hwpx_parser/table/table_parser.py` | `TableParser._parse_paragraphs()` | `TableParagraph` | `runs` | `_parse_runs()` 반환값 | 문단 하위 run 목록 연결 |
-| 20 | `hwpx_parser/table/table_parser.py` | `TableParser._parse_paragraphs()` | `TableParagraph` | `text` | `run.text` join | 문단 전체 텍스트 구성 |
-| 21 | `hwpx_parser/table/table_parser.py` | `TableParser._parse_runs()` | `TableRun` | `run_id`, `paragraph_id`, `run_index`, `char_pr_id_ref`, `raw_attrs` | 부모 문단 ID, `hp:run` attrs | run 객체 생성 |
-| 22 | `hwpx_parser/table/table_parser.py` | `TableParser._parse_runs()` | `TableRun` | `text` | `_extract_run_text()` | run 하위 `t`, `lineBreak`, `tab`, `fwSpace`를 문자열로 변환 |
-| 23 | `hwpx_parser/table/table_parser.py` | `TableParser._parse_runs()` | `TableRun` | `has_image`, `has_field`, `has_shape`, `has_line_break`, `has_tab`, `has_fw_space` | `_has_descendant()` | run 하위 요소 존재 여부 저장 |
-| 24 | `hwpx_parser/table/table_parser.py` | `TableParser._parse_nested_tables()` | `TableCell` | `nested_tables` | 셀 내부 `hp:tbl` 요소 | 부모 셀 안의 하위 표를 `Table` 객체로 재귀 저장 |
-| 25 | `hwpx_parser/table/table_parser.py` | `TableParser.parse()` | 중첩 `Table` | `is_nested`, `parent_table_id`, `parent_cell_id` | 부모 표 ID, 부모 셀 ID | 중첩 표의 부모 추적 정보 저장 |
-| 26 | `hwpx_parser/table/table_style_resolver.py` | `TableStyleResolver.resolve()` | `Table` | `border_fill` | `context.get_border_fill_raw(table.border_fill_id_ref)` | 표의 `border_fill_id_ref`를 실제 `BorderFill` 객체로 연결, 중첩 표도 재귀 처리 |
-| 27 | `hwpx_parser/table/table_style_resolver.py` | `TableStyleResolver.resolve()` | `TableCell` | `border_fill` | `context.get_border_fill_raw(cell.border_fill_id_ref)` | 셀의 `border_fill_id_ref`를 실제 `BorderFill` 객체로 연결 |
-| 28 | `hwpx_parser/table/table_analyzer.py` | `TableAnalyzer.analyze()` | `Table` | `validation` | `TableValidation(...)` 및 검증 함수 결과 | 표 검증 결과 객체 연결, 중첩 표도 재귀 처리 |
+| 1 | `hwpx/parser/table/table_parser.py` | `TableParser.parse()` | `Table` | `table_id` | `_make_table_id(section_index, table_index, attrs.get("id"))` | 내부 표 식별자 생성 |
+| 2 | `hwpx/parser/table/table_parser.py` | `TableParser.parse()` | `Table` | `section_index`, `table_index` | `SectionParser.parse()`의 enumerate 값 | section 내 표 위치 저장 |
+| 3 | `hwpx/parser/table/table_parser.py` | `TableParser.parse()` | `Table` | `xml_table_id`, `row_count`, `col_count`, `cell_spacing`, `border_fill_id_ref`, `repeat_header`, `page_break`, `text_wrap`, `text_flow`, `raw_attrs` | `hp:tbl` XML attrs | 표 XML 속성 저장 |
+| 4 | `hwpx/parser/table/table_parser.py` | `TableParser.parse()` | `Table` | `rows` | `_parse_rows()` 반환값 | 표 하위 행 목록 연결 |
+| 5 | `hwpx/parser/table/table_parser.py` | `TableParser._parse_rows()` | `TableRow` | `row_id`, `table_id`, `row_index`, `xml_order_index`, `raw_attrs` | `table_id`, `enumerate(tr_elements)`, `hp:tr` attrs | 행 객체 생성 |
+| 6 | `hwpx/parser/table/table_parser.py` | `TableParser._parse_rows()` | `TableRow` | `cells` | `_parse_cells()` 반환값 | 행 하위 셀 목록 연결 |
+| 7 | `hwpx/parser/table/table_parser.py` | `TableParser._parse_rows()` | `TableRow` | `declared_row_addr` | 첫 번째 `row.cells[0].row_addr` | 첫 셀의 `rowAddr`가 있으면 행 선언 좌표로 저장 |
+| 8 | `hwpx/parser/table/table_parser.py` | `TableParser._parse_cells()` | `TableCell` | `cell_id`, `table_id`, `row_id`, `cell_index` | `_make_cell_id()`, 부모 ID, `enumerate(tc_elements)` | 셀 식별자와 위치 정보 저장 |
+| 9 | `hwpx/parser/table/table_parser.py` | `TableParser._parse_cells()` | `TableCell` | `name`, `header`, `has_margin`, `protect`, `editable`, `dirty`, `border_fill_id_ref`, `raw_attrs` | `hp:tc` attrs | 셀 XML 속성 저장 |
+| 10 | `hwpx/parser/table/table_parser.py` | `TableParser._parse_cells()` | `TableCell` | `row_addr`, `col_addr` | `hp:cellAddr@rowAddr`, `hp:cellAddr@colAddr` | 셀 시작 좌표 저장 |
+| 11 | `hwpx/parser/table/table_parser.py` | `TableParser._parse_cells()` | `TableCell` | `row_span`, `col_span` | `hp:cellSpan@rowSpan`, `hp:cellSpan@colSpan` | 병합 크기 저장, 없으면 기본값 1 |
+| 12 | `hwpx/parser/table/table_parser.py` | `TableParser._parse_cells()` | `TableCell` | `width`, `height` | `hp:cellSz@width`, `hp:cellSz@height` | 셀 크기 저장 |
+| 13 | `hwpx/parser/table/table_parser.py` | `TableParser._parse_cells()` | `TableCell` | `margin_left`, `margin_right`, `margin_top`, `margin_bottom` | `hp:cellMargin` attrs | 셀 여백 저장 |
+| 14 | `hwpx/parser/table/table_parser.py` | `TableParser._parse_cells()` | `TableCell` | `sublist_raw_attrs`, `sublist_id`, `sublist_text_direction`, `sublist_line_wrap`, `sublist_vert_align`, `sublist_link_list_id_ref`, `sublist_link_list_next_id_ref`, `sublist_text_width`, `sublist_text_height`, `sublist_has_text_ref`, `sublist_has_num_ref` | `hp:subList` attrs | 셀 내부 subList 속성 저장 |
+| 15 | `hwpx/parser/table/table_parser.py` | `TableParser._parse_cells()` | `TableCell` | `paragraphs` | `_parse_paragraphs()` 반환값 | 셀 하위 문단 목록 연결 |
+| 16 | `hwpx/parser/table/table_parser.py` | `TableParser._parse_cells()` | `TableCell` | `text` | `paragraph.text` join | 셀 전체 텍스트 구성 |
+| 17 | `hwpx/parser/table/table_parser.py` | `TableParser._parse_cells()` | `TableCell` | `is_empty`, `has_image`, `has_field`, `has_shape` | `cell.text`, 하위 `run` 플래그 | 셀 내용 상태 플래그 계산 |
+| 18 | `hwpx/parser/table/table_parser.py` | `TableParser._parse_paragraphs()` | `TableParagraph` | `paragraph_id`, `cell_id`, `xml_para_id`, `paragraph_index`, `style_id_ref`, `para_pr_id_ref`, `raw_attrs` | 부모 셀 ID, `hp:p` attrs | 문단 객체 생성 |
+| 19 | `hwpx/parser/table/table_parser.py` | `TableParser._parse_paragraphs()` | `TableParagraph` | `runs` | `_parse_runs()` 반환값 | 문단 하위 run 목록 연결 |
+| 20 | `hwpx/parser/table/table_parser.py` | `TableParser._parse_paragraphs()` | `TableParagraph` | `text` | `run.text` join | 문단 전체 텍스트 구성 |
+| 21 | `hwpx/parser/table/table_parser.py` | `TableParser._parse_runs()` | `TableRun` | `run_id`, `paragraph_id`, `run_index`, `char_pr_id_ref`, `raw_attrs` | 부모 문단 ID, `hp:run` attrs | run 객체 생성 |
+| 22 | `hwpx/parser/table/table_parser.py` | `TableParser._parse_runs()` | `TableRun` | `text` | `_extract_run_text()` | run 하위 `t`, `lineBreak`, `tab`, `fwSpace`를 문자열로 변환 |
+| 23 | `hwpx/parser/table/table_parser.py` | `TableParser._parse_runs()` | `TableRun` | `has_image`, `has_field`, `has_shape`, `has_line_break`, `has_tab`, `has_fw_space` | `_has_descendant()` | run 하위 요소 존재 여부 저장 |
+| 24 | `hwpx/parser/table/table_parser.py` | `TableParser._parse_nested_tables()` | `TableCell` | `nested_tables` | 셀 내부 `hp:tbl` 요소 | 부모 셀 안의 하위 표를 `Table` 객체로 재귀 저장 |
+| 25 | `hwpx/parser/table/table_parser.py` | `TableParser.parse()` | 중첩 `Table` | `is_nested`, `parent_table_id`, `parent_cell_id` | 부모 표 ID, 부모 셀 ID | 중첩 표의 부모 추적 정보 저장 |
+| 26 | `hwpx/parser/table/table_style_resolver.py` | `TableStyleResolver.resolve()` | `Table` | `border_fill` | `context.get_border_fill_raw(table.border_fill_id_ref)` | 표의 `border_fill_id_ref`를 실제 `BorderFill` 객체로 연결, 중첩 표도 재귀 처리 |
+| 27 | `hwpx/parser/table/table_style_resolver.py` | `TableStyleResolver.resolve()` | `TableCell` | `border_fill` | `context.get_border_fill_raw(cell.border_fill_id_ref)` | 셀의 `border_fill_id_ref`를 실제 `BorderFill` 객체로 연결 |
+| 28 | `hwpx/parser/table/table_analyzer.py` | `TableAnalyzer.analyze()` | `Table` | `validation` | `TableValidation(...)` 및 검증 함수 결과 | 표 검증 결과 객체 연결, 중첩 표도 재귀 처리 |
 | 29 | `tools/run_model.py` | `table_to_dict()` | `Table`, `TableRow`, `TableCell`, `TableParagraph`, `TableRun` | dict 키 구조 | 객체 속성 및 `to_jsonable()` | `tables.json` 저장용 dict로 변환 |
 
 ---
@@ -53,7 +53,7 @@ TableParser.parse()에서 Table 기본 속성 생성
 
 ### Step 1. Table 생성 직후
 
-생성 위치: `hwpx_parser/table/table_parser.py`의 `TableParser.parse()`
+생성 위치: `hwpx/parser/table/table_parser.py`의 `TableParser.parse()`
 
 `Table(...)` 생성자에 직접 전달되는 값은 아래와 같다. `rows`, `validation`, `semantic`, `border_fill` 등은 생성자에 전달되지 않으며 dataclass 기본값으로 시작한다.
 
@@ -100,7 +100,7 @@ table.source_candidate = None
 
 ### Step 2. rows 추가 후
 
-추가 위치: `hwpx_parser/table/table_parser.py`의 `TableParser.parse()`와 `TableParser._parse_rows()`
+추가 위치: `hwpx/parser/table/table_parser.py`의 `TableParser.parse()`와 `TableParser._parse_rows()`
 
 ```python
 table.rows = [
@@ -122,7 +122,7 @@ if row.cells and row.cells[0].row_addr is not None:
 
 ### Step 3. cells 추가 후
 
-추가 위치: `hwpx_parser/table/table_parser.py`의 `TableParser._parse_cells()`
+추가 위치: `hwpx/parser/table/table_parser.py`의 `TableParser._parse_cells()`
 
 ```python
 row.cells = [
@@ -181,7 +181,7 @@ cell.is_data_cell = False
 
 ### Step 4. paragraphs/runs 추가 후
 
-추가 위치: `hwpx_parser/table/table_parser.py`의 `TableParser._parse_paragraphs()`와 `TableParser._parse_runs()`
+추가 위치: `hwpx/parser/table/table_parser.py`의 `TableParser._parse_paragraphs()`와 `TableParser._parse_runs()`
 
 ```python
 cell.paragraphs = [
@@ -226,7 +226,7 @@ paragraph.text = "".join(run.text for run in paragraph.runs)
 
 ### Step 5. validation 추가 후
 
-추가 위치: `hwpx_parser/table/table_analyzer.py`의 `TableAnalyzer.analyze()`
+추가 위치: `hwpx/parser/table/table_analyzer.py`의 `TableAnalyzer.analyze()`
 
 ```python
 table.validation = TableValidation(
@@ -300,9 +300,9 @@ grid[row][col] = {
 
 ### Step 6. border_fill 추가 후
 
-실행 위치: `hwpx_parser/section_parser.py`의 `SectionParser.parse()`
+실행 위치: `hwpx/parser/section_parser.py`의 `SectionParser.parse()`
 
-실제 실행 함수: `hwpx_parser/table/table_style_resolver.py`의 `TableStyleResolver.resolve()`
+실제 실행 함수: `hwpx/parser/table/table_style_resolver.py`의 `TableStyleResolver.resolve()`
 
 현재 코드에는 `BorderFillResolver` 클래스가 없고, 실제 클래스명은 `TableStyleResolver`이다.
 
@@ -496,41 +496,41 @@ cell.border_fill
 
 | 필드 | 대상 객체 | 처음 추가되는 파일/함수 | 이후 갱신 여부 | 최종 출력 여부 |
 | -- | ----- | ------------- | -------- | -------- |
-| `table_id` | `Table` | `hwpx_parser/table/table_parser.py` / `TableParser.parse()` | 갱신 없음 | 예 |
-| `section_index` | `Table` | `hwpx_parser/table/table_parser.py` / `TableParser.parse()` | 갱신 없음 | 예 |
-| `table_index` | `Table` | `hwpx_parser/table/table_parser.py` / `TableParser.parse()` | 갱신 없음 | 예 |
-| `xml_table_id` | `Table` | `hwpx_parser/table/table_parser.py` / `TableParser.parse()` | 갱신 없음 | 예 |
-| `row_count` | `Table` | `hwpx_parser/table/table_parser.py` / `TableParser.parse()` | 갱신 없음 | 예 |
-| `col_count` | `Table` | `hwpx_parser/table/table_parser.py` / `TableParser.parse()` | 갱신 없음 | 예 |
-| `cell_spacing` | `Table` | `hwpx_parser/table/table_parser.py` / `TableParser.parse()` | 갱신 없음 | 예 |
-| `border_fill_id_ref` | `Table` | `hwpx_parser/table/table_parser.py` / `TableParser.parse()` | 갱신 없음 | 예 |
-| `border_fill` | `Table` | dataclass 기본값 `None` / `hwpx_document/table/table_data.py` | `TableStyleResolver.resolve()`에서 `BorderFill` 또는 `None`으로 갱신 | 예 |
-| `rows` | `Table` | dataclass 기본값 `[]` / `hwpx_document/table/table_data.py` | `TableParser.parse()`에서 `_parse_rows()` 결과로 갱신 | 예 |
-| `validation` | `Table` | dataclass 기본값 `None` / `hwpx_document/table/table_data.py` | `TableAnalyzer.analyze()`에서 `TableValidation`으로 갱신 | 예 |
-| `semantic` | `Table` | dataclass 기본값 `None` / `hwpx_document/table/table_data.py` | 현재 코드에서는 추가되지 않음 | 예 |
-| `raw_attrs` | `Table` | `hwpx_parser/table/table_parser.py` / `TableParser.parse()` | 갱신 없음 | 예 |
-| `is_nested` | `Table` | dataclass 기본값 `False` / `hwpx_document/table/table_data.py` | 중첩 표일 때 `TableParser.parse()`에서 `True`로 설정 | 예 |
-| `parent_table_id` | `Table` | dataclass 기본값 `None` / `hwpx_document/table/table_data.py` | 중첩 표일 때 `TableParser.parse()`에서 부모 표 ID로 설정 | 예 |
-| `parent_cell_id` | `Table` | dataclass 기본값 `None` / `hwpx_document/table/table_data.py` | 중첩 표일 때 `TableParser.parse()`에서 부모 셀 ID로 설정 | 예 |
-| `row_id` | `TableRow` | `hwpx_parser/table/table_parser.py` / `TableParser._parse_rows()` | 갱신 없음 | 예 |
-| `row_index` | `TableRow` | `hwpx_parser/table/table_parser.py` / `TableParser._parse_rows()` | 갱신 없음 | 예 |
-| `cells` | `TableRow` | dataclass 기본값 `[]` / `hwpx_document/table/table_data.py` | `TableParser._parse_rows()`에서 `_parse_cells()` 결과로 갱신 | 예 |
-| `cell_id` | `TableCell` | `hwpx_parser/table/table_parser.py` / `TableParser._parse_cells()` | 갱신 없음 | 예 |
-| `cell_index` | `TableCell` | `hwpx_parser/table/table_parser.py` / `TableParser._parse_cells()` | 갱신 없음 | 예 |
-| `row_addr` | `TableCell` | `hwpx_parser/table/table_parser.py` / `TableParser._parse_cells()` | 갱신 없음 | 예 |
-| `col_addr` | `TableCell` | `hwpx_parser/table/table_parser.py` / `TableParser._parse_cells()` | 갱신 없음 | 예 |
-| `row_span` | `TableCell` | `hwpx_parser/table/table_parser.py` / `TableParser._parse_cells()` | 갱신 없음 | 예 |
-| `col_span` | `TableCell` | `hwpx_parser/table/table_parser.py` / `TableParser._parse_cells()` | 갱신 없음 | 예 |
-| `width` | `TableCell` | `hwpx_parser/table/table_parser.py` / `TableParser._parse_cells()` | 갱신 없음 | 예 |
-| `height` | `TableCell` | `hwpx_parser/table/table_parser.py` / `TableParser._parse_cells()` | 갱신 없음 | 예 |
-| `paragraphs` | `TableCell` | dataclass 기본값 `[]` / `hwpx_document/table/table_cell.py` | `TableParser._parse_cells()`에서 `_parse_paragraphs()` 결과로 갱신 | 예 |
-| `nested_tables` | `TableCell` | dataclass 기본값 `[]` / `hwpx_document/table/table_cell.py` | `TableParser._parse_cells()`에서 `_parse_nested_tables()` 결과로 갱신 | 예 |
-| `text` | `TableCell` | dataclass 기본값 `""` / `hwpx_document/table/table_cell.py` | `TableParser._parse_cells()`에서 문단 텍스트 join 결과로 갱신 | 예 |
-| `paragraph_id` | `TableParagraph` | `hwpx_parser/table/table_parser.py` / `TableParser._parse_paragraphs()` | 갱신 없음 | 예 |
-| `para_pr_id_ref` | `TableParagraph` | `hwpx_parser/table/table_parser.py` / `TableParser._parse_paragraphs()` | 갱신 없음 | 예 |
-| `style_id_ref` | `TableParagraph` | `hwpx_parser/table/table_parser.py` / `TableParser._parse_paragraphs()` | 갱신 없음 | 예 |
-| `run_id` | `TableRun` | `hwpx_parser/table/table_parser.py` / `TableParser._parse_runs()` | 갱신 없음 | 예 |
-| `char_pr_id_ref` | `TableRun` | `hwpx_parser/table/table_parser.py` / `TableParser._parse_runs()` | 갱신 없음 | 예 |
+| `table_id` | `Table` | `hwpx/parser/table/table_parser.py` / `TableParser.parse()` | 갱신 없음 | 예 |
+| `section_index` | `Table` | `hwpx/parser/table/table_parser.py` / `TableParser.parse()` | 갱신 없음 | 예 |
+| `table_index` | `Table` | `hwpx/parser/table/table_parser.py` / `TableParser.parse()` | 갱신 없음 | 예 |
+| `xml_table_id` | `Table` | `hwpx/parser/table/table_parser.py` / `TableParser.parse()` | 갱신 없음 | 예 |
+| `row_count` | `Table` | `hwpx/parser/table/table_parser.py` / `TableParser.parse()` | 갱신 없음 | 예 |
+| `col_count` | `Table` | `hwpx/parser/table/table_parser.py` / `TableParser.parse()` | 갱신 없음 | 예 |
+| `cell_spacing` | `Table` | `hwpx/parser/table/table_parser.py` / `TableParser.parse()` | 갱신 없음 | 예 |
+| `border_fill_id_ref` | `Table` | `hwpx/parser/table/table_parser.py` / `TableParser.parse()` | 갱신 없음 | 예 |
+| `border_fill` | `Table` | dataclass 기본값 `None` / `hwpx/document/table/table_data.py` | `TableStyleResolver.resolve()`에서 `BorderFill` 또는 `None`으로 갱신 | 예 |
+| `rows` | `Table` | dataclass 기본값 `[]` / `hwpx/document/table/table_data.py` | `TableParser.parse()`에서 `_parse_rows()` 결과로 갱신 | 예 |
+| `validation` | `Table` | dataclass 기본값 `None` / `hwpx/document/table/table_data.py` | `TableAnalyzer.analyze()`에서 `TableValidation`으로 갱신 | 예 |
+| `semantic` | `Table` | dataclass 기본값 `None` / `hwpx/document/table/table_data.py` | 현재 코드에서는 추가되지 않음 | 예 |
+| `raw_attrs` | `Table` | `hwpx/parser/table/table_parser.py` / `TableParser.parse()` | 갱신 없음 | 예 |
+| `is_nested` | `Table` | dataclass 기본값 `False` / `hwpx/document/table/table_data.py` | 중첩 표일 때 `TableParser.parse()`에서 `True`로 설정 | 예 |
+| `parent_table_id` | `Table` | dataclass 기본값 `None` / `hwpx/document/table/table_data.py` | 중첩 표일 때 `TableParser.parse()`에서 부모 표 ID로 설정 | 예 |
+| `parent_cell_id` | `Table` | dataclass 기본값 `None` / `hwpx/document/table/table_data.py` | 중첩 표일 때 `TableParser.parse()`에서 부모 셀 ID로 설정 | 예 |
+| `row_id` | `TableRow` | `hwpx/parser/table/table_parser.py` / `TableParser._parse_rows()` | 갱신 없음 | 예 |
+| `row_index` | `TableRow` | `hwpx/parser/table/table_parser.py` / `TableParser._parse_rows()` | 갱신 없음 | 예 |
+| `cells` | `TableRow` | dataclass 기본값 `[]` / `hwpx/document/table/table_data.py` | `TableParser._parse_rows()`에서 `_parse_cells()` 결과로 갱신 | 예 |
+| `cell_id` | `TableCell` | `hwpx/parser/table/table_parser.py` / `TableParser._parse_cells()` | 갱신 없음 | 예 |
+| `cell_index` | `TableCell` | `hwpx/parser/table/table_parser.py` / `TableParser._parse_cells()` | 갱신 없음 | 예 |
+| `row_addr` | `TableCell` | `hwpx/parser/table/table_parser.py` / `TableParser._parse_cells()` | 갱신 없음 | 예 |
+| `col_addr` | `TableCell` | `hwpx/parser/table/table_parser.py` / `TableParser._parse_cells()` | 갱신 없음 | 예 |
+| `row_span` | `TableCell` | `hwpx/parser/table/table_parser.py` / `TableParser._parse_cells()` | 갱신 없음 | 예 |
+| `col_span` | `TableCell` | `hwpx/parser/table/table_parser.py` / `TableParser._parse_cells()` | 갱신 없음 | 예 |
+| `width` | `TableCell` | `hwpx/parser/table/table_parser.py` / `TableParser._parse_cells()` | 갱신 없음 | 예 |
+| `height` | `TableCell` | `hwpx/parser/table/table_parser.py` / `TableParser._parse_cells()` | 갱신 없음 | 예 |
+| `paragraphs` | `TableCell` | dataclass 기본값 `[]` / `hwpx/document/table/table_cell.py` | `TableParser._parse_cells()`에서 `_parse_paragraphs()` 결과로 갱신 | 예 |
+| `nested_tables` | `TableCell` | dataclass 기본값 `[]` / `hwpx/document/table/table_cell.py` | `TableParser._parse_cells()`에서 `_parse_nested_tables()` 결과로 갱신 | 예 |
+| `text` | `TableCell` | dataclass 기본값 `""` / `hwpx/document/table/table_cell.py` | `TableParser._parse_cells()`에서 문단 텍스트 join 결과로 갱신 | 예 |
+| `paragraph_id` | `TableParagraph` | `hwpx/parser/table/table_parser.py` / `TableParser._parse_paragraphs()` | 갱신 없음 | 예 |
+| `para_pr_id_ref` | `TableParagraph` | `hwpx/parser/table/table_parser.py` / `TableParser._parse_paragraphs()` | 갱신 없음 | 예 |
+| `style_id_ref` | `TableParagraph` | `hwpx/parser/table/table_parser.py` / `TableParser._parse_paragraphs()` | 갱신 없음 | 예 |
+| `run_id` | `TableRun` | `hwpx/parser/table/table_parser.py` / `TableParser._parse_runs()` | 갱신 없음 | 예 |
+| `char_pr_id_ref` | `TableRun` | `hwpx/parser/table/table_parser.py` / `TableParser._parse_runs()` | 갱신 없음 | 예 |
 
 ---
 

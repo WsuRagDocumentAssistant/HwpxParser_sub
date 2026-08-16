@@ -1,6 +1,6 @@
 # DocumentModel — 전체 구조와 의미
 
-문서 하나를 조립한 결과. `hwpx_analysis/document_model.py` 에 정의돼 있고
+문서 하나를 조립한 결과. `hwpx/analysis/document_model.py` 에 정의돼 있고
 `build_document_model(PipelineResult)` 가 만든다. JSON 을 읽지 않는다.
 
 수치는 전부 sample.zip 실측이다.
@@ -218,7 +218,7 @@ xml_table_id(블록 쪽) / toc_source_table_ids
 ## 쓰는 법
 
 ```python
-from hwpx_analysis.build_document_model import build_document_model
+from hwpx.analysis.build_document_model import build_document_model
 
 model = build_document_model(result)      # result = run_analysis_pipeline(...)
 

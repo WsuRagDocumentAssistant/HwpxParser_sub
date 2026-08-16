@@ -28,8 +28,8 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from hwpx_analysis.build_document_model import build_document_model  # noqa: E402
-from hwpx_analysis.table_filter import (  # noqa: E402
+from hwpx.analysis.build_document_model import build_document_model  # noqa: E402
+from hwpx.analysis.table_filter import (  # noqa: E402
     apply_filter, cell_text, cells_of, index_tables, one, state_view,
 )
 try:

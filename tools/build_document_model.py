@@ -28,13 +28,13 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from hwpx_analysis.build_document_model import (  # noqa: E402
+from hwpx.analysis.build_document_model import (  # noqa: E402
     build_document_model, verify_model,
 )
-from hwpx_analysis.pipeline import run_analysis_pipeline, save_pipeline_outputs  # noqa: E402
-from hwpx_analysis.table_json_serializer import table_to_dict  # noqa: E402
-from hwpx_parser.parser import HwpxParser  # noqa: E402
-from hwpx_analysis.build_summary import build_summary  # noqa: E402
+from hwpx.analysis.pipeline import run_analysis_pipeline, save_pipeline_outputs  # noqa: E402
+from hwpx.analysis.table_json_serializer import table_to_dict  # noqa: E402
+from hwpx.parser.parser import HwpxParser  # noqa: E402
+from hwpx.analysis.build_summary import build_summary  # noqa: E402
 try:
     from .defaults import DEFAULT_SOURCE  # noqa: E402
 except ImportError as exc:            # noqa: E402

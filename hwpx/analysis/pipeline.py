@@ -46,7 +46,7 @@ from .validate_table_internal_blocks import (
 )
 from .generate_depth_text_preview import generate_depth_text_preview
 from .generate_llm_context import generate_llm_context
-from hwpx_document.header_data import HeaderData
+from ..document.header_data import HeaderData
 
 
 #------------------------------------------------

@@ -1191,7 +1191,7 @@ def check_pipeline_result(result, contents_dir: Path, baseline_path: Path | None
     final_debug.json을 읽지 않는다. 단계들이 이미 인메모리로 주고받는 구조를
     그대로 본다.
     """
-    from hwpx_analysis.table_filter import state_view
+    from hwpx.analysis.table_filter import state_view
 
     final_debug = state_view(result)
     paths = section_paths(contents_dir)

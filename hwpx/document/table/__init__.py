@@ -1,3 +1,5 @@
 #================================================
-# hwpx_analysis.table_hierarchy.__init__.py
+# hwpx.document.table.__init__.py
 #================================================
+
+from .table import Table

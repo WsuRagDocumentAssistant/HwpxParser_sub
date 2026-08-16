@@ -83,7 +83,7 @@ MIN_MATCH_LEN = 2
 MAX_DISTINCT = 5000
 
 # 추출식을 찾을 소스 범위.
-CODE_DIRS = ('hwpx_analysis', 'hwpx_document', 'hwpx_parser')
+CODE_DIRS = ('hwpx/analysis', 'hwpx/document', 'hwpx/parser')
 
 # 표현식이 원본 XML 을 읽는가를 가리는 표지.
 #

@@ -1,5 +1,3 @@
 #================================================
-# hwpx_document.table.__init__.py
+# hwpx.document.table.elements.__init__.py
 #================================================
-
-from .table import Table

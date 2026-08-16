@@ -25,10 +25,10 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from hwpx_analysis.build_summary import build_summary
-from hwpx_analysis.pipeline import run_analysis_pipeline, save_pipeline_outputs
-from hwpx_analysis.table_json_serializer import table_to_dict
-from hwpx_parser.parser import HwpxParser
+from hwpx.analysis.build_summary import build_summary
+from hwpx.analysis.pipeline import run_analysis_pipeline, save_pipeline_outputs
+from hwpx.analysis.table_json_serializer import table_to_dict
+from hwpx.parser.parser import HwpxParser
 
 
 def main(argv: list[str] | None = None) -> int:

@@ -13,11 +13,11 @@ HWPX 문서에서 표 계층과 문서 depth를 결정하는 알고리즘의 실
 
 ```
 tools/run_model.py
-  └ HwpxParser.parse()                    hwpx_parser/parser.py
+  └ HwpxParser.parse()                    hwpx/parser/parser.py
       ├ HeaderParser.parse(header.xml)    스타일·불릿·번호 정의
       └ SectionParser.parse(section*.xml) 표 파싱 (조상에 tbl 없는 hp:tbl)
-  └ table_to_dict()                       hwpx_analysis/table_json_serializer.py
-  └ run_analysis_pipeline()               hwpx_analysis/pipeline.py:54
+  └ table_to_dict()                       hwpx/analysis/table_json_serializer.py
+  └ run_analysis_pipeline()               hwpx/analysis/pipeline.py:54
 ```
 
 `run_analysis_pipeline`이 아래 17단계를 순서대로 실행한다.

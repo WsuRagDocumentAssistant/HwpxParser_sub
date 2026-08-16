@@ -1,5 +1,5 @@
 #================================================
-# hwpx_analysis/document_model.py
+# hwpx/analysis/document_model.py
 #
 # 문서 조립본 모델.
 #

@@ -21,8 +21,8 @@ from pathlib import Path
 from typing import Any
 
 from .pipeline_models import BlocksDocument
-from hwpx_document.header_data import HeaderData
-from hwpx_parser.section_stream_parser import SectionStreamParser
+from ..document.header_data import HeaderData
+from ..parser.section_stream_parser import SectionStreamParser
 
 
 #------------------------------------------------

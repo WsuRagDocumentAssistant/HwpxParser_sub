@@ -7,8 +7,8 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Optional
 
 if TYPE_CHECKING:
-    from hwpx_document.table.table import Table
-    from hwpx_document.table.elements.table_cell import TableCell
+    from .table import Table
+    from .elements.table_cell import TableCell
 
 #────────────────────────────────────────────────
 

@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional, Any
 
-from hwpx_document.header_data import HeaderData
+from ..document.header_data import HeaderData
 
 
 @dataclass

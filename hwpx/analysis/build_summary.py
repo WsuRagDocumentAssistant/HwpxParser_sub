@@ -1,5 +1,5 @@
 #================================================
-# hwpx_analysis/build_summary.py
+# hwpx/analysis/build_summary.py
 #
 # 파싱 결과 요약(summary)을 만든다. run_analysis_pipeline 에 넘어가고
 # PipelineResult.summary 로 남는다.
@@ -23,7 +23,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from hwpx_parser.parser import HwpxParser
+from ..parser.parser import HwpxParser
 
 
 def build_summary(parser: HwpxParser, tables: list[Any]) -> dict[str, Any]:

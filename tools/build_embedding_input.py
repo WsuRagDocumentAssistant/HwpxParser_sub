@@ -52,9 +52,9 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 # 산출물에 남아도 되는 '빠진 표 id' 경로. 전부 출처 기록이다.
-# 표 선별·수치표 판정 규칙은 hwpx_analysis/table_filter.py 에 있다.
+# 표 선별·수치표 판정 규칙은 hwpx/analysis/table_filter.py 에 있다.
 # 여기는 그 규칙을 쓰는 CLI 다.
-from hwpx_analysis.table_filter import (  # noqa: E402
+from hwpx.analysis.table_filter import (  # noqa: E402
     ALLOWED_ID_PATHS, NUMERIC_TARGET_TYPES, apply_filter, apply_filter_to_state,
     cell_text, cells_of, classify, gridness, index_tables, is_numeric_value,
     is_serial_column, merge_cover, numeric_table_verdict, owner_table_id,
@@ -339,9 +339,9 @@ def write_preview(payload, doc_dir, source_payload=None):
         때문에, 그대로 넘기면 목차가 통째로 빠진 그림이 나온다. 파일에는
         넣지 않고 렌더링 입력에만 되돌린다.
     """
-    from hwpx_analysis.generate_depth_text_preview import generate_depth_text_preview
-    from hwpx_analysis.generate_llm_context import generate_llm_context
-    from hwpx_analysis.pipeline_models import BlocksDocument, TableInternalBlocks
+    from hwpx.analysis.generate_depth_text_preview import generate_depth_text_preview
+    from hwpx.analysis.generate_llm_context import generate_llm_context
+    from hwpx.analysis.pipeline_models import BlocksDocument, TableInternalBlocks
 
     blocks_doc = BlocksDocument(
         document=payload['blocks_document'].get('document') or {},

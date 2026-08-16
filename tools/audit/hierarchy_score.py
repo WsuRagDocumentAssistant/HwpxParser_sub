@@ -22,9 +22,9 @@ from .documents import REPO_ROOT, enable_utf8_stdout, resolve
 sys.path.insert(0, str(REPO_ROOT))
 enable_utf8_stdout()
 
-from hwpx_analysis.add_toc_depth0_anchors import (          # noqa: E402
+from hwpx.analysis.add_toc_depth0_anchors import (          # noqa: E402
     _numbering_anchor_level, _split_numbering, _strip_page_suffix)
-from hwpx_analysis.correct_title_box_depths import _MARKER_RELATIVE_LEVELS   # noqa: E402
+from hwpx.analysis.correct_title_box_depths import _MARKER_RELATIVE_LEVELS   # noqa: E402
 
 OUTLINE_MAX = 100   # 개요 번호가 이보다 크면 연도/수량으로 본다
 

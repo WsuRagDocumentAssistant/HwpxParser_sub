@@ -4,7 +4,7 @@
 #
 # SectionParser(표 전용)와 달리 hp:p / hp:tbl / hp:pic / 도형 /
 # hp:ctrl(머리말/꼬리말/각주) / hp:caption / secPr을 모두 수집 대상으로 한다.
-# 이 단계는 판정을 하지 않는다. 판정(role/depth)은 hwpx_analysis 쪽 책임이다.
+# 이 단계는 판정을 하지 않는다. 판정(role/depth)은 hwpx.analysis 쪽 책임이다.
 #================================================
 
 from __future__ import annotations

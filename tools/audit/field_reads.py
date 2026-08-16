@@ -49,7 +49,7 @@ from .documents import REPO_ROOT, enable_utf8_stdout
 sys.path.insert(0, str(REPO_ROOT))
 enable_utf8_stdout()
 
-from hwpx_analysis import pipeline as pipeline_mod        # noqa: E402
+from hwpx.analysis import pipeline as pipeline_mod        # noqa: E402
 from .field_provenance import (                # noqa: E402
     RETURN_SLOT, STAGE_FUNCS, norm)
 

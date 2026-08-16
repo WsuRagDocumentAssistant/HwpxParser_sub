@@ -1,5 +1,5 @@
 #================================================
-# hwpx_analysis/build_document_model.py
+# hwpx/analysis/build_document_model.py
 #
 # PipelineResult -> DocumentModel 빌더.
 #

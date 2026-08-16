@@ -6,9 +6,9 @@ from __future__ import annotations
 
 from typing import Any
 
-from hwpx_document.table import Table
-from hwpx_document.table.elements.table_analysis import TableValidation
-from hwpx_document.table.utils import get_table_cells
+from ....document.table import Table
+from ....document.table.elements.table_analysis import TableValidation
+from ....document.table.utils import get_table_cells
 from ...parser_context import ParserContext
 
 

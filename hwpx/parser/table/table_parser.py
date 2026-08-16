@@ -6,9 +6,9 @@ from __future__ import annotations
 
 from typing import Any
 
-from hwpx_document.table import Table
-from hwpx_document.table.elements.table_row import TableRow
-from hwpx_document.table.elements.table_cell import ImageInfo, TableCell, TableParagraph, TableRun
+from ...document.table import Table
+from ...document.table.elements.table_row import TableRow
+from ...document.table.elements.table_cell import ImageInfo, TableCell, TableParagraph, TableRun
 
 
 class TableParser:

@@ -16,7 +16,7 @@
 파이프라인은 `blocks`, `tables.analyzed`, `table_internal_blocks`를 따로 들고 서로를 id로 가리킨다. 표 하나를 꺼내려면 세 군데를 조인해야 한다. `DocumentModel`은 그 조인을 끝내 놓은 것이다.
 
 ```python
-from hwpx_analysis.build_document_model import build_document_model
+from hwpx.analysis.build_document_model import build_document_model
 
 model = build_document_model(result)      # result = run_analysis_pipeline(...)
 model.blocks[341].table.records[0].values

@@ -8,7 +8,7 @@
     지문이 바뀐 시점을 실제 실행 순서대로 기록한다.
 
 방법
-    hwpx_analysis.pipeline 이름공간의 단계 함수를 래퍼로 교체한다.
+    hwpx.analysis.pipeline 이름공간의 단계 함수를 래퍼로 교체한다.
     파이프라인 소스는 건드리지 않으므로 호출 순서는 실제 코드 그대로다.
     각 단계 직후 PipelineResult.to_debug_dict() 로 스냅샷을 만든다.
     산출물을 만드는 직렬화 경로를 그대로 쓰므로 관측 대상과 최종 JSON이
@@ -53,8 +53,8 @@ from ..defaults import DEFAULT_SOURCE
 sys.path.insert(0, str(REPO_ROOT))
 enable_utf8_stdout()
 
-from hwpx_analysis import pipeline as pipeline_mod            # noqa: E402
-from hwpx_analysis.pipeline_models import (                   # noqa: E402
+from hwpx.analysis import pipeline as pipeline_mod            # noqa: E402
+from hwpx.analysis.pipeline_models import (                   # noqa: E402
     BlocksDocument, PipelineResult, TableAnalysis)
 
 MAX_DEPTH = 14
@@ -320,9 +320,9 @@ def analyze(recorder: Recorder):
 
 def module_of(name):
     if name == PARSER_INPUT:
-        return 'hwpx_parser (run_analysis_pipeline 인자)'
+        return 'hwpx.parser (run_analysis_pipeline 인자)'
     func = getattr(pipeline_mod, name, None)
-    return getattr(func, '__module__', '?').replace('hwpx_analysis.', '')
+    return getattr(func, '__module__', '?').replace('hwpx.analysis.', '')
 
 
 def _load_entry_module():

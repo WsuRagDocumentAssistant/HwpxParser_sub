@@ -1,3 +1,3 @@
 #================================================
-# hwpx_document.table.elements.__init__.py
+# hwpx.analysis.table_hierarchy.__init__.py
 #================================================

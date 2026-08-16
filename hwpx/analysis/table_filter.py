@@ -1,5 +1,5 @@
 #================================================
-# hwpx_analysis/table_filter.py
+# hwpx/analysis/table_filter.py
 #
 # 구조를 믿을 수 없는 표를 걸러내고, 수치표 여부를 판정한다.
 #

@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 import xml.etree.ElementTree as ET
 
-from hwpx_document.header_data import HeaderData
+from ..document.header_data import HeaderData
 
 
 class HeaderParser:

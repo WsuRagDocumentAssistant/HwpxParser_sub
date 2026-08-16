@@ -129,7 +129,7 @@ def pipeline_hashes(result) -> dict[str, str]:
     한 덩어리로 묶지 않고 나눈다. 해시 하나만 있으면 "달라졌다"까지만 알고
     어디가 달라졌는지 모른다.
     """
-    from hwpx_analysis.table_filter import state_view
+    from hwpx.analysis.table_filter import state_view
 
     view = state_view(result)
     summary = {k: v for k, v in (view["summary"] or {}).items()
