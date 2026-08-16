@@ -16,10 +16,20 @@
 파이프라인은 `blocks`, `tables.analyzed`, `table_internal_blocks`를 따로 들고 서로를 id로 가리킨다. 표 하나를 꺼내려면 세 군데를 조인해야 한다. `DocumentModel`은 그 조인을 끝내 놓은 것이다.
 
 ```python
-from hwpx.analysis.build_document_model import build_document_model
+import hwpx
 
-model = build_document_model(result)      # result = run_analysis_pipeline(...)
+parser, result = hwpx.run_pipeline('문서.hwpx', out_root='작업폴더')
+model = hwpx.build_document_model(result)
+
 model.blocks[341].table.records[0].values
+```
+
+`run_pipeline` 은 파싱과 분석 19단계를 돌려 결과 객체를 준다. 파일은 쓰지 않는다.
+라이브러리는 아무것도 찍지 않으므로, 단계 보고를 보고 싶으면 이 두 줄을 앞에 둔다.
+
+```python
+import logging
+logging.basicConfig(level=logging.INFO, format='%(message)s')
 ```
 
 만들 때 정한 것 세 가지다. 이걸 알고 봐야 값이 비어 있는 이유가 납득된다.
@@ -405,6 +415,11 @@ for b in model.blocks:
 | M14 | 파이프라인이 만든 헤더·레코드가 유실되지 않았다 |
 | M15 | `kept_as`가 필터 판정과 같다 |
 
+이 저장소에서 돌려 보려면 둘 중 하나를 쓴다.
+
 ```bash
-python -m tools.run_model
+python main.py                  # 라이브러리를 쓰는 쪽 코드. 받아 쓰는 사람과 같은 방식
+python -m tools.run_model       # 저장소 실행기. 위 검증을 찍고 --debug 로 조사용 산출물까지
 ```
+
+`main.py` 는 `hwpx` 만 부른다. 다른 프로젝트에 그대로 복사해도 돌아간다.
