@@ -160,7 +160,7 @@ def collect_pipeline(source: Path, work: Path) -> dict[str, str]:
     입력 데이터: source(문서), work(압축 해제 위치).
     출력 데이터: {부분 이름: sha256}.
     """
-    from .build_document_model import run_pipeline
+    from hwpx import run_pipeline
 
     _, result = run_pipeline(source, work)
     return pipeline_hashes(result)

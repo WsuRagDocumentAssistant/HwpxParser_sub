@@ -3,7 +3,18 @@
 #
 # analysis / parser / document 를 하나로 묶는 이름공간.
 #
-# 여기서는 아무것도 재노출하지 않는다. 감싸는 것이 목적이고, 무엇을
-# 공개 API 로 올릴지는 별개 결정이다. 쓰는 쪽은 하위 모듈을 직접 부른다.
-#     from hwpx.analysis.build_document_model import build_document_model
+# 자주 쓰는 둘만 여기로 올린다. 문서를 결과 객체로 만드는 데 필요한 것이
+# 이 둘뿐이라, 쓰는 쪽이 하위 경로를 몰라도 된다.
+#
+#     import hwpx
+#     parser, result = hwpx.run_pipeline('문서.hwpx', out_root='작업폴더')
+#     model = hwpx.build_document_model(result)
+#
+# 나머지는 하위 모듈에서 직접 가져온다.
+#     from hwpx.analysis.table_filter import apply_filter_to_state
 #================================================
+
+from .analysis.build_document_model import build_document_model
+from .runner import run_pipeline
+
+__all__ = ['run_pipeline', 'build_document_model']

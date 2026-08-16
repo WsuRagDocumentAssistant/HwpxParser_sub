@@ -25,10 +25,8 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from hwpx.analysis.build_summary import build_summary
-from hwpx.analysis.pipeline import run_analysis_pipeline, save_pipeline_outputs
-from hwpx.analysis.table_json_serializer import table_to_dict
-from hwpx.parser.parser import HwpxParser
+from hwpx import run_pipeline
+from hwpx.analysis.pipeline import save_pipeline_outputs
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -61,22 +59,9 @@ def main(argv: list[str] | None = None) -> int:
 
     output_root = Path(args.out)
 
-    parser = HwpxParser(doc_save_path=str(output_root), source=str(source_path))
-    tables = parser.parse()
-    parser.file_info()
-
-    char_pr_lookup = parser.header.char_properties if parser.header is not None else None
-    raw_tables = [
-        table_to_dict(table, char_pr_lookup=char_pr_lookup, header=parser.header)
-        for table in tables
-    ]
-
-    result = run_analysis_pipeline(
-        raw_tables=raw_tables,
-        section_paths=parser.section_file_paths,
-        header=parser.header,
-        summary=build_summary(parser, tables),
-    )
+    # 같은 조립을 여기 또 두지 않는다. build_summary 가 두 벌로 갈렸다가
+    # 서로 다른 값을 냈던 적이 있다.
+    parser, result = run_pipeline(source_path, output_root)
 
     save_pipeline_outputs(
         result=result,

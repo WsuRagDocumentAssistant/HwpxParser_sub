@@ -1217,7 +1217,7 @@ def command_check_pipeline(args: argparse.Namespace) -> int:
     출력 데이터: 종료 코드.
     """
     from .audit.documents import enable_utf8_stdout
-    from .build_document_model import run_pipeline
+    from hwpx import run_pipeline
 
     enable_utf8_stdout()
 

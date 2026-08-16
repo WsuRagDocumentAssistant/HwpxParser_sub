@@ -33,7 +33,7 @@ from hwpx.analysis.table_filter import (  # noqa: E402
     apply_filter, cell_text, cells_of, index_tables, one, state_view,
 )
 try:
-    from .build_document_model import run_pipeline  # noqa: E402
+    from hwpx import run_pipeline  # noqa: E402
 except ImportError as exc:            # noqa: E402
     # tools 가 패키지가 된 뒤로 이 파일은 모듈로 실행해야 한다.
     # 직접 실행하면 부모 패키지를 몰라 상대 import 가 풀리지 않는다.

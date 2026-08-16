@@ -243,11 +243,12 @@ def _capture_summary(recorder: Recorder, originals: dict):
         return original(*args, **kwargs)
 
     pipeline_mod.run_analysis_pipeline = wrapper
-    # 진입점 모듈들은 이름을 직접 import 해 두었으므로 그쪽도 바꿔야 한다.
+    # run_analysis_pipeline 을 이름으로 직접 가진 모듈도 바꿔야 한다.
     # 여기 빠진 모듈로 파이프라인이 돌면 summary 30개 필드가 관측되지 않고
     # "산출물에만 있음"으로 남는다. 단계 함수는 pipeline 이름공간을 거쳐
     # 불리므로 영향이 없어서, 티가 summary 에서만 난다.
-    for module_name in ('tools.run_document', 'tools.build_document_model'):
+    # 조립이 hwpx.runner 한 곳으로 모이면서 감쌀 자리도 하나가 됐다.
+    for module_name in ('hwpx.runner',):
         module = importlib.import_module(module_name)
         originals[f'__entry__{module_name}'] = module.run_analysis_pipeline
         module.run_analysis_pipeline = wrapper

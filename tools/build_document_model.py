@@ -31,10 +31,8 @@ if str(REPO_ROOT) not in sys.path:
 from hwpx.analysis.build_document_model import (  # noqa: E402
     build_document_model, verify_model,
 )
-from hwpx.analysis.pipeline import run_analysis_pipeline, save_pipeline_outputs  # noqa: E402
-from hwpx.analysis.table_json_serializer import table_to_dict  # noqa: E402
-from hwpx.parser.parser import HwpxParser  # noqa: E402
-from hwpx.analysis.build_summary import build_summary  # noqa: E402
+from hwpx import run_pipeline  # noqa: E402
+from hwpx.analysis.pipeline import save_pipeline_outputs  # noqa: E402
 try:
     from .defaults import DEFAULT_SOURCE  # noqa: E402
 except ImportError as exc:            # noqa: E402
@@ -45,22 +43,6 @@ except ImportError as exc:            # noqa: E402
         "  python -m tools.build_document_model ..."
     ) from exc
 
-
-def run_pipeline(source: Path, out_root: Path):
-    """문서를 파싱하고 파이프라인을 돌린다. 파일은 쓰지 않는다."""
-    parser = HwpxParser(doc_save_path=str(out_root), source=str(source))
-    tables = parser.parse()
-    parser.file_info()
-    char_pr = parser.header.char_properties if parser.header is not None else None
-    raw_tables = [table_to_dict(t, char_pr_lookup=char_pr, header=parser.header)
-                  for t in tables]
-    result = run_analysis_pipeline(
-        raw_tables=raw_tables,
-        section_paths=parser.section_file_paths,
-        header=parser.header,
-        summary=build_summary(parser, tables),
-    )
-    return parser, result
 
 
 def report(model):
