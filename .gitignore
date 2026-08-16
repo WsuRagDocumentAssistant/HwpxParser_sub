@@ -5,7 +5,7 @@ __pycache__/
 # 파이프라인 산출물.
 # output/ 전체는 sample.zip 등 원본 문서에서 재생성된다.
 #   output/unpacked/  <- 원본 압축 해제 결과
-#   output/results/   <- 분석 산출물(final_debug.json, llm_context.txt 등)
+#   output/results/   <- 분석 산출물(document_model.json, llm_context.txt 등)
 # 회귀 검증 기준선은 tools/baseline/ 에 있으므로 여기 포함되지 않는다.
 output/
 
@@ -15,3 +15,36 @@ scratchpad_output.txt
 
 # 필터 적용 전 산출물 백업 (로컬 되돌림용)
 tools/baseline/pre_filter/
+
+# 패키징 부산물.
+# pyproject.toml 로 빌드하면 생기는 것들이며 전부 재생성된다.
+build/
+dist/
+*.egg-info/
+*.egg
+.eggs/
+
+# 가상환경
+.venv/
+venv/
+env/
+
+# 도구 캐시
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.coverage
+htmlcov/
+
+# 에디터·OS
+# .vscode/launch.json 은 실행 설정이라 공유한다. 나머지는 개인 설정이다.
+.vscode/*
+!.vscode/launch.json
+.idea/
+Thumbs.db
+desktop.ini
+*.swp
+
+# Claude Code 로컬 설정
+.claude/settings.local.json

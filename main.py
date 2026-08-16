@@ -6,12 +6,13 @@
 # tools 를 거치지 않는다. hwpx 만 부른다. 그래서 이 파일은 그대로 복사해
 # 다른 프로젝트에 붙여도 돌아간다(hwpx 가 설치돼 있다면).
 #
-# 라이브러리는 아무것도 찍지 않는다. 단계 보고를 보고 싶으면 이 파일 앞에
+# 이 파일도 기본은 조용하다. 라이브러리가 찍는 단계 보고를 보고 싶으면
 # 아래 두 줄을 넣으면 된다.
 #     import logging
 #     logging.basicConfig(level=logging.INFO, format='%(message)s')
 #
-#     python main.py
+#     python main.py                문서 -> 모델 -> document_model.json. 조용하다
+#     python main.py --report       무엇이 나왔는지 요약까지
 #     python main.py <문서>
 #
 # tools/run_model.py 와 무엇이 다른가
@@ -36,17 +37,17 @@ DEFAULT_SOURCE = REPO_ROOT / (
 
 def main(argv: list[str] | None = None) -> int:
     """
-    역할: 문서 하나를 모델로 만들고 요약을 찍는다.
-    입력 데이터: argv(문서 경로. 없으면 저장소의 기본 문서).
-    출력 데이터: 종료 코드.
+    역할: 문서 하나를 모델로 만들어 저장한다.
+    입력 데이터: argv(문서 경로. 없으면 저장소의 기본 문서. --report 로 요약 출력).
+    출력 데이터: 종료 코드. 기본은 아무것도 찍지 않는다.
     """
-    # 콘솔이 cp949 면 한글 출력이 깨진다. 표준 라이브러리만 쓴다.
-    sys.stdout.reconfigure(encoding='utf-8')
-
-    args = sys.argv[1:] if argv is None else argv
+    args = list(sys.argv[1:] if argv is None else argv)
+    report = '--report' in args
+    if report:
+        args.remove('--report')
     source = Path(args[0]) if args else DEFAULT_SOURCE
     if not source.exists():
-        print(f"문서를 찾을 수 없습니다: {source}")
+        print(f"문서를 찾을 수 없습니다: {source}", file=sys.stderr)
         return 1
 
     # --- 여기가 라이브러리 사용부. 두 줄이다 ---------------------
@@ -54,39 +55,37 @@ def main(argv: list[str] | None = None) -> int:
     model = hwpx.build_document_model(result)
     # -------------------------------------------------------------
 
-    print()
-    print("=" * 60)
-    print(f"  {model.file.filename}")
-    print("=" * 60)
-    print(f"  작성    {model.file.creator} / {model.file.application}")
-    print(f"  블록    {len(model.blocks)}개 (검색 대상 {len(model.searchable_blocks())}개)")
-    print(f"  표      {len(list(model.tables()))}개 (수치표 {len(model.numeric_tables())}개)")
-    print(f"  이미지  {len(model.images)}개")
-
-    print()
-    print("  제목 계층")
-    for block in model.blocks:
-        if block.toc:
-            번호 = f"{block.toc.numbering} " if block.toc.numbering else ""
-            print(f"    {'  ' * block.depth}{번호}{block.toc.title}")
-
-    print()
-    print("  행 단위로 쪼갤 수 있는 표")
-    for table in model.tables():
-        if table.kept_as == "레코드":
-            컬럼 = [c.name for c in table.header.columns] if table.header else []
-            print(f"    {table.id}  {table.rows}x{table.cols}  "
-                  f"레코드 {len(table.records)}건  {컬럼}")
-
     out = REPO_ROOT / "output" / "results" / model.file.filename / "document_model.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     # indent 는 tools/build_document_model.py 와 맞춘다. 다르면 같은 모델인데
     # 파일이 달라 보인다.
     out.write_text(json.dumps(model.to_dict(), ensure_ascii=False, indent=2),
                    encoding="utf-8")
+
+    if report:
+        show(model, out)
+    return 0
+
+
+def show(model, out: Path) -> None:
+    """
+    역할: --report 일 때만 부르는 사람용 요약.
+    입력 데이터: model(DocumentModel), out(저장 경로).
+    출력 데이터: 반환값 없음.
+    """
+    # 콘솔이 cp949 면 한글이 깨진다. 표준 라이브러리만 쓴다.
+    sys.stdout.reconfigure(encoding='utf-8')
+    print(f"{model.file.filename}")
+    print(f"  블록    {len(model.blocks)}개 (검색 대상 {len(model.searchable_blocks())}개)")
+    print(f"  표      {len(list(model.tables()))}개 (수치표 {len(model.numeric_tables())}개)")
+    print(f"  이미지  {len(model.images)}개")
+    print()
+    for block in model.blocks:
+        if block.toc:
+            번호 = f"{block.toc.numbering} " if block.toc.numbering else ""
+            print(f"  {'  ' * block.depth}{번호}{block.toc.title}")
     print()
     print(f"  저장 -> {out}")
-    return 0
 
 
 if __name__ == "__main__":
