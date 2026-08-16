@@ -18,6 +18,7 @@
 from __future__ import annotations
 
 import argparse
+import logging
 import sys
 from pathlib import Path
 
@@ -51,6 +52,9 @@ def main(argv: list[str] | None = None) -> int:
     )
 
     args = parser_cli.parse_args(argv)
+
+    # 라이브러리는 조용하다. 이 도구는 단계 보고를 봐야 하므로 켠다.
+    logging.basicConfig(level=logging.INFO, format='%(message)s', stream=sys.stdout)
 
     source_path = Path(args.source)
     if not source_path.exists():

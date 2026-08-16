@@ -24,6 +24,12 @@ from typing import Any
 
 from .pipeline_models import BlocksDocument, TableInternalBlocks
 
+import logging
+
+# 라이브러리는 조용한 것이 기본이다. 단계 보고를 보려면 쓰는 쪽에서
+# logging 을 켠다. tools 는 그렇게 하고 있다.
+log = logging.getLogger(__name__)
+
 
 _DEPTH_ORIGIN = "table_local_offset"
 
@@ -526,22 +532,22 @@ def flatten_table_internal_blocks(
         and b["parent_internal_block_id"] not in id_set
     )
 
-    print("=== Stage 7.5-B: Table Internal Flattening 결과 ===")
-    print(f"blocks block_count before/after: {block_count_before} / {block_count_after}")
-    print(f"depth_changed_count: {depth_changed_count}")
-    print(f"reading_order_changed_count: {reading_order_changed_count}")
-    print(f"top_level_table_count: {len(tables)}")
-    print(f"table_internal_ref generated count: {generated_count}")
-    print(f"internal_block_count: {len(internal_blocks)}")
-    print(f"row_group_count: {row_group_count}")
-    print(f"cell_group_count: {cell_group_count}")
-    print(f"text_block_count: {text_block_count}")
-    print(f"nested_table_ref_count: {nested_ref_count}")
-    print(f"table_object_ref_count: {object_ref_count}")
-    print(f"top_level_tables_with_nested_refs: {top_level_tables_with_nested_refs}")
-    print(f"duplicate_internal_block_id_count: {duplicate_count}")
-    print(f"missing_parent_ref_count: {missing_parent_count}")
-    print(f"max_local_depth: {max((b['local_depth'] for b in internal_blocks), default=0)}")
-    print(f"max_absolute_depth: {max((b['absolute_depth'] for b in internal_blocks), default=0)}")
+    log.info("=== Stage 7.5-B: Table Internal Flattening 결과 ===")
+    log.info(f"blocks block_count before/after: {block_count_before} / {block_count_after}")
+    log.info(f"depth_changed_count: {depth_changed_count}")
+    log.info(f"reading_order_changed_count: {reading_order_changed_count}")
+    log.info(f"top_level_table_count: {len(tables)}")
+    log.info(f"table_internal_ref generated count: {generated_count}")
+    log.info(f"internal_block_count: {len(internal_blocks)}")
+    log.info(f"row_group_count: {row_group_count}")
+    log.info(f"cell_group_count: {cell_group_count}")
+    log.info(f"text_block_count: {text_block_count}")
+    log.info(f"nested_table_ref_count: {nested_ref_count}")
+    log.info(f"table_object_ref_count: {object_ref_count}")
+    log.info(f"top_level_tables_with_nested_refs: {top_level_tables_with_nested_refs}")
+    log.info(f"duplicate_internal_block_id_count: {duplicate_count}")
+    log.info(f"missing_parent_ref_count: {missing_parent_count}")
+    log.info(f"max_local_depth: {max((b['local_depth'] for b in internal_blocks), default=0)}")
+    log.info(f"max_absolute_depth: {max((b['absolute_depth'] for b in internal_blocks), default=0)}")
 
     return document

@@ -32,6 +32,12 @@ from typing import Any
 
 from .pipeline_models import BlocksDocument
 
+import logging
+
+# 라이브러리는 조용한 것이 기본이다. 단계 보고를 보려면 쓰는 쪽에서
+# logging 을 켠다. tools 는 그렇게 하고 있다.
+log = logging.getLogger(__name__)
+
 _PERIPHERAL_BANDS = {"peripheral"}
 
 
@@ -161,9 +167,9 @@ def propagate_toc_anchor_depth(blocks_doc: BlocksDocument) -> dict[str, Any]:
     }
     blocks_doc.quality["toc_anchor_flow"] = stats
 
-    print("=== Stage 8-C: 목차 anchor flow 전파 결과 ===")
-    print(f"toc anchor           : {anchor_count}")
-    print(f"flow 전파 블록        : {propagated}")
-    print(f"잔여 clamp 블록       : {clamped}")
+    log.info("=== Stage 8-C: 목차 anchor flow 전파 결과 ===")
+    log.info(f"toc anchor           : {anchor_count}")
+    log.info(f"flow 전파 블록        : {propagated}")
+    log.info(f"잔여 clamp 블록       : {clamped}")
 
     return stats

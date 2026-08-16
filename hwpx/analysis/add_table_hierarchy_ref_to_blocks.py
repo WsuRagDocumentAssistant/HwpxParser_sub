@@ -23,6 +23,12 @@ from .correct_title_box_depths import (
     get_table_display_text_from_hierarchy,
 )
 
+import logging
+
+# 라이브러리는 조용한 것이 기본이다. 단계 보고를 보려면 쓰는 쪽에서
+# logging 을 켠다. tools 는 그렇게 하고 있다.
+log = logging.getLogger(__name__)
+
 
 # 이번 단계에서 허용하는 warning 코드
 _WARNING_CODES = (
@@ -311,24 +317,24 @@ def _print_verification_log(stats: dict[str, Any]) -> None:
     top = stats["top_level_block_stats"]
     all_stats = stats["all_table_hierarchy_stats"]
 
-    print("=== Stage 7.5-A: table_hierarchy_ref 연결 결과 ===")
-    print(f"table blocks: {top['table_block_count']}")
-    print(f"matched table_hierarchy_ref: {top['matched']}")
-    print(f"missing table_hierarchy_ref: {top['missing']}")
-    print()
-    print("[top_level_block_stats]")
+    log.info("=== Stage 7.5-A: table_hierarchy_ref 연결 결과 ===")
+    log.info(f"table blocks: {top['table_block_count']}")
+    log.info(f"matched table_hierarchy_ref: {top['matched']}")
+    log.info(f"missing table_hierarchy_ref: {top['missing']}")
+    log.info('')
+    log.info("[top_level_block_stats]")
     for name, count in sorted(top["table_type"].items(), key=lambda x: -x[1]):
-        print(f"- {name}: {count}")
+        log.info(f"- {name}: {count}")
     for name, count in sorted(top["record_status"].items(), key=lambda x: -x[1]):
-        print(f"- record_status {name}: {count}")
+        log.info(f"- record_status {name}: {count}")
     for name, count in sorted(top["quality_warning_counts"].items(), key=lambda x: -x[1]):
-        print(f"- warning {name}: {count}")
-    print()
-    print("[all_table_hierarchy_stats] (중첩 포함 참고 통계)")
-    print(f"all tables including nested: {all_stats['all_table_count']}")
+        log.info(f"- warning {name}: {count}")
+    log.info('')
+    log.info("[all_table_hierarchy_stats] (중첩 포함 참고 통계)")
+    log.info(f"all tables including nested: {all_stats['all_table_count']}")
     for name, count in sorted(all_stats["table_type"].items(), key=lambda x: -x[1]):
-        print(f"- {name}: {count}")
+        log.info(f"- {name}: {count}")
     for name, count in sorted(all_stats["record_status"].items(), key=lambda x: -x[1]):
-        print(f"- record_status {name}: {count}")
-    print("table_cell_group created: 0")
-    print("nested expanded: 0")
+        log.info(f"- record_status {name}: {count}")
+    log.info("table_cell_group created: 0")
+    log.info("nested expanded: 0")

@@ -6,6 +6,11 @@
 # tools 를 거치지 않는다. hwpx 만 부른다. 그래서 이 파일은 그대로 복사해
 # 다른 프로젝트에 붙여도 돌아간다(hwpx 가 설치돼 있다면).
 #
+# 라이브러리는 아무것도 찍지 않는다. 단계 보고를 보고 싶으면 이 파일 앞에
+# 아래 두 줄을 넣으면 된다.
+#     import logging
+#     logging.basicConfig(level=logging.INFO, format='%(message)s')
+#
 #     python main.py
 #     python main.py <문서>
 #

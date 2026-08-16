@@ -10,6 +10,12 @@ from typing import Any
 from .table_hierarchy.grid_normalizer import normalize_grid_location_recursive
 from .table_hierarchy.orchestrator import add_hierarchy_recursive
 
+import logging
+
+# 라이브러리는 조용한 것이 기본이다. 단계 보고를 보려면 쓰는 쪽에서
+# logging 을 켠다. tools 는 그렇게 하고 있다.
+log = logging.getLogger(__name__)
+
 
 def add_table_hierarchy(
     tables: list[dict[str, Any]],
@@ -37,10 +43,10 @@ def add_table_hierarchy(
         if key.startswith("type:")
     }
 
-    print("table hierarchy added")
-    print(f"total tables processed: {stats['total_tables']}")
-    print(f"table_type counts: {type_counts}")
-    print(f"nested tables processed: {stats['nested_tables']}")
-    print(f"warnings count: {stats['warnings']}")
+    log.info("table hierarchy added")
+    log.info(f"total tables processed: {stats['total_tables']}")
+    log.info(f"table_type counts: {type_counts}")
+    log.info(f"nested tables processed: {stats['nested_tables']}")
+    log.info(f"warnings count: {stats['warnings']}")
 
     return tables

@@ -17,6 +17,12 @@ from typing import Any
 
 from .pipeline_models import BlocksDocument
 
+import logging
+
+# 라이브러리는 조용한 것이 기본이다. 단계 보고를 보려면 쓰는 쪽에서
+# logging 을 켠다. tools 는 그렇게 하고 있다.
+log = logging.getLogger(__name__)
+
 
 def _find_anchor_candidates(
     floating_block: dict[str, Any],
@@ -205,13 +211,13 @@ def resolve_floating_anchors(
         "floating_order_changed_count": order_changed_count,
     }
 
-    print("=== Stage 4-B: Floating Object Anchor Resolution 결과 ===")
-    print(f"floating objects: {len(floating_blocks)}")
-    print(f"resolved: {resolved_count}")
-    print(f"unresolved: {unresolved_count}")
-    print(f"ambiguous: {ambiguous_count}")
-    print(f"order changed: {order_changed_count}")
-    print(f"same-anchor groups: {same_anchor_groups}")
+    log.info("=== Stage 4-B: Floating Object Anchor Resolution 결과 ===")
+    log.info(f"floating objects: {len(floating_blocks)}")
+    log.info(f"resolved: {resolved_count}")
+    log.info(f"unresolved: {unresolved_count}")
+    log.info(f"ambiguous: {ambiguous_count}")
+    log.info(f"order changed: {order_changed_count}")
+    log.info(f"same-anchor groups: {same_anchor_groups}")
 
     return blocks_doc
 

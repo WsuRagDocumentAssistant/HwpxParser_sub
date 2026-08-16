@@ -48,6 +48,12 @@ from .generate_depth_text_preview import generate_depth_text_preview
 from .generate_llm_context import generate_llm_context
 from ..document.header_data import HeaderData
 
+import logging
+
+# 라이브러리는 조용한 것이 기본이다. 단계 보고를 보려면 쓰는 쪽에서
+# logging 을 켠다. tools 는 그렇게 하고 있다.
+log = logging.getLogger(__name__)
+
 
 #------------------------------------------------
 # 파이프라인 실행
@@ -187,18 +193,18 @@ def save_pipeline_outputs(
         with llm_context_path.open("w", encoding="utf-8", newline="\n") as f:
             f.write(result.llm_context.text)
 
-    print("===========================================")
-    print("[RESULT SAVED]")
+    log.info("===========================================")
+    log.info("[RESULT SAVED]")
     if debug:
-        print("final_debug        :", debug_json_path)
+        log.info("final_debug        :", debug_json_path)
     else:
         # 여기서 em dash 를 쓰면 cp949 콘솔에서 죽는다. 라이브러리 출력은
         # 콘솔 인코딩에 기대지 않는다.
-        print("final_debug        : (안 씀. 필요하면 --debug)")
-    print("depth_preview_raw  :", raw_preview_path)
-    print("depth_preview_clean:", clean_preview_path)
-    print("llm_context        :", llm_context_path)
-    print("===========================================")
+        log.info("final_debug        : (안 씀. 필요하면 --debug)")
+    log.info("depth_preview_raw  :", raw_preview_path)
+    log.info("depth_preview_clean:", clean_preview_path)
+    log.info("llm_context        :", llm_context_path)
+    log.info("===========================================")
 
     saved = {
         "depth_text_preview_raw": raw_preview_path,

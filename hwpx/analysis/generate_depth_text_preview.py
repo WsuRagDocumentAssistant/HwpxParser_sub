@@ -24,6 +24,12 @@ from .pipeline_models import (
     TableInternalBlocks,
 )
 
+import logging
+
+# 라이브러리는 조용한 것이 기본이다. 단계 보고를 보려면 쓰는 쪽에서
+# logging 을 켠다. tools 는 그렇게 하고 있다.
+log = logging.getLogger(__name__)
+
 # True일 때만 각 table 아래에 내부 cell text를 추가 출력한다 (기본 False)
 INCLUDE_TABLE_INTERNAL_PREVIEW = False
 
@@ -201,13 +207,13 @@ def generate_depth_text_preview(
     section_heading_line_count = raw_counts["section_heading"]
     max_depth = raw_counts["max_depth"]
 
-    print("=== Stage 10-C: Depth Text Preview 결과 ===")
-    print(f"raw global line count: {global_line_count}")
-    print(f"clean global line count: {clean_counts['global']}")
-    print(f"title_box line count: {title_box_line_count}")
-    print(f"table line count: {table_line_count}")
-    print(f"section_heading line count: {section_heading_line_count}")
-    print(f"max_depth: {max_depth}")
+    log.info("=== Stage 10-C: Depth Text Preview 결과 ===")
+    log.info(f"raw global line count: {global_line_count}")
+    log.info(f"clean global line count: {clean_counts['global']}")
+    log.info(f"title_box line count: {title_box_line_count}")
+    log.info(f"table line count: {table_line_count}")
+    log.info(f"section_heading line count: {section_heading_line_count}")
+    log.info(f"max_depth: {max_depth}")
 
     return DepthTextPreview(
         raw_text="\n".join(raw_lines) + "\n",

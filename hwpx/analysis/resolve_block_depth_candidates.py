@@ -20,6 +20,12 @@ from typing import Any
 
 from .pipeline_models import BlocksDocument
 
+import logging
+
+# 라이브러리는 조용한 것이 기본이다. 단계 보고를 보려면 쓰는 쪽에서
+# logging 을 켠다. tools 는 그렇게 하고 있다.
+log = logging.getLogger(__name__)
+
 
 # heading depth jump 완화 후보를 만들 점프 임계 (이전 heading 대비 +2 이상)
 _HEADING_JUMP_THRESHOLD = 2
@@ -288,9 +294,9 @@ def resolve_block_depth_candidates(
         "heading_jump_relaxation_candidates": relaxation_count,
     }
 
-    print("=== Stage 8-A: depth candidates 재생성 결과 ===")
-    print(f"blocks: {len(blocks_doc.blocks)}")
-    print(f"multiple candidates: {multi_candidate_count}")
-    print(f"heading jump relaxation candidates: {relaxation_count}")
+    log.info("=== Stage 8-A: depth candidates 재생성 결과 ===")
+    log.info(f"blocks: {len(blocks_doc.blocks)}")
+    log.info(f"multiple candidates: {multi_candidate_count}")
+    log.info(f"heading jump relaxation candidates: {relaxation_count}")
 
     return blocks_doc

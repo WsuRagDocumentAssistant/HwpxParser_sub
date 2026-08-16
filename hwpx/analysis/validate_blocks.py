@@ -24,6 +24,12 @@ from .pipeline_models import (
     ValidationReport,
 )
 
+import logging
+
+# 라이브러리는 조용한 것이 기본이다. 단계 보고를 보려면 쓰는 쪽에서
+# logging 을 켠다. tools 는 그렇게 하고 있다.
+log = logging.getLogger(__name__)
+
 
 _SEVERITY_MAP = {
     "missing_table_hierarchy": "error",
@@ -713,40 +719,40 @@ def _print_summary_log(
         + orphan_stats["orphan_footnote_unresolved_count"]
     )
 
-    print("=== Stage 9-A/9-B: Validator 분리 및 경량 보강 결과 ===")
-    print(f"block_count before/after: {block_count_before} / {block_count_after}")
-    print(f"depth_changed_count: {depth_changed_count}")
-    print(f"reading_order_changed_count: {reading_order_changed_count}")
-    print(f"anchor_paragraph_path copied count: {anchor_paragraph_path_copied_count}")
-    print()
-    print(f"total warnings: {len(warnings)}")
-    print(f"error: {severity_dist.get('error', 0)}")
-    print(f"warning: {severity_dist.get('warning', 0)}")
-    print(f"info: {severity_dist.get('info', 0)}")
-    print(f"unchanged_depth_jump: {code_dist.get('unchanged_depth_jump', 0)}")
-    print(f"floating_anchor_unresolved: {code_dist.get('floating_anchor_unresolved', 0)}")
-    print("table warning distribution:")
+    log.info("=== Stage 9-A/9-B: Validator 분리 및 경량 보강 결과 ===")
+    log.info(f"block_count before/after: {block_count_before} / {block_count_after}")
+    log.info(f"depth_changed_count: {depth_changed_count}")
+    log.info(f"reading_order_changed_count: {reading_order_changed_count}")
+    log.info(f"anchor_paragraph_path copied count: {anchor_paragraph_path_copied_count}")
+    log.info('')
+    log.info(f"total warnings: {len(warnings)}")
+    log.info(f"error: {severity_dist.get('error', 0)}")
+    log.info(f"warning: {severity_dist.get('warning', 0)}")
+    log.info(f"info: {severity_dist.get('info', 0)}")
+    log.info(f"unchanged_depth_jump: {code_dist.get('unchanged_depth_jump', 0)}")
+    log.info(f"floating_anchor_unresolved: {code_dist.get('floating_anchor_unresolved', 0)}")
+    log.info("table warning distribution:")
     for code in (
         "low_record_confidence", "missing_header_rows",
         "raw_only_table", "nested_table_present", "irregular_grid",
     ):
         if code in code_dist:
-            print(f"  - {code}: {code_dist[code]}")
-    print()
-    print(f"caption/footnote orphan warning count: {orphan_warning_count}")
-    print(f"cluster_consistency_score: {quality_report['cluster_consistency_score']}")
-    print(f"cluster_depth_inconsistent count: {code_dist.get('cluster_depth_inconsistent', 0)}")
-    print(f"numbering_block_count: {numbering_stats['numbering_block_count']}")
-    print(f"bullet_block_count: {numbering_stats['bullet_block_count']}")
-    print(
+            log.info(f"  - {code}: {code_dist[code]}")
+    log.info('')
+    log.info(f"caption/footnote orphan warning count: {orphan_warning_count}")
+    log.info(f"cluster_consistency_score: {quality_report['cluster_consistency_score']}")
+    log.info(f"cluster_depth_inconsistent count: {code_dist.get('cluster_depth_inconsistent', 0)}")
+    log.info(f"numbering_block_count: {numbering_stats['numbering_block_count']}")
+    log.info(f"bullet_block_count: {numbering_stats['bullet_block_count']}")
+    log.info(
         "native_numbering_sequence_warning_count: "
         f"{numbering_stats['native_numbering_sequence_warning_count']}"
     )
 
     table_internal_stats = quality_report.get("table_internal_ref_stats")
     if table_internal_stats is not None:
-        print()
-        print("table_internal_ref_stats:")
+        log.info('')
+        log.info("table_internal_ref_stats:")
         for key in (
             "table_internal_block_count", "row_group_count", "cell_group_count",
             "text_block_count", "nested_table_ref_count",
@@ -754,6 +760,6 @@ def _print_summary_log(
             "duplicate_internal_block_id_count", "missing_parent_ref_count",
             "max_local_depth", "max_absolute_depth",
         ):
-            print(f"  - {key}: {table_internal_stats[key]}")
+            log.info(f"  - {key}: {table_internal_stats[key]}")
 
-    print("blocks.json modified: false")
+    log.info("blocks.json modified: false")

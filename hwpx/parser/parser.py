@@ -11,6 +11,12 @@ from .header_parser import HeaderParser
 from .parser_context import ParserContext
 from .section_parser import SectionParser
 
+import logging
+
+# 라이브러리는 조용한 것이 기본이다. 단계 보고를 보려면 쓰는 쪽에서
+# logging 을 켠다. tools 는 그렇게 하고 있다.
+log = logging.getLogger(__name__)
+
 
 class HwpxParser:
     """
@@ -192,16 +198,16 @@ class HwpxParser:
         현재 파서가 잡은 파일 경로 정보 출력.
         """
 
-        print("===========================================")
-        print(f"source          : {self.source_path}")
-        print(f"filename        : {self.filename}")
-        print(f"unpacked        : {self.unpacked_dir_path}")
-        print(f"contents        : {self.contents_dir_path}")
-        print(f"header          : {self.header_file_path}")
-        print(f"image_dir       : {self.image_dir_path}")
-        print(f"section_count   : {len(self.section_file_paths)}")
-        print(f"table_count     : {len(self.tables)}")
-        print("===========================================")
+        log.info("===========================================")
+        log.info(f"source          : {self.source_path}")
+        log.info(f"filename        : {self.filename}")
+        log.info(f"unpacked        : {self.unpacked_dir_path}")
+        log.info(f"contents        : {self.contents_dir_path}")
+        log.info(f"header          : {self.header_file_path}")
+        log.info(f"image_dir       : {self.image_dir_path}")
+        log.info(f"section_count   : {len(self.section_file_paths)}")
+        log.info(f"table_count     : {len(self.tables)}")
+        log.info("===========================================")
 
     @classmethod
     def _section_sort_key(cls, source: Path) -> tuple[int, str]:

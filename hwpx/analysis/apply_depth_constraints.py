@@ -27,6 +27,12 @@ from typing import Any
 
 from .pipeline_models import BlocksDocument
 
+import logging
+
+# 라이브러리는 조용한 것이 기본이다. 단계 보고를 보려면 쓰는 쪽에서
+# logging 을 켠다. tools 는 그렇게 하고 있다.
+log = logging.getLogger(__name__)
+
 
 # preferred_depth로 인정할 클러스터 내 점유율
 _PREFERRED_DEPTH_RATIO = 0.8
@@ -283,11 +289,11 @@ def apply_depth_constraints(
     }
     quality["depth_update_log"] = update_log
 
-    print("=== Stage 8-B: depth 제약 전파 결과 ===")
-    print(f"depth_changed_count: {len(update_log)}")
-    print(f"relaxed_heading_count: {relaxed_heading_count}")
-    print(f"unchanged_jump_count: {unchanged_jump_count}")
-    print(f"propagated_flow_block_count: {propagated_flow_block_count}")
-    print(f"cluster_consistency_score: {consistency}")
+    log.info("=== Stage 8-B: depth 제약 전파 결과 ===")
+    log.info(f"depth_changed_count: {len(update_log)}")
+    log.info(f"relaxed_heading_count: {relaxed_heading_count}")
+    log.info(f"unchanged_jump_count: {unchanged_jump_count}")
+    log.info(f"propagated_flow_block_count: {propagated_flow_block_count}")
+    log.info(f"cluster_consistency_score: {consistency}")
 
     return blocks_doc

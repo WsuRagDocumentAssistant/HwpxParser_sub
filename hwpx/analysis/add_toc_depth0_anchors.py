@@ -32,6 +32,12 @@ from typing import Any
 
 from .pipeline_models import BlocksDocument
 
+import logging
+
+# 라이브러리는 조용한 것이 기본이다. 단계 보고를 보려면 쓰는 쪽에서
+# logging 을 켠다. tools 는 그렇게 하고 있다.
+log = logging.getLogger(__name__)
+
 # toc 기반 anchor임을 나타내는 depth_source 값 (다른 단계에서 참조)
 # depth는 목차 numbering 성분 수에서 동적으로 결정된다: "toc_depth{N}_anchor"
 TOC_DEPTH0_SOURCE = "toc_depth0_anchor"
@@ -508,29 +514,29 @@ def _apply_toc_anchor_to_block(
 #------------------------------------------------
 
 def _print_entry_list(level: int, entries: list[dict[str, Any]]) -> None:
-    print()
-    print(f"[TOC depth{level} list]")
+    log.info('')
+    log.info(f"[TOC depth{level} list]")
     for entry in entries:
-        print(
+        log.info(
             f"  [{entry['toc_index']}] numbering={entry['numbering_text']} "
             f"| title={entry['title']}"
         )
-    print()
+    log.info('')
 
 
 def _print_match_results(level: int, results: list[dict[str, Any]]) -> None:
-    print(f"[TOC depth{level} match]")
+    log.info(f"[TOC depth{level} match]")
     for result in results:
         entry = result["entry"]
         block = result["block"]
         if block is not None:
-            print(
+            log.info(
                 f"  [{entry['toc_index']}] MATCHED   "
                 f"toc=\"{entry['title']}\" -> block_id={block['block_id']}"
             )
         else:
-            print(f"  [{entry['toc_index']}] UNMATCHED toc=\"{entry['title']}\"")
-    print()
+            log.info(f"  [{entry['toc_index']}] UNMATCHED toc=\"{entry['title']}\"")
+    log.info('')
 
 
 #------------------------------------------------
@@ -568,7 +574,7 @@ def add_toc_depth0_anchors(
     # A. 목차 앵커 탐지
     anchor = _find_toc_anchor(tables, ordered_blocks)
     if anchor is None:
-        print("[TOC] anchor not found: 기존 depth 0 로직으로 fallback")
+        log.info("[TOC] anchor not found: 기존 depth 0 로직으로 fallback")
         blocks_doc.quality["toc_depth0_anchor"] = summary
         return summary
 
@@ -578,7 +584,7 @@ def add_toc_depth0_anchors(
         "block_id": anchor["block_id"],
         "table_id": anchor["table_id"],
     }
-    print(
+    log.info(
         f"[TOC] anchor found: section={anchor['section_index']}, "
         f"block_id={anchor['block_id']}"
     )
@@ -602,13 +608,13 @@ def add_toc_depth0_anchors(
     summary["depth0_entry_count"] = len(entries_by_level.get(0, []))
     summary["toc_source_table_ids"] = toc_source_table_ids
     for level in levels:
-        print(
+        log.info(
             f"[TOC] depth{level} entries extracted: "
             f"{len(entries_by_level[level])}"
         )
 
     if not entries_by_level.get(0):
-        print("[TOC] depth0 entry 없음: 기존 depth 0 로직으로 fallback")
+        log.info("[TOC] depth0 entry 없음: 기존 depth 0 로직으로 fallback")
         blocks_doc.quality["toc_depth0_anchor"] = summary
         return summary
 
@@ -640,7 +646,7 @@ def add_toc_depth0_anchors(
         _print_match_results(level, results_by_level[level])
 
     if not matched_by_level.get(0):
-        print("[TOC] depth0 본문 매칭 0건: 기존 depth 0 로직으로 fallback")
+        log.info("[TOC] depth0 본문 매칭 0건: 기존 depth 0 로직으로 fallback")
         blocks_doc.quality["toc_depth0_anchor"] = summary
         return summary
 
@@ -662,7 +668,7 @@ def add_toc_depth0_anchors(
 
     blocks_doc.quality["toc_depth0_anchor"] = summary
 
-    print(
+    log.info(
         "[TOC] anchor 반영 완료: "
         + ", ".join(
             f"depth{level} {len(matched_by_level[level])}"

@@ -30,6 +30,12 @@ from .pipeline_models import (
     ValidationReport,
 )
 
+import logging
+
+# 라이브러리는 조용한 것이 기본이다. 단계 보고를 보려면 쓰는 쪽에서
+# logging 을 켠다. tools 는 그렇게 하고 있다.
+log = logging.getLogger(__name__)
+
 _SOURCE_STAGE = "stage9c"
 
 _ALLOWED_INTERNAL_BLOCK_TYPES = {
@@ -785,7 +791,7 @@ def validate_table_internal_blocks(
     # quality_report merge: table_internal_validation 키 추가
     report.quality_report["table_internal_validation"] = stats
 
-    print("=== Stage 9-C: Table Internal Validation 결과 ===")
+    log.info("=== Stage 9-C: Table Internal Validation 결과 ===")
     for key in (
         "table_internal_block_count", "row_group_count", "cell_group_count",
         "text_block_count", "nested_table_ref_count", "table_object_ref_count",
@@ -798,7 +804,7 @@ def validate_table_internal_blocks(
         "nested_ref_count_mismatch_count", "object_ref_count_mismatch_count",
         "validation_passed",
     ):
-        print(f"{key}: {stats[key]}")
-    print(f"stage9c warning count: {len(new_warnings)}")
+        log.info(f"{key}: {stats[key]}")
+    log.info(f"stage9c warning count: {len(new_warnings)}")
 
     return {"warnings": new_warnings, "table_internal_validation": stats}

@@ -30,6 +30,12 @@ from .pipeline_models import (
     TableInternalBlocks,
 )
 
+import logging
+
+# 라이브러리는 조용한 것이 기본이다. 단계 보고를 보려면 쓰는 쪽에서
+# logging 을 켠다. tools 는 그렇게 하고 있다.
+log = logging.getLogger(__name__)
+
 
 # 텍스트가 없어도 구조 앵커로 남겨야 하는 블록
 _STRUCTURAL_BLOCK_TYPES = frozenset({"table", "image"})
@@ -224,12 +230,12 @@ def generate_llm_context(
 
     text_out = "\n".join(header + lines) + "\n"
 
-    print("=== Stage 10-D: LLM Context 결과 ===")
-    print(f"emitted blocks     : {stats['block_emitted']} / {stats['block_total']}")
-    print(f"skipped (no text)  : {stats['block_skipped_no_text']}")
-    print(f"cell text lines    : {stats['cell_text_emitted']}")
-    print(f"caption lines      : {stats['caption_emitted']}")
-    print(f"control lines      : {stats['control_emitted']}")
-    print(f"toc entry lines    : {stats['toc_entry_emitted']}")
+    log.info("=== Stage 10-D: LLM Context 결과 ===")
+    log.info(f"emitted blocks     : {stats['block_emitted']} / {stats['block_total']}")
+    log.info(f"skipped (no text)  : {stats['block_skipped_no_text']}")
+    log.info(f"cell text lines    : {stats['cell_text_emitted']}")
+    log.info(f"caption lines      : {stats['caption_emitted']}")
+    log.info(f"control lines      : {stats['control_emitted']}")
+    log.info(f"toc entry lines    : {stats['toc_entry_emitted']}")
 
     return LlmContextText(text=text_out, stats=stats)

@@ -7,6 +7,12 @@ from __future__ import annotations
 from collections import Counter
 from typing import Any
 
+import logging
+
+# 라이브러리는 조용한 것이 기본이다. 단계 보고를 보려면 쓰는 쪽에서
+# logging 을 켠다. tools 는 그렇게 하고 있다.
+log = logging.getLogger(__name__)
+
 
 #------------------------------------------------
 # 안전 접근 헬퍼
@@ -203,13 +209,13 @@ def build_body_linking_tables(
     missing_core_ids: list[str] = []
     _collect_stats_recursive(linked_tables, type_counts, missing_core_ids)
 
-    print("body linking tables created")
-    print(f"input tables (top-level)  : {len(tables)}")
-    print(f"output tables (top-level) : {len(linked_tables)}")
-    print(f"total tables (with children): {_count_tables_recursive(linked_tables)}")
-    print(f"table_type counts: {dict(sorted(type_counts.items()))}")
-    print(f"tables missing core fields: {len(missing_core_ids)}")
+    log.info("body linking tables created")
+    log.info(f"input tables (top-level)  : {len(tables)}")
+    log.info(f"output tables (top-level) : {len(linked_tables)}")
+    log.info(f"total tables (with children): {_count_tables_recursive(linked_tables)}")
+    log.info(f"table_type counts: {dict(sorted(type_counts.items()))}")
+    log.info(f"tables missing core fields: {len(missing_core_ids)}")
     if missing_core_ids:
-        print(f"  ids: {missing_core_ids[:10]}")
+        log.info(f"  ids: {missing_core_ids[:10]}")
 
     return linked_tables

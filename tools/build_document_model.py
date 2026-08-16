@@ -21,6 +21,7 @@ from __future__ import annotations
 import argparse
 import collections
 import json
+import logging
 import sys
 from pathlib import Path
 
@@ -98,6 +99,10 @@ def main(argv=None):
 
     from .audit.documents import enable_utf8_stdout
     enable_utf8_stdout()
+
+    # 라이브러리는 조용하다. 단계 보고는 여기서 켠다. 도구는 파이프라인이
+    # 무엇을 했는지 봐야 하고, 라이브러리를 쓰는 쪽은 볼 이유가 없다.
+    logging.basicConfig(level=logging.INFO, format='%(message)s', stream=sys.stdout)
 
     source = Path(args.source)
     if not source.exists():

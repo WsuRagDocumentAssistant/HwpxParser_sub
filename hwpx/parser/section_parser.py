@@ -12,6 +12,12 @@ from .parser_context import ParserContext
 from .table.table_parser import TableParser
 from .table.parsers.table_analyzer import TableAnalyzer
 
+import logging
+
+# 라이브러리는 조용한 것이 기본이다. 단계 보고를 보려면 쓰는 쪽에서
+# logging 을 켠다. tools 는 그렇게 하고 있다.
+log = logging.getLogger(__name__)
+
 
 class SectionParser:
     """
@@ -42,7 +48,7 @@ class SectionParser:
                 and not cls._has_ancestor_tbl(elem, parent_map)
             ]
 
-            print(
+            log.info(
                 f"[SectionParser] section_index={section_index}, "
                 f"file={section_path.name}, "
                 f"table_count={len(tbl_elements)}"

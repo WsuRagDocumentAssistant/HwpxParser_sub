@@ -27,6 +27,12 @@ from typing import Any
 
 from .pipeline_models import BlocksDocument
 
+import logging
+
+# 라이브러리는 조용한 것이 기본이다. 단계 보고를 보려면 쓰는 쪽에서
+# logging 을 켠다. tools 는 그렇게 하고 있다.
+log = logging.getLogger(__name__)
+
 # roman-dash root: "Ⅱ-1", "III-2" 등 (유니코드 로마숫자 + ASCII 로마자)
 _ROMAN_DASH_RE = re.compile(r"^[ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩIVX]+\s*-\s*\d+")
 # numeric outline: "3", "3.1", "3.1.1", "2-1" 등
@@ -797,8 +803,8 @@ def correct_title_box_depths(
         "flow_inversion_count": flow_inversion_count,
     }
 
-    print("=== title_box depth 보정 결과 ===")
+    log.info("=== title_box depth 보정 결과 ===")
     for key, value in stats.items():
-        print(f"{key}: {value}")
+        log.info(f"{key}: {value}")
 
     return stats

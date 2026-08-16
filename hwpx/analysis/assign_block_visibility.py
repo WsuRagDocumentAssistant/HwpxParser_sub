@@ -18,6 +18,12 @@ from typing import Any
 
 from .pipeline_models import BlocksDocument
 
+import logging
+
+# 라이브러리는 조용한 것이 기본이다. 단계 보고를 보려면 쓰는 쪽에서
+# logging 을 켠다. tools 는 그렇게 하고 있다.
+log = logging.getLogger(__name__)
+
 _HIDDEN_BLOCK_TYPES = {"control", "section_control"}
 
 
@@ -55,10 +61,10 @@ def assign_block_visibility(blocks_doc: BlocksDocument) -> dict[str, Any]:
             reason_counts[visibility["reason"]] = reason_counts.get(visibility["reason"], 0) + 1
 
     hidden_count = sum(reason_counts.values())
-    print("=== visibility 부여 결과 ===")
-    print(f"block_count: {len(blocks)}")
-    print(f"hidden_in_preview_count: {hidden_count}")
-    print(f"hidden_reason_distribution: {reason_counts}")
+    log.info("=== visibility 부여 결과 ===")
+    log.info(f"block_count: {len(blocks)}")
+    log.info(f"hidden_in_preview_count: {hidden_count}")
+    log.info(f"hidden_reason_distribution: {reason_counts}")
 
     return {
         "hidden_count": hidden_count,
