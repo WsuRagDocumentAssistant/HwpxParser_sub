@@ -1,15 +1,30 @@
 {
-    // IntelliSense를 사용하여 가능한 특성에 대해 알아보세요.
-    // 기존 특성에 대한 설명을 보려면 가리킵니다.
-    // 자세한 내용을 보려면 https://go.microsoft.com/fwlink/?linkid=830387을(를) 방문하세요.
+    // program 은 파일 경로, module 은 import 이름이다. 섞으면
+    // "Error while finding module specification" 이 난다.
+    //   main.py       -> 저장소 루트의 파일이므로 program
+    //   tools.run_model -> tools 패키지 안의 모듈이므로 module
     "version": "0.2.0",
     "configurations": [
-
         {
-            "name": "Python 디버거: 현재 파일",
+            "name": "모델 생성 (조용)",
             "type": "debugpy",
             "request": "launch",
-            "program": "test.py",
+            "program": "main.py",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "모델 생성 + 검증 (단계 보고 나옴)",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "tools.run_model",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "모델 생성 + 검증 + 조사용 산출물",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "tools.run_model",
+            "args": ["--debug"],
             "console": "integratedTerminal"
         }
     ]
